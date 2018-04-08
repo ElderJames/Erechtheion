@@ -8,6 +8,10 @@ namespace DNIC.Erechtheion.Domain.Repositories
 {
     public interface ITopicRepository
     {
+        Task<bool> Create(Topic topic);
+
+        Task<bool> Update(Topic topic);
+
         Task<Topic> GetById(long id);
 
         Task<IEnumerable<Topic>> FindList(TopicSearch search);

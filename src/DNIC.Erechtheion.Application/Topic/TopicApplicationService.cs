@@ -1,23 +1,28 @@
 ﻿using System.Threading.Tasks;
 using DNIC.Erechtheion.Core.Configuration;
-using DNIC.Erechtheion.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
+using DNIC.Erechtheion.Core.Response;
+using DNIC.Erechtheion.Core.Services;
+using DNIC.Erechtheion.Domain.Repositories;
 using Microsoft.Extensions.Logging;
 
 namespace DNIC.Erechtheion.Application.Topic
 {
     public class TopicApplicationService : ApplicationServiceBase, ITopicApplicationService
     {
-        private readonly ApplicationDbContext dbcontext;
+        private readonly ITopicRepository _topicRepository;
 
-        protected TopicApplicationService(ApplicationDbContext dbcontext, IErechtheionConfiguration configuration, ILoggerFactory loggerFactory) : base(dbcontext, configuration, loggerFactory)
+        protected TopicApplicationService(IErechtheionConfiguration configuration, ILoggerFactory loggerFactory, ITopicRepository topicRepository) : base(configuration, loggerFactory)
         {
-            this.dbcontext = dbcontext;
+            this._topicRepository = topicRepository;
         }
 
-        public async Task<Domain.Entities.Topic> GetById(long id)
+        public async Task<TopicResp> GetById(long id)
         {
-            return await dbcontext.Message.FirstOrDefaultAsync(x => x.Id == id);
+            var topic = await _topicRepository.GetById(id);
+            if (topic == null)
+                return null;
+
+            return AutoMapper.Mapper.Map<Domain.Entities.Topic, TopicResp>(topic);
         }
     }
 }

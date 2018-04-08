@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Threading.Tasks;
+using DNIC.Erechtheion.Core.Response;
 
-namespace DNIC.Erechtheion.Application.Topic
+namespace DNIC.Erechtheion.Core.Services
 {
-	public interface ITopicApplicationService
-	{
-	}
+    public interface ITopicApplicationService
+    {
+        Task<TopicResp> GetById(long id);
+    }
 }
