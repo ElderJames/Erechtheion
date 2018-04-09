@@ -5,11 +5,11 @@ using System.Text;
 
 namespace DNIC.Erechtheion.Application
 {
-    public class AutoMapperConfiguration
-    {
-        public static void CreateMap()
-        {
-            Mapper.Initialize();
-        }
-    }
+	public class AutoMapperConfiguration
+	{
+		public static void CreateMap()
+		{
+			Mapper.Initialize(config => { });
+		}
+	}
 }
