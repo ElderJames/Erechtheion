@@ -6,13 +6,6 @@
 
 <h3>User claims</h3>
 
-<div>
-	<a asp-action="CallApiUsingUserAccessToken">Call API using user token</a>
-</div>
-<div>
-	<a asp-action="CallApiUsingClientCredentials">Call API using application identity</a>
-</div>
-
 <dl>
 	@foreach (var claim in User.Claims)
 	{

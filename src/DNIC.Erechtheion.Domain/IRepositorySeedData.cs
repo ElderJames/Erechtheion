@@ -6,6 +6,6 @@ namespace DNIC.Erechtheion.Domain
 {
 	public interface IRepositorySeedData
 	{
-		void Init(string connectionString);
+		void EnsureSeedData(IServiceProvider serviceProvider);
 	}
 }

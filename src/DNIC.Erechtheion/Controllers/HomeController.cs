@@ -7,6 +7,10 @@ using Microsoft.AspNetCore.Mvc;
 using DNIC.Erechtheion.Models;
 using DNIC.Erechtheion.Core.Configuration;
 using Microsoft.AspNetCore.Authorization;
+using IdentityModel.Client;
+using System.Net.Http;
+using Newtonsoft.Json.Linq;
+using Microsoft.AspNetCore.Authentication;
 
 namespace DNIC.Erechtheion.Controllers
 {
@@ -43,6 +47,7 @@ namespace DNIC.Erechtheion.Controllers
 		[Authorize]
 		public IActionResult Secure()
 		{
+			var user = User;
 			ViewData["Message"] = "Secure page.";
 
 			return View();

@@ -44,12 +44,10 @@ namespace DNIC.Erechtheion
 			services.AddEntityFrameworkSqlServer()
 			 .AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.ConnectionString, b => b.UseRowNumberForPaging()));
 
-			//services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.ConnectionString));
+			services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.ConnectionString));
 
 			// Add application services.
 			services.AddTransient<IEmailSender, EmailSender>();
-
-			services.AddMvc();
 
 			services.AddResponseCompression();
 			services.AddMvc();
@@ -68,28 +66,13 @@ namespace DNIC.Erechtheion
 			{
 				JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
-				services.AddAuthentication(options =>
-				{
-					options.DefaultScheme = "Cookies";
-					options.DefaultChallengeScheme = "oidc";
-				})
-					.AddCookie("Cookies")
-					.AddOpenIdConnect("oidc", options =>
+				services.AddAuthentication("DNIC")
+					.AddCookie("DNIC")
+					.AddIdentityServerAuthentication(options =>
 					{
-						options.SignInScheme = "Cookies";
-
 						options.Authority = "http://localhost:5000";
 						options.RequireHttpsMetadata = false;
-
-						options.ClientId = "mvc";
-						options.ClientSecret = "secret";
-						options.ResponseType = "code id_token";
-
-						options.SaveTokens = true;
-						options.GetClaimsFromUserInfoEndpoint = true;
-
-						options.Scope.Add("api1");
-						options.Scope.Add("offline_access");
+						options.ApiName = "DNIC";
 					});
 			}
 		}
@@ -122,8 +105,6 @@ namespace DNIC.Erechtheion
 					name: "default",
 					template: "{controller=Home}/{action=Index}/{id?}");
 			});
-
-			app.ApplicationServices.GetService<IRepositorySeedData>()?.Init(Configuration.ConnectionString);
 
 			AutoMapperConfiguration.CreateMap();
 		}

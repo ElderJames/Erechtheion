@@ -1,5 +1,6 @@
 ﻿using DNIC.Erechtheion.Domain;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,27 +10,32 @@ namespace DNIC.Erechtheion.EntityFrameworkCore
 {
 	public class RepositorySeedData : IRepositorySeedData
 	{
-		public void Init(string connectionString)
+		public void EnsureSeedData(IServiceProvider serviceProvider)
 		{
-			var contextOptions = new DbContextOptionsBuilder<ApplicationDbContext>()
-				.UseSqlServer(connectionString)
-				.Options;
+			Console.WriteLine("Seeding database...");
 
-			using (var db = new ApplicationDbContext(contextOptions, null))
+			using (var scope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope())
 			{
-				if (!db.Topic.Any())
+				using (var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>())
 				{
-					db.Topic.Add(new Domain.Entities.Topic
+					context.Database.Migrate();
+					if (!context.Topic.Any())
 					{
-						Name = "topic1"
-					});
-					db.Topic.Add(new Domain.Entities.Topic
-					{
-						Name = "topic2"
-					});
-					db.SaveChanges();
+						context.Topic.Add(new Domain.Entities.Topic
+						{
+							Name = "topic1"
+						});
+						context.Topic.Add(new Domain.Entities.Topic
+						{
+							Name = "topic2"
+						});
+						context.SaveChanges();
+					}
 				}
 			}
+
+			Console.WriteLine("Done seeding database.");
+			Console.WriteLine();
 		}
 	}
 }
