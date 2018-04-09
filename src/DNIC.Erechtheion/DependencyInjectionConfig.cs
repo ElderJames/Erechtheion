@@ -5,15 +5,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DNIC.Erechtheion.Core.Services;
 
 namespace DNIC.Erechtheion
 {
-	public class DependencyInjectionConfig
-	{
-		public static void Inject(IServiceCollection services)
-		{
-			services.AddSingleton<IErechtheionConfiguration, ErechtheionConfiguration>();
-			services.AddSingleton<ITopicApplicationService, TopicApplicationService>();
-		}
-	}
+    public class DependencyInjectionConfig
+    {
+        public static void Inject(IServiceCollection services)
+        {
+            services.AddSingleton<IErechtheionConfiguration, ErechtheionConfiguration>();
+            services.AddSingleton<ITopicApplicationService, TopicApplicationService>();
+        }
+    }
 }
