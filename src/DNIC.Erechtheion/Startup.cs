@@ -14,6 +14,10 @@ using DNIC.Erechtheion.Core;
 using DNIC.Erechtheion.Core.Configuration;
 using System.IdentityModel.Tokens.Jwt;
 using DNIC.Erechtheion.EntityFrameworkCore;
+using DNIC.Erechtheion.Domain;
+using Microsoft.Extensions.Logging;
+using NLog.Extensions.Logging;
+using DNIC.Erechtheion.Application.Service;
 
 namespace DNIC.Erechtheion
 {
@@ -91,8 +95,12 @@ namespace DNIC.Erechtheion
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-		public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+		public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
 		{
+			loggerFactory.AddConsole(Configuration.Configuration.GetSection("Logging"));
+			loggerFactory.AddDebug();
+			loggerFactory.AddNLog();
+
 			if (env.IsDevelopment())
 			{
 				app.UseBrowserLink();
@@ -114,6 +122,10 @@ namespace DNIC.Erechtheion
 					name: "default",
 					template: "{controller=Home}/{action=Index}/{id?}");
 			});
+
+			app.ApplicationServices.GetService<IRepositorySeedData>()?.Init(Configuration.ConnectionString);
+
+			AutoMapperConfiguration.CreateMap();
 		}
 	}
 }

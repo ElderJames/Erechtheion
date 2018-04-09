@@ -1,7 +1,7 @@
 ﻿using DNIC.Erechtheion.Core.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace DNIC.Erechtheion.Application
+namespace DNIC.Erechtheion.Application.Service
 {
 	public abstract class ApplicationServiceBase
 	{
