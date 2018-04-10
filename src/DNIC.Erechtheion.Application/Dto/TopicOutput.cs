@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DNIC.Erechtheion.Application.Topic.Dto
+namespace DNIC.Erechtheion.Application.Dto
 {
 	public class TopicOutput
 	{

@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;
+using DNIC.Erechtheion.Domain.Topic;
 
 namespace DNIC.Erechtheion.EntityFrameworkCore
 {
@@ -36,14 +37,8 @@ namespace DNIC.Erechtheion.EntityFrameworkCore
 					context.Database.Migrate();
 					if (!context.Topic.Any())
 					{
-						context.Topic.Add(new Domain.Entities.Topic
-						{
-							Name = "topic1"
-						});
-						context.Topic.Add(new Domain.Entities.Topic
-						{
-							Name = "topic2"
-						});
+						context.Topic.Add(new Topic("topic1"));
+						context.Topic.Add(new Topic("topic2"));
 						context.SaveChanges();
 					}
 				}

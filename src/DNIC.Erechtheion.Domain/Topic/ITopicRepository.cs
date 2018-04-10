@@ -2,13 +2,12 @@
 using System.Threading.Tasks;
 using DNIC.Erechtheion.Core;
 using DNIC.Erechtheion.Core.Conditions;
-using DNIC.Erechtheion.Domain.Entities;
 
-namespace DNIC.Erechtheion.Domain.Repositories
+namespace DNIC.Erechtheion.Domain.Topic
 {
 	public interface ITopicRepository
 	{
-		Task<bool> Create(Topic topic);
+		Task<Topic> Create(Topic topic);
 
 		Task<bool> Update(Topic topic);
 
