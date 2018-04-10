@@ -11,9 +11,9 @@ namespace DNIC.Erechtheion.EntityFrameworkCore.Repositories
 {
 	public class TopicRepository : ITopicRepository
 	{
-		private readonly ApplicationDbContext _dbContext;
+		private readonly ErechtheionDbContext _dbContext;
 
-		public TopicRepository(ApplicationDbContext dbContext)
+		public TopicRepository(ErechtheionDbContext dbContext)
 		{
 			_dbContext = dbContext;
 		}

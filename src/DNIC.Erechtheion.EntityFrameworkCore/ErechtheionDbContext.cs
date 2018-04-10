@@ -11,13 +11,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DNIC.Erechtheion.EntityFrameworkCore
 {
-	public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+	public class ErechtheionDbContext : DbContext
 	{
 		private readonly IHttpContextAccessor _accessor;
 
 		public DbSet<Topic> Topic { get; set; }
 
-		public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IHttpContextAccessor accessor)
+		public ErechtheionDbContext(DbContextOptions<ErechtheionDbContext> options, IHttpContextAccessor accessor)
 			: base(options)
 		{
 			_accessor = accessor;

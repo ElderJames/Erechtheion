@@ -1,5 +1,5 @@
 ﻿@using DNIC.Erechtheion.Views.Manage
-@inject SignInManager<ApplicationUser> SignInManager
+@inject SignInManager<ErechtheionUser> SignInManager
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
 }

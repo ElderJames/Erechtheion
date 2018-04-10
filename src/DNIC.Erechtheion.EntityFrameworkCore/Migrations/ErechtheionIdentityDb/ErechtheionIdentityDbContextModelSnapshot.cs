@@ -8,10 +8,10 @@ using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
 using System;
 
-namespace DNIC.Erechtheion.EntityFrameworkCore.Migrations
+namespace DNIC.Erechtheion.EntityFrameworkCore.Migrations.ErechtheionIdentityDb
 {
-    [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(ErechtheionIdentityDbContext))]
+    partial class ErechtheionIdentityDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -20,29 +20,7 @@ namespace DNIC.Erechtheion.EntityFrameworkCore.Migrations
                 .HasAnnotation("ProductVersion", "2.0.2-rtm-10011")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("DNIC.Erechtheion.Domain.Entities.Topic", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<DateTime>("CreationTime");
-
-                    b.Property<long?>("CreatorUserId");
-
-                    b.Property<DateTime?>("LastModificationTime");
-
-                    b.Property<long?>("LastModifierUserId");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(32);
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Topic");
-                });
-
-            modelBuilder.Entity("DNIC.Erechtheion.EntityFrameworkCore.ApplicationUser", b =>
+            modelBuilder.Entity("DNIC.Erechtheion.EntityFrameworkCore.ErechtheionUser", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
@@ -211,7 +189,7 @@ namespace DNIC.Erechtheion.EntityFrameworkCore.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("DNIC.Erechtheion.EntityFrameworkCore.ApplicationUser")
+                    b.HasOne("DNIC.Erechtheion.EntityFrameworkCore.ErechtheionUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -219,7 +197,7 @@ namespace DNIC.Erechtheion.EntityFrameworkCore.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("DNIC.Erechtheion.EntityFrameworkCore.ApplicationUser")
+                    b.HasOne("DNIC.Erechtheion.EntityFrameworkCore.ErechtheionUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -232,7 +210,7 @@ namespace DNIC.Erechtheion.EntityFrameworkCore.Migrations
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("DNIC.Erechtheion.EntityFrameworkCore.ApplicationUser")
+                    b.HasOne("DNIC.Erechtheion.EntityFrameworkCore.ErechtheionUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -240,7 +218,7 @@ namespace DNIC.Erechtheion.EntityFrameworkCore.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("DNIC.Erechtheion.EntityFrameworkCore.ApplicationUser")
+                    b.HasOne("DNIC.Erechtheion.EntityFrameworkCore.ErechtheionUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);

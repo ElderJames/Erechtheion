@@ -12,11 +12,17 @@ namespace DNIC.Erechtheion.Core.Configuration
 			Configuration = configuration;
 		}
 
-		public string AccountCenter
+		public string ConnectionString => Configuration.GetConnectionString("DefaultConnection");
+
+		#region AccountCenter
+
+		public AuthenticationMode AuthenticationMode => Configuration.GetSection(ErechtheionConsts.Erechtheion).GetValue<AuthenticationMode>(ErechtheionConsts.AuthenticationMode);
+
+		public string Authority
 		{
 			get
 			{
-				var accountCenterStr = Configuration.GetSection(ErechtheionConsts.Erechtheion).GetValue<string>(ErechtheionConsts.AccountCenter);
+				var accountCenterStr = Configuration.GetSection(ErechtheionConsts.Authentication).GetValue<string>(ErechtheionConsts.Authority);
 				if (string.IsNullOrWhiteSpace(accountCenterStr))
 				{
 					return null;
@@ -35,6 +41,13 @@ namespace DNIC.Erechtheion.Core.Configuration
 			}
 		}
 
-		public string ConnectionString => Configuration.GetConnectionString("DefaultConnection");
+		public string DefaultScheme => Configuration.GetSection(ErechtheionConsts.Authentication).GetValue<string>(ErechtheionConsts.DefaultScheme);
+
+		public string ApiName => Configuration.GetSection(ErechtheionConsts.Authentication).GetValue<string>(ErechtheionConsts.ApiName);
+
+		public bool RequireHttpsMetadata => Configuration.GetSection(ErechtheionConsts.Authentication).GetValue<bool>(ErechtheionConsts.RequireHttpsMetadata);
+
+		#endregion
 	}
 }
+

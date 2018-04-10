@@ -19,6 +19,7 @@ using Microsoft.Extensions.Logging;
 using DNIC.Erechtheion.Application.Service;
 using Serilog;
 using Serilog.Events;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace DNIC.Erechtheion
 {
@@ -50,14 +51,18 @@ namespace DNIC.Erechtheion
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddEntityFrameworkSqlServer()
-			.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(ErechtheionConfiguration.ConnectionString, b => b.UseRowNumberForPaging()));
+			.AddDbContext<ErechtheionDbContext>(options => options.UseSqlServer(ErechtheionConfiguration.ConnectionString, b => b.UseRowNumberForPaging()));
 
-			services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(ErechtheionConfiguration.ConnectionString));
+			if ((ErechtheionConfiguration.AuthenticationMode & AuthenticationMode.Self) == AuthenticationMode.Self)
+			{
+				services.AddDbContext<ErechtheionIdentityDbContext>(options => options.UseSqlServer(ErechtheionConfiguration.ConnectionString));
+			}
 
 			// Add application services.
 			services.AddTransient<IEmailSender, EmailSender>();
 
 			services.AddResponseCompression();
+			services.AddResponseCaching();
 			services.AddMvc();
 
 			// 重新注册
@@ -68,21 +73,25 @@ namespace DNIC.Erechtheion
 
 			DependencyInjectionConfig.Inject(services);
 
-			services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
+			if ((ErechtheionConfiguration.AuthenticationMode & AuthenticationMode.Self) == AuthenticationMode.Self)
+			{
+				services.AddIdentity<ErechtheionUser, IdentityRole>().AddEntityFrameworkStores<ErechtheionIdentityDbContext>().AddDefaultTokenProviders();
+			}
 
 			// 如果没有配置全局登录系统, 则使用默认注册和登录
-			if (!string.IsNullOrWhiteSpace(ErechtheionConfiguration.AccountCenter))
+			if ((ErechtheionConfiguration.AuthenticationMode & AuthenticationMode.External) == AuthenticationMode.External)
 			{
-				JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
-
-				services.AddAuthentication("DNIC")
-					.AddCookie("DNIC")
+				services.AddAuthentication(ErechtheionConfiguration.DefaultScheme)
 					.AddIdentityServerAuthentication(options =>
 					{
-						options.Authority = "http://localhost:5000";
-						options.RequireHttpsMetadata = false;
-						options.ApiName = "DNIC";
+						options.Authority = ErechtheionConfiguration.Authority;
+						options.RequireHttpsMetadata = ErechtheionConfiguration.RequireHttpsMetadata;
+						options.ApiName = ErechtheionConfiguration.ApiName;
 					});
+			}
+			else
+			{
+				services.AddAuthentication();
 			}
 		}
 

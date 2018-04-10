@@ -1,4 +1,6 @@
-﻿using DNIC.Erechtheion.Domain;
+﻿using DNIC.Erechtheion.Core.Configuration;
+using DNIC.Erechtheion.Domain;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -13,10 +15,19 @@ namespace DNIC.Erechtheion.EntityFrameworkCore
 		public void EnsureSeedData(IServiceProvider serviceProvider)
 		{
 			Console.WriteLine("Seeding database...");
+			var configuration = serviceProvider.GetRequiredService<IErechtheionConfiguration>();
 
 			using (var scope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope())
 			{
-				using (var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>())
+				if ((configuration.AuthenticationMode & AuthenticationMode.Self) == AuthenticationMode.Self)
+				{
+					using (var context = scope.ServiceProvider.GetRequiredService<ErechtheionIdentityDbContext>())
+					{
+						context.Database.Migrate();
+					}
+				}
+
+				using (var context = scope.ServiceProvider.GetRequiredService<ErechtheionDbContext>())
 				{
 					context.Database.Migrate();
 					if (!context.Topic.Any())

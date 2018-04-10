@@ -87,19 +87,5 @@
 	</environment>
 
 	@RenderSection("Scripts", required: false)
-	@if (!string.IsNullOrWhiteSpace(ViewData["AccountCenter"].ToString()))
-	{
-		<script>
-			$(function () {
-				var accountCenter = '@ViewData["AccountCenter"]';
-				if (accountCenter.length > 0) {
-					var registerUrl = accountCenter + '/account/register?returnUrl=' + location.href;
-					var loginUrl = accountCenter + '/account/login?returnUrl=' + location.href;
-					$('#register').attr('href', registerUrl);
-					$('#login').attr('href', loginUrl);
-				}
-			});
-		</script>
-	}
 </body>
 </html>

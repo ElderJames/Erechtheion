@@ -22,8 +22,8 @@ namespace DNIC.Erechtheion.Controllers
 	[Route("[controller]/[action]")]
 	public class ManageController : BaseController
 	{
-		private readonly UserManager<ApplicationUser> _userManager;
-		private readonly SignInManager<ApplicationUser> _signInManager;
+		private readonly UserManager<ErechtheionUser> _userManager;
+		private readonly SignInManager<ErechtheionUser> _signInManager;
 		private readonly IEmailSender _emailSender;
 		private readonly ILogger _logger;
 		private readonly UrlEncoder _urlEncoder;
@@ -32,8 +32,8 @@ namespace DNIC.Erechtheion.Controllers
 		private const string RecoveryCodesKey = nameof(RecoveryCodesKey);
 
 		public ManageController(IErechtheionConfiguration erechtheionConfiguration,
-		  UserManager<ApplicationUser> userManager,
-		  SignInManager<ApplicationUser> signInManager,
+		  UserManager<ErechtheionUser> userManager,
+		  SignInManager<ErechtheionUser> signInManager,
 		  IEmailSender emailSender,
 		  ILogger<ManageController> logger,
 		  UrlEncoder urlEncoder) : base(erechtheionConfiguration)
@@ -529,7 +529,7 @@ namespace DNIC.Erechtheion.Controllers
 				unformattedKey);
 		}
 
-		private async Task LoadSharedKeyAndQrCodeUriAsync(ApplicationUser user, EnableAuthenticatorViewModel model)
+		private async Task LoadSharedKeyAndQrCodeUriAsync(ErechtheionUser user, EnableAuthenticatorViewModel model)
 		{
 			var unformattedKey = await _userManager.GetAuthenticatorKeyAsync(user);
 			if (string.IsNullOrEmpty(unformattedKey))

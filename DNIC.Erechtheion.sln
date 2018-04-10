@@ -17,6 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 		.gitignore = .gitignore
+		Readme.md = Readme.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DNIC.Erechtheion.Application.Service", "src\DNIC.Erechtheion.Application.Service\DNIC.Erechtheion.Application.Service.csproj", "{E648C590-1D08-4B96-8AA4-22F3710E25CE}"
