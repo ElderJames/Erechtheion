@@ -1,18 +1,22 @@
 ﻿using DNIC.Erechtheion.Core.Configuration;
 using DNIC.Erechtheion.Domain;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace DNIC.Erechtheion.EntityFrameworkCore
 {
 	public class RepositorySeedData : IRepositorySeedData
 	{
-		public void EnsureSeedData(IServiceProvider serviceProvider)
+		private readonly IServiceProvider serviceProvider;
+
+		public RepositorySeedData(IServiceProvider serviceProvider)
+		{
+			this.serviceProvider = serviceProvider;
+		}
+
+		public void EnsureSeedData()
 		{
 			Console.WriteLine("Seeding database...");
 			var configuration = serviceProvider.GetRequiredService<IErechtheionConfiguration>();

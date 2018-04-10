@@ -1,25 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using DNIC.Erechtheion.Models;
 using DNIC.Erechtheion.Services;
-using DNIC.Erechtheion.Core;
 using DNIC.Erechtheion.Core.Configuration;
-using System.IdentityModel.Tokens.Jwt;
 using DNIC.Erechtheion.EntityFrameworkCore;
-using DNIC.Erechtheion.Domain;
 using Microsoft.Extensions.Logging;
 using DNIC.Erechtheion.Application.Service;
 using Serilog;
-using Serilog.Events;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace DNIC.Erechtheion
 {
@@ -72,7 +62,7 @@ namespace DNIC.Erechtheion
 			// 注册系统配置
 			services.AddSingleton(ErechtheionConfiguration);
 
-			DependencyInjectionConfig.Inject(services);
+			services.AddErechtheion();
 
 			if ((ErechtheionConfiguration.AuthenticationMode & AuthenticationMode.Self) == AuthenticationMode.Self)
 			{
@@ -87,23 +77,23 @@ namespace DNIC.Erechtheion
 					options.DefaultScheme = ErechtheionConfiguration.DefaultScheme;
 					options.DefaultChallengeScheme = "oidc";
 				})
-					.AddCookie(ErechtheionConfiguration.DefaultScheme)
-					.AddOpenIdConnect("oidc", options =>
-					{
-						options.SignInScheme = ErechtheionConfiguration.DefaultScheme;
+				.AddCookie(ErechtheionConfiguration.DefaultScheme)
+				.AddOpenIdConnect("oidc", options =>
+				{
+					options.SignInScheme = ErechtheionConfiguration.DefaultScheme;
 
-						options.Authority = ErechtheionConfiguration.Authority;
-						options.RequireHttpsMetadata = ErechtheionConfiguration.RequireHttpsMetadata;
+					options.Authority = ErechtheionConfiguration.Authority;
+					options.RequireHttpsMetadata = ErechtheionConfiguration.RequireHttpsMetadata;
 
-						options.ClientId = "DNIC.Erechtheion";
-						options.ClientSecret = "secret";
-						options.ResponseType = "code id_token";
+					options.ClientId = "DNIC.Erechtheion";
+					options.ClientSecret = "secret";
+					options.ResponseType = "code id_token";
 
-						options.SaveTokens = true;
-						options.GetClaimsFromUserInfoEndpoint = true;
+					options.SaveTokens = true;
+					options.GetClaimsFromUserInfoEndpoint = true;
 
-						options.Scope.Add(ErechtheionConfiguration.ApiName);
-					});
+					options.Scope.Add(ErechtheionConfiguration.ApiName);
+				});
 			}
 		}
 
