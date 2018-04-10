@@ -12,7 +12,10 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.2" PrivateAssets="All" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="2.0.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.3" PrivateAssets="All" />
-    <PackageReference Include="NLog.Web.AspNetCore" Version="4.5.1" />
+    <PackageReference Include="Serilog.AspNetCore" Version="2.1.1" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
+    <PackageReference Include="Serilog.Sinks.File" Version="4.0.0" />
+    <PackageReference Include="Serilog.Settings.Configuration" Version="2.6.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -26,12 +29,6 @@
     <ProjectReference Include="..\DNIC.Erechtheion.Application\DNIC.Erechtheion.Application.csproj" />
     <ProjectReference Include="..\DNIC.Erechtheion.Core\DNIC.Erechtheion.Core.csproj" />
     <ProjectReference Include="..\DNIC.Erechtheion.EntityFrameworkCore\DNIC.Erechtheion.EntityFrameworkCore.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Update="nlog.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
 
 </Project>

@@ -4,7 +4,6 @@ using DNIC.Erechtheion.Application.Topic;
 using DNIC.Erechtheion.Application.Topic.Dto;
 using DNIC.Erechtheion.Core.Configuration;
 using DNIC.Erechtheion.Domain.Repositories;
-using Microsoft.Extensions.Logging;
 
 namespace DNIC.Erechtheion.Application.Service.Topic
 {
@@ -12,7 +11,7 @@ namespace DNIC.Erechtheion.Application.Service.Topic
 	{
 		private readonly ITopicRepository _topicRepository;
 
-		public TopicApplicationService(IErechtheionConfiguration configuration, ILoggerFactory loggerFactory, ITopicRepository topicRepository) : base(configuration, loggerFactory)
+		public TopicApplicationService(IErechtheionConfiguration configuration, ITopicRepository topicRepository) : base(configuration)
 		{
 			_topicRepository = topicRepository;
 		}

@@ -1,5 +1,5 @@
 ﻿using DNIC.Erechtheion.Core.Configuration;
-using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace DNIC.Erechtheion.Application.Service
 {
@@ -8,11 +8,11 @@ namespace DNIC.Erechtheion.Application.Service
 		protected readonly IErechtheionConfiguration Configuration;
 		protected readonly ILogger Logger;
 
-		protected ApplicationServiceBase(IErechtheionConfiguration configuration, ILoggerFactory loggerFactory)
+		protected ApplicationServiceBase(IErechtheionConfiguration configuration)
 		{
 			Configuration = configuration;
 
-			Logger = loggerFactory.CreateLogger(GetType());
+			Logger = Log.ForContext(GetType());
 		}
 	}
 }

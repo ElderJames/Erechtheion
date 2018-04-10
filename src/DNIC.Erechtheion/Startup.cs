@@ -16,14 +16,15 @@ using System.IdentityModel.Tokens.Jwt;
 using DNIC.Erechtheion.EntityFrameworkCore;
 using DNIC.Erechtheion.Domain;
 using Microsoft.Extensions.Logging;
-using NLog.Extensions.Logging;
 using DNIC.Erechtheion.Application.Service;
+using Serilog;
+using Serilog.Events;
 
 namespace DNIC.Erechtheion
 {
 	public class Startup
 	{
-		public IErechtheionConfiguration Configuration { get; }
+		public IErechtheionConfiguration ErechtheionConfiguration { get; }
 		public IHostingEnvironment Environment { get; }
 
 		public Startup(IHostingEnvironment env)
@@ -35,16 +36,23 @@ namespace DNIC.Erechtheion
 				.SetBasePath(env.ContentRootPath)
 				.AddJsonFile(configurationFile, optional: true, reloadOnChange: true)
 				.AddEnvironmentVariables();
-			Configuration = new ErechtheionConfiguration(builder.Build());
+			ErechtheionConfiguration = new ErechtheionConfiguration(builder.Build());
+
+			// 配置 Serilog
+			Log.Logger = new LoggerConfiguration()
+				.Enrich.FromLogContext()
+				.ReadFrom.Configuration(ErechtheionConfiguration.Configuration)
+				.WriteTo.Console().WriteTo.File("DNIC.Erechtheion.log")
+				.CreateLogger();
 		}
 
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddEntityFrameworkSqlServer()
-			 .AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.ConnectionString, b => b.UseRowNumberForPaging()));
+			.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(ErechtheionConfiguration.ConnectionString, b => b.UseRowNumberForPaging()));
 
-			services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.ConnectionString));
+			services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(ErechtheionConfiguration.ConnectionString));
 
 			// Add application services.
 			services.AddTransient<IEmailSender, EmailSender>();
@@ -53,16 +61,17 @@ namespace DNIC.Erechtheion
 			services.AddMvc();
 
 			// 重新注册
-			services.AddSingleton(Configuration.Configuration);
+			services.AddSingleton(ErechtheionConfiguration.Configuration);
+
 			// 注册系统配置
-			services.AddSingleton(Configuration);
+			services.AddSingleton(ErechtheionConfiguration);
 
 			DependencyInjectionConfig.Inject(services);
 
 			services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
 
 			// 如果没有配置全局登录系统, 则使用默认注册和登录
-			if (!string.IsNullOrWhiteSpace(Configuration.AccountCenter))
+			if (!string.IsNullOrWhiteSpace(ErechtheionConfiguration.AccountCenter))
 			{
 				JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
@@ -80,9 +89,9 @@ namespace DNIC.Erechtheion
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
 		{
-			loggerFactory.AddConsole(Configuration.Configuration.GetSection("Logging"));
+			loggerFactory.AddConsole(ErechtheionConfiguration.Configuration.GetSection("Logging"));
 			loggerFactory.AddDebug();
-			loggerFactory.AddNLog();
+			loggerFactory.AddSerilog();
 
 			if (env.IsDevelopment())
 			{
