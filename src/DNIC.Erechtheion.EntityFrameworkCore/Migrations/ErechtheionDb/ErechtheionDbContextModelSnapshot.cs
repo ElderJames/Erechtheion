@@ -8,13 +8,12 @@ using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
 using System;
 
-namespace DNIC.Erechtheion.EntityFrameworkCore.Migrations
+namespace DNIC.Erechtheion.EntityFrameworkCore.Migrations.ErechtheionDb
 {
     [DbContext(typeof(ErechtheionDbContext))]
-    [Migration("20180410092650_Erechtheion")]
-    partial class Erechtheion
+    partial class ErechtheionDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

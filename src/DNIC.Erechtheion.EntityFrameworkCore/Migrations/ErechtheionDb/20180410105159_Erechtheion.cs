@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using System;
 using System.Collections.Generic;
 
-namespace DNIC.Erechtheion.EntityFrameworkCore.Migrations
+namespace DNIC.Erechtheion.EntityFrameworkCore.Migrations.ErechtheionDb
 {
     public partial class Erechtheion : Migration
     {

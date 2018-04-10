@@ -64,6 +64,7 @@ namespace DNIC.Erechtheion
 			services.AddResponseCompression();
 			services.AddResponseCaching();
 			services.AddMvc();
+			services.AddAuthorization();
 
 			// 重新注册
 			services.AddSingleton(ErechtheionConfiguration.Configuration);
@@ -81,17 +82,28 @@ namespace DNIC.Erechtheion
 			// 如果没有配置全局登录系统, 则使用默认注册和登录
 			if ((ErechtheionConfiguration.AuthenticationMode & AuthenticationMode.External) == AuthenticationMode.External)
 			{
-				services.AddAuthentication(ErechtheionConfiguration.DefaultScheme)
-					.AddIdentityServerAuthentication(options =>
+				services.AddAuthentication(options =>
+				{
+					options.DefaultScheme = ErechtheionConfiguration.DefaultScheme;
+					options.DefaultChallengeScheme = "oidc";
+				})
+					.AddCookie(ErechtheionConfiguration.DefaultScheme)
+					.AddOpenIdConnect("oidc", options =>
 					{
+						options.SignInScheme = ErechtheionConfiguration.DefaultScheme;
+
 						options.Authority = ErechtheionConfiguration.Authority;
 						options.RequireHttpsMetadata = ErechtheionConfiguration.RequireHttpsMetadata;
-						options.ApiName = ErechtheionConfiguration.ApiName;
+
+						options.ClientId = "DNIC.Erechtheion";
+						options.ClientSecret = "secret";
+						options.ResponseType = "code id_token";
+
+						options.SaveTokens = true;
+						options.GetClaimsFromUserInfoEndpoint = true;
+
+						options.Scope.Add(ErechtheionConfiguration.ApiName);
 					});
-			}
-			else
-			{
-				services.AddAuthentication();
 			}
 		}
 

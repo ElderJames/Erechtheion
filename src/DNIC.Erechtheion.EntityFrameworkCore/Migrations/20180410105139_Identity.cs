@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using System;
 using System.Collections.Generic;
 
-namespace DNIC.Erechtheion.EntityFrameworkCore.Migrations.ErechtheionIdentityDb
+namespace DNIC.Erechtheion.EntityFrameworkCore.Migrations
 {
-    public partial class ErechtheionIdentity : Migration
+    public partial class Identity : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
