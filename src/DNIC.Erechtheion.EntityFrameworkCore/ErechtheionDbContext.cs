@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
+using System.Threading;
 using System.Threading.Tasks;
 using DNIC.Erechtheion.Domain;
-using DNIC.Erechtheion.Domain.Entities;
+using DNIC.Erechtheion.Domain.Topic;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace DNIC.Erechtheion.EntityFrameworkCore
@@ -43,24 +41,29 @@ namespace DNIC.Erechtheion.EntityFrameworkCore
 			return base.SaveChanges();
 		}
 
+		public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
+		{
+			ApplyConcepts();
+			return await base.SaveChangesAsync(cancellationToken);
+		}
+
 		private void ApplyConcepts()
 		{
 			var value = _accessor?.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-			long userId = 0;
-			long.TryParse(value, out userId);
+			long.TryParse(value, out var userId);
 
 			var entries = ChangeTracker.Entries();
 			foreach (var entry in entries)
 			{
-				if (entry.Entity is IAuditedEntity)
+				if (entry.Entity is IAuditedEntity e)
 				{
-					var e = entry.Entity as IAuditedEntity;
 					switch (entry.State)
 					{
 						case EntityState.Added:
 							e.CreatorUserId = userId;
 							e.CreationTime = DateTime.Now;
 							break;
+
 						case EntityState.Modified:
 							e.LastModifierUserId = userId;
 							e.LastModificationTime = DateTime.Now;

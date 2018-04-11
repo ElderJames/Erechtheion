@@ -3,8 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DNIC.Erechtheion.Core;
 using DNIC.Erechtheion.Core.Conditions;
-using DNIC.Erechtheion.Domain.Entities;
-using DNIC.Erechtheion.Domain.Repositories;
+using DNIC.Erechtheion.Domain.Topic;
 using Microsoft.EntityFrameworkCore;
 
 namespace DNIC.Erechtheion.EntityFrameworkCore.Repositories
@@ -18,11 +17,11 @@ namespace DNIC.Erechtheion.EntityFrameworkCore.Repositories
 			_dbContext = dbContext;
 		}
 
-		public async Task<bool> Create(Topic topic)
+		public async Task<Topic> Create(Topic topic)
 		{
 			var entity = await _dbContext.Topic.AddAsync(topic);
 			await _dbContext.SaveChangesAsync();
-			return entity.Entity.Id > 0;
+			return entity.Entity;
 		}
 
 		public async Task<bool> Update(Topic topic)

@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using DNIC.Erechtheion.Application.Topic.Dto;
+using DNIC.Erechtheion.Application.Dto;
 
 namespace DNIC.Erechtheion.Application.Service
 {
@@ -9,7 +9,7 @@ namespace DNIC.Erechtheion.Application.Service
 		{
 			Mapper.Initialize(config =>
 			{
-				config.CreateMap<Domain.Entities.Topic, TopicOutput>();
+				config.CreateMap<Domain.Topic.Topic, TopicOutput>();
 			});
 		}
 	}

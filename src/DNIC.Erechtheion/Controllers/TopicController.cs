@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using DNIC.Erechtheion.Application.Topic;
-using DNIC.Erechtheion.Application.Topic.Dto;
+using DNIC.Erechtheion.Application;
+using DNIC.Erechtheion.Application.Dto;
 using DNIC.Erechtheion.Core.Configuration;
 
 namespace DNIC.Erechtheion.Controllers
@@ -20,6 +18,16 @@ namespace DNIC.Erechtheion.Controllers
 		public async Task<IEnumerable<TopicOutput>> GetAll()
 		{
 			return await _topicApplicationService.GetAll();
+		}
+
+		public async Task<TopicOutput> Create(string name)
+		{
+			return await _topicApplicationService.Create(name);
+		}
+
+		public async Task<TopicOutput> Change(long id, string name)
+		{
+			return await _topicApplicationService.Change(id, name);
 		}
 	}
 }
