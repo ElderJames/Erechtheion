@@ -74,13 +74,13 @@ namespace DNIC.Erechtheion
 			{
 				services.AddAuthentication(options =>
 				{
-					options.DefaultScheme = ErechtheionConfiguration.DefaultScheme;
+					options.DefaultScheme = "Cookies";
 					options.DefaultChallengeScheme = "oidc";
 				})
-				.AddCookie(ErechtheionConfiguration.DefaultScheme)
+				.AddCookie("Cookies")
 				.AddOpenIdConnect("oidc", options =>
 				{
-					options.SignInScheme = ErechtheionConfiguration.DefaultScheme;
+					options.SignInScheme = "Cookies";
 
 					options.Authority = ErechtheionConfiguration.Authority;
 					options.RequireHttpsMetadata = ErechtheionConfiguration.RequireHttpsMetadata;
