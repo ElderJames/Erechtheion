@@ -37,14 +37,19 @@ namespace DNIC.Erechtheion.EntityFrameworkCore.Repositories
 
 		public async Task<IEnumerable<Topic>> GetAll()
 		{
-			return await _dbContext.Topic.ToArrayAsync();
+			return await _dbContext.Topic.ToListAsync();
 		}
 
 		public async Task<IEnumerable<Topic>> FindList(TopicSearch search)
 		{
 			var query = _dbContext.Topic.AsQueryable();
+
+			if (!string.IsNullOrEmpty(search.Name))
+				query = query.Where(t => t.Name == search.Name);
+
 			if (search.BeginTime.HasValue)
 				query = query.Where(t => t.CreationTime >= search.BeginTime.Value);
+
 			if (search.EndTime.HasValue)
 				query = query.Where(t => t.CreationTime < search.EndTime.Value);
 

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using DNIC.Erechtheion.Core.Conditions;
 using DNIC.Erechtheion.Domain.Topic;
 using DNIC.Erechtheion.EntityFrameworkCore;
 using DNIC.Erechtheion.EntityFrameworkCore.Repositories;
@@ -74,27 +75,70 @@ namespace DNIC.Erechtheion.Tests.Repository
 		public async void TopicRepository_GetAll_Test()
 		{
 			// Arrange
-			var topicRepository = GetReopsitory();
-			var topic = new Topic("erechtheion");
-			var topic2 = new Topic("erechtheion2");
+			var context = GetContext("TopicRepository_GetAll_Test");
+			var topicRepository = new TopicRepository(context);
 
-			await topicRepository.Create(topic);
-			await topicRepository.Create(topic2);
+			await context.Topic.AddRangeAsync(new Topic("topic1"), new Topic("topic2"), new Topic("topic3"), new Topic("topic4"), new Topic("topic5"));
+			await context.SaveChangesAsync();
 
 			// Act
 			var list = await topicRepository.GetAll();
 
 			// Assert
+			//	Assert.Equal(5, list.Count());
+			Assert.Contains(list, x => x.Name == "topic1");
+		}
 
-			Assert.Contains(list, x => x.Name == "erechtheion");
+		[Fact(DisplayName = "TopicRepository_FindList_Test")]
+		public async void TopicRepository_FindList_Test()
+		{
+			// Arrange
+			var context = GetContext("TopicRepository_FindList_Test");
+			var topicRepository = new TopicRepository(context);
 
-			Assert.Equal(2, list.Count());
+			await context.Topic.AddRangeAsync(new Topic("topic1"), new Topic("topic2"), new Topic("topic3"), new Topic("topic4"), new Topic("topic5"));
+			await context.SaveChangesAsync();
+
+			// Act
+			var list = await topicRepository.FindList(new TopicSearch()
+			{
+				Name = "topic1"
+			});
+
+			// Assert
+			//	Assert.Single(list);
+			Assert.True(list.ElementAt(0).Name == "topic1");
+		}
+
+		[Fact(DisplayName = "TopicRepository_Search_Test")]
+		public async void TopicRepository_Search_Test()
+		{
+			// Arrange
+			var context = GetContext("TopicRepository_FindList_Test");
+			var topicRepository = new TopicRepository(context);
+
+			await context.Topic.AddRangeAsync(new Topic("topic1"), new Topic("topic2"), new Topic("topic3"), new Topic("topic4"), new Topic("topic5"));
+			await context.SaveChangesAsync();
+
+			// Act
+			var paged = await topicRepository.Search(new TopicSearch()
+			{
+				PageSize = 2
+			});
+
+			// Assert
+			Assert.Equal(2, paged.Records.Count());
 		}
 
 		private ITopicRepository GetReopsitory()
 		{
+			return new TopicRepository(GetContext("default"));
+		}
+
+		private ErechtheionDbContext GetContext(string databaseName)
+		{
 			var options = new DbContextOptionsBuilder<ErechtheionDbContext>()
-				.UseInMemoryDatabase("Add_Topic_To_Database2")
+				.UseInMemoryDatabase("databaseName")
 				.Options;
 
 			var claimsPrincipal = new ClaimsPrincipal(new List<ClaimsIdentity>()
@@ -104,11 +148,10 @@ namespace DNIC.Erechtheion.Tests.Repository
 
 			var mock = new Mock<IHttpContextAccessor>();
 			mock.Setup(acr => acr.HttpContext.User).Returns(claimsPrincipal);
+
 			var accessor = mock.Object;
 
-			var context = new ErechtheionDbContext(options, accessor);
-
-			return new TopicRepository(context);
+			return new ErechtheionDbContext(options, accessor);
 		}
 	}
 }
