@@ -10,8 +10,6 @@ using DNIC.Erechtheion.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using DNIC.Erechtheion.Application.Service;
 using Serilog;
-using System.IdentityModel.Tokens.Jwt;
-using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace DNIC.Erechtheion
 {

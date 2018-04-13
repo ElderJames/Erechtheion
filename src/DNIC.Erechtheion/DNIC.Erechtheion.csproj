@@ -5,9 +5,7 @@
     <UserSecretsId>aspnet-DNIC.Erechtheion-70F24FBB-E1C9-4EDF-802E-9E9CAE1593C2</UserSecretsId>
   </PropertyGroup>
 
-
   <ItemGroup>
-    <PackageReference Include="IdentityServer4.AccessTokenValidation" Version="2.5.0" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.2" PrivateAssets="All" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="2.0.1" />
@@ -30,5 +28,4 @@
     <ProjectReference Include="..\DNIC.Erechtheion.Core\DNIC.Erechtheion.Core.csproj" />
     <ProjectReference Include="..\DNIC.Erechtheion.EntityFrameworkCore\DNIC.Erechtheion.EntityFrameworkCore.csproj" />
   </ItemGroup>
-
 </Project>
