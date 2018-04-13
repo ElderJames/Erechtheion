@@ -10,6 +10,8 @@ using DNIC.Erechtheion.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using DNIC.Erechtheion.Application.Service;
 using Serilog;
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace DNIC.Erechtheion
 {
@@ -64,23 +66,28 @@ namespace DNIC.Erechtheion
 
 			services.AddErechtheion();
 
-			if ((ErechtheionConfiguration.AuthenticationMode & AuthenticationMode.Self) == AuthenticationMode.Self)
+			services.AddIdentity<ErechtheionUser, IdentityRole>(config =>
 			{
-				services.AddIdentity<ErechtheionUser, IdentityRole>().AddEntityFrameworkStores<ErechtheionIdentityDbContext>().AddDefaultTokenProviders();
-			}
+				config.User.RequireUniqueEmail = true;
+				config.Password = new PasswordOptions
+				{
+					RequireDigit = true,
+					RequireUppercase = false,
+					RequireLowercase = true,
+					RequiredLength = 8
+				};
+				config.SignIn.RequireConfirmedEmail = false;
+				config.SignIn.RequireConfirmedPhoneNumber = false;
+			}).AddEntityFrameworkStores<ErechtheionIdentityDbContext>().AddDefaultTokenProviders();
 
 			// 如果没有配置全局登录系统, 则使用默认注册和登录
 			if ((ErechtheionConfiguration.AuthenticationMode & AuthenticationMode.External) == AuthenticationMode.External)
 			{
-				services.AddAuthentication(options =>
-				{
-					options.DefaultScheme = "Cookies";
-					options.DefaultChallengeScheme = "oidc";
-				})
+				services.AddAuthentication("Cookies")
 				.AddCookie("Cookies")
 				.AddOpenIdConnect("oidc", options =>
 				{
-					options.SignInScheme = "Cookies";
+					options.SignInScheme = IdentityConstants.ExternalScheme;
 
 					options.Authority = ErechtheionConfiguration.Authority;
 					options.RequireHttpsMetadata = ErechtheionConfiguration.RequireHttpsMetadata;
@@ -91,9 +98,8 @@ namespace DNIC.Erechtheion
 
 					options.SaveTokens = true;
 					options.GetClaimsFromUserInfoEndpoint = true;
-
-					options.Scope.Add(ErechtheionConfiguration.ApiName);
-				});
+				})
+				;
 			}
 		}
 
