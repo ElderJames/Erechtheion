@@ -10,26 +10,34 @@ namespace DNIC.Erechtheion.Domain
 		// 摘要:
 		//     Last modification date of this entity.
 		DateTime? LastModificationTime { get; set; }
+
 		//
 		// 摘要:
 		//     Last modifier user of this entity.
 		long? LastModifierUserId { get; set; }
+
 		//
 		// 摘要:
 		//     Creation time of this entity.
 		DateTime CreationTime { get; set; }
+
 		//
 		// 摘要:
 		//     Creator of this entity.
 		long? CreatorUserId { get; set; }
 	}
 
-	public abstract class AuditedEntity<TPrimaryKey> : Entity<TPrimaryKey>, IAuditedEntity
+	public abstract class AuditedEntity<TAggregateId> : Entity<TAggregateId>, IAuditedEntity where TAggregateId : IEquatable<TAggregateId>
 	{
 		public virtual DateTime? LastModificationTime { get; set; }
 		public virtual long? LastModifierUserId { get; set; }
 		public virtual DateTime CreationTime { get; set; }
 		public virtual long? CreatorUserId { get; set; }
+
+		protected AuditedEntity(TAggregateId aggregateId) : base(aggregateId)
+		{
+			CreationTime = DateTime.Now;
+		}
 	}
 
 	/// <summary>
@@ -37,6 +45,8 @@ namespace DNIC.Erechtheion.Domain
 	/// </summary>
 	public abstract class AuditedEntity : AuditedEntity<long>
 	{
-
+		protected AuditedEntity(long aggregateId) : base(aggregateId)
+		{
+		}
 	}
 }

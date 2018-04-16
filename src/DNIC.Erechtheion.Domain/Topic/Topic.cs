@@ -3,13 +3,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DNIC.Erechtheion.Domain.Topic
 {
-	public class Topic : AuditedEntity<long>
+	public class Topic : AuditedEntity<Guid>
 	{
-		private Topic()
+		private Topic() : base(Guid.Empty)
 		{
 		}
 
-		public Topic(string name)
+		public Topic(string name) : this()
 		{
 			if (string.IsNullOrEmpty(name))
 				return;
