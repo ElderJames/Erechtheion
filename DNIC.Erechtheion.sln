@@ -17,6 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 		.gitignore = .gitignore
+		Design.md = Design.md
 		Readme.md = Readme.md
 	EndProjectSection
 EndProject
@@ -26,7 +27,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{5D4514D9-6AF
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{B58AB3BB-BFA3-4F88-9EB0-DE6B41A12A15}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DNIC.Erechtheion.Tests", "test\DNIC.Erechtheion.Tests\DNIC.Erechtheion.Tests.csproj", "{9FB383D7-D1B8-4060-9D88-143A10484280}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DNIC.Erechtheion.Tests", "test\DNIC.Erechtheion.Tests\DNIC.Erechtheion.Tests.csproj", "{9FB383D7-D1B8-4060-9D88-143A10484280}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
