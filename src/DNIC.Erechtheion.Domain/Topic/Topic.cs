@@ -1,9 +1,10 @@
-﻿using System;
+﻿using DNIC.Erechtheion.Core.Domain;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace DNIC.Erechtheion.Domain.Topic
 {
-	public class Topic : AuditedEntity<long>
+	public class Topic : PlainEntity
 	{
 		private Topic()
 		{
@@ -23,7 +24,7 @@ namespace DNIC.Erechtheion.Domain.Topic
 
 		public void Change(string name)
 		{
-			if (string.IsNullOrEmpty(name))
+			if (string.IsNullOrEmpty(name) || Name == name)
 				return;
 
 			Name = name;

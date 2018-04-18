@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using DNIC.Erechtheion.Core;
 using DNIC.Erechtheion.Core.Conditions;
+using DNIC.Erechtheion.Core.DtoBase;
 
 namespace DNIC.Erechtheion.Domain.Topic
 {
@@ -17,6 +18,6 @@ namespace DNIC.Erechtheion.Domain.Topic
 
 		Task<IEnumerable<Topic>> FindList(TopicSearch search);
 
-		Task<PagedData<Topic>> Search(TopicSearch search);
+		Task<PagedModel<Topic>> Search(TopicSearch search);
 	}
 }

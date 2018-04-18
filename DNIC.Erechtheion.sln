@@ -29,6 +29,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{B58AB3BB-B
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DNIC.Erechtheion.Tests", "test\DNIC.Erechtheion.Tests\DNIC.Erechtheion.Tests.csproj", "{9FB383D7-D1B8-4060-9D88-143A10484280}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DNIC.Erechtheion.Dapper", "src\DNIC.Erechtheion.Dapper\DNIC.Erechtheion.Dapper.csproj", "{9B03CB81-F8F7-45E8-A149-A67940D1D665}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{9FB383D7-D1B8-4060-9D88-143A10484280}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9FB383D7-D1B8-4060-9D88-143A10484280}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9FB383D7-D1B8-4060-9D88-143A10484280}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B03CB81-F8F7-45E8-A149-A67940D1D665}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B03CB81-F8F7-45E8-A149-A67940D1D665}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B03CB81-F8F7-45E8-A149-A67940D1D665}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B03CB81-F8F7-45E8-A149-A67940D1D665}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -75,6 +81,7 @@ Global
 		{E2E5F672-DF95-4748-A31F-970588A1DCC9} = {5D4514D9-6AF1-4E39-B130-A5A3B7B80B0C}
 		{E648C590-1D08-4B96-8AA4-22F3710E25CE} = {5D4514D9-6AF1-4E39-B130-A5A3B7B80B0C}
 		{9FB383D7-D1B8-4060-9D88-143A10484280} = {B58AB3BB-BFA3-4F88-9EB0-DE6B41A12A15}
+		{9B03CB81-F8F7-45E8-A149-A67940D1D665} = {5D4514D9-6AF1-4E39-B130-A5A3B7B80B0C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {41D738A8-6AFD-4A98-B21F-2F68B5251238}

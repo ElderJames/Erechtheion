@@ -127,7 +127,7 @@ namespace DNIC.Erechtheion.Tests.Repository
 			});
 
 			// Assert
-			Assert.Equal(2, paged.Records.Count());
+			Assert.Equal(2, paged.Data.Count());
 		}
 
 		private ITopicRepository GetReopsitory()
