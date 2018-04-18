@@ -49,13 +49,13 @@ namespace DNIC.Erechtheion.Core.RepositoryBase
 		void RegisterSaveRange<T>(IEnumerable<T> entities) where T : AggregateRootEntity;
 		#endregion
 
-		#region # 注册删除单个实体对象（物理删除） —— void RegisterPhysicsRemove<T>(Guid id)
+		#region # 注册删除单个实体对象（物理删除） —— void RegisterPhysicsRemove<T>(long id)
 		/// <summary>
 		/// 注册删除单个实体对象（物理删除）
 		/// </summary>
 		/// <typeparam name="T">实体类型</typeparam>
 		/// <param name="id">标识Id</param>
-		void RegisterPhysicsRemove<T>(Guid id) where T : AggregateRootEntity;
+		void RegisterPhysicsRemove<T>(long id) where T : AggregateRootEntity;
 		#endregion
 
 		#region # 注册删除单个实体对象（物理删除） —— void RegisterPhysicsRemove<T>(string number)
@@ -76,22 +76,22 @@ namespace DNIC.Erechtheion.Core.RepositoryBase
 		void RegisterPhysicsRemove<T>(T entity) where T : AggregateRootEntity;
 		#endregion
 
-		#region # 注册删除多个实体对象（物理删除） —— void RegisterPhysicsRemoveRange<T>(IEnumerable<Guid> ids)
+		#region # 注册删除多个实体对象（物理删除） —— void RegisterPhysicsRemoveRange<T>(IEnumerable<long> ids)
 		/// <summary>
 		/// 注册删除多个实体对象（物理删除）
 		/// </summary>
 		/// <typeparam name="T">实体类型</typeparam>
 		/// <param name="ids">标识Id集合</param>
-		void RegisterPhysicsRemoveRange<T>(IEnumerable<Guid> ids) where T : AggregateRootEntity;
+		void RegisterPhysicsRemoveRange<T>(IEnumerable<long> ids) where T : AggregateRootEntity;
 		#endregion
 
-		#region # 注册删除单个实体对象（逻辑删除） —— void RegisterRemove<T>(Guid id)
+		#region # 注册删除单个实体对象（逻辑删除） —— void RegisterRemove<T>(long id)
 		/// <summary>
 		/// 注册删除单个实体对象（逻辑删除）
 		/// </summary>
 		/// <typeparam name="T">实体类型</typeparam>
 		/// <param name="id">标识Id</param>
-		void RegisterRemove<T>(Guid id) where T : AggregateRootEntity;
+		void RegisterRemove<T>(long id) where T : AggregateRootEntity;
 		#endregion
 
 		#region # 注册删除单个实体对象（逻辑删除） —— void RegisterRemove<T>(string number)
@@ -112,26 +112,26 @@ namespace DNIC.Erechtheion.Core.RepositoryBase
 		void RegisterRemove<T>(T entity) where T : AggregateRootEntity;
 		#endregion
 
-		#region # 注册删除多个实体对象（逻辑删除） —— void RegisterRemoveRange<T>(IEnumerable<Guid> ids)
+		#region # 注册删除多个实体对象（逻辑删除） —— void RegisterRemoveRange<T>(IEnumerable<long> ids)
 		/// <summary>
 		/// 注册删除多个实体对象（逻辑删除）
 		/// </summary>
 		/// <typeparam name="T">实体类型</typeparam>
 		/// <param name="ids">标识Id集合</param>
-		void RegisterRemoveRange<T>(IEnumerable<Guid> ids) where T : AggregateRootEntity;
+		void RegisterRemoveRange<T>(IEnumerable<long> ids) where T : AggregateRootEntity;
 		#endregion
 
 
 		//Resolve部分
 
-		#region # 根据Id获取唯一实体对象（修改时用） —— T Resolve<T>(Guid id)
+		#region # 根据Id获取唯一实体对象（修改时用） —— T Resolve<T>(long id)
 		/// <summary>
 		/// 根据Id获取唯一实体对象（修改时用）
 		/// </summary>
 		/// <typeparam name="T">实体类型</typeparam>
 		/// <param name="id">Id</param>
 		/// <returns>唯一实体对象</returns>
-		T Resolve<T>(Guid id) where T : AggregateRootEntity;
+		T Resolve<T>(long id) where T : AggregateRootEntity;
 		#endregion
 
 		#region # 根据Id集获取实体对象集合（修改时用） —— ICollection<T> ResolveRange<T>(...
@@ -141,7 +141,7 @@ namespace DNIC.Erechtheion.Core.RepositoryBase
 		/// <typeparam name="T">实体类型</typeparam>
 		/// <param name="ids">Id集</param>
 		/// <returns>实体对象集合</returns>
-		ICollection<T> ResolveRange<T>(IEnumerable<Guid> ids) where T : AggregateRootEntity;
+		ICollection<T> ResolveRange<T>(IEnumerable<long> ids) where T : AggregateRootEntity;
 		#endregion
 
 		#region # 根据编号获取唯一实体对象（修改时用） —— T Resolve<T>(string number)
@@ -164,14 +164,14 @@ namespace DNIC.Erechtheion.Core.RepositoryBase
 		ICollection<T> ResolveRange<T>(IEnumerable<string> numbers) where T : AggregateRootEntity;
 		#endregion
 
-		#region # 异步根据Id获取唯一实体对象（修改时用） —— Task<T> ResolveAsync<T>(Guid id)
+		#region # 异步根据Id获取唯一实体对象（修改时用） —— Task<T> ResolveAsync<T>(long id)
 		/// <summary>
 		/// 异步根据Id获取唯一实体对象（修改时用）
 		/// </summary>
 		/// <typeparam name="T">实体类型</typeparam>
 		/// <param name="id">Id</param>
 		/// <returns>唯一实体对象</returns>
-		Task<T> ResolveAsync<T>(Guid id) where T : AggregateRootEntity;
+		Task<T> ResolveAsync<T>(long id) where T : AggregateRootEntity;
 		#endregion
 
 		#region # 异步根据Id集获取实体对象集合（修改时用） —— Task<ICollection<T>> ResolveRangeAsync<T>(...
@@ -181,7 +181,7 @@ namespace DNIC.Erechtheion.Core.RepositoryBase
 		/// <typeparam name="T">实体类型</typeparam>
 		/// <param name="ids">Id集</param>
 		/// <returns>实体对象集合</returns>
-		Task<ICollection<T>> ResolveRangeAsync<T>(IEnumerable<Guid> ids) where T : AggregateRootEntity;
+		Task<ICollection<T>> ResolveRangeAsync<T>(IEnumerable<long> ids) where T : AggregateRootEntity;
 		#endregion
 
 		#region # 异步根据编号获取唯一实体对象（修改时用） —— Task<T> ResolveAsync<T>(string number)

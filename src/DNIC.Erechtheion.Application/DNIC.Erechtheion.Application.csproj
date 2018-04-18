@@ -8,4 +8,8 @@
     <PackageReference Include="AutoMapper" Version="6.2.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DNIC.Erechtheion.Core\DNIC.Erechtheion.Core.csproj" />
+  </ItemGroup>
+
 </Project>

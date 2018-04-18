@@ -1,24 +1,15 @@
-﻿using DNIC.Erechtheion.Core.Domain;
+﻿using DNIC.Erechtheion.Core.DtoBase;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
-namespace DNIC.Erechtheion.Domain.Entities
+namespace DNIC.Erechtheion.Application.Dto
 {
-	public class Channel : DisableAggregateRootEntity, ITree<Channel, long>
+	public class CreateChannelDto : BaseDto
 	{
-		public bool IsRoot => this.ParentNode == null;
-
-		public bool IsLeaf => !this.ChildNodes.Any();
-
-		public virtual long ParentId { get; }
-
-		public virtual Channel ParentNode { get; }
-
-		public virtual ICollection<Channel> ChildNodes { get; }
-
 		public virtual string Name { get; private set; }
+
+		public virtual long ParentId { get; set; }
 
 		public virtual string Description { get; private set; }
 

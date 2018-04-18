@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DNIC.Erechtheion.Core.AppServiceBase
 {
-    class IApplicationService
-    {
-    }
+	public interface IApplicationService
+	{
+	}
 }
