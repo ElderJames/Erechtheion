@@ -1,23 +1,25 @@
 ﻿using System;
 using DNIC.Erechtheion.Core.EnumTypes;
 
-namespace DNIC.Erechtheion.Domain.Subject
+namespace DNIC.Erechtheion.Domain.Aggregates
 {
-	public class Subject : AuditedEntity<Guid>
+	public class Topic : AuditedEntity<Guid>
 	{
 		#region ctor
 
-		public Subject(Guid aggregateId, long authorId, Guid sectionId, string title, ContentTypes contentType, string content, SubjectStates state) : base(aggregateId)
+		public Topic(Guid aggregateId, long authorId, Guid channelId, string title, string slug,
+			ContentTypes contentType, string content, SubjectStates state) : base(aggregateId)
 		{
 			this.AuthorId = authorId;
-			this.SectionId = sectionId;
+			this.ChannelId = channelId;
 			this.Title = title;
+			this.Slug = slug;
 			this.ContentType = contentType;
 			this.Content = content;
 			this.State = state;
 		}
 
-		protected Subject() : base(Guid.Empty)
+		protected Topic() : base(Guid.Empty)
 		{
 		}
 
@@ -30,12 +32,22 @@ namespace DNIC.Erechtheion.Domain.Subject
 		/// <summary>
 		/// 板块id
 		/// </summary>
-		public Guid SectionId { get; private set; }
+		public Guid ChannelId { get; private set; }
 
 		/// <summary>
 		/// 标题
 		/// </summary>
 		public string Title { get; private set; }
+
+		/// <summary>
+		/// 友好链接标识（把标题翻译成英文）
+		/// </summary>
+		public string Slug { get; private set; }
+
+		/// <summary>
+		/// 是否锁定
+		/// </summary>
+		public bool Locked { get; private set; }
 
 		/// <summary>
 		/// 内容类型
@@ -67,14 +79,20 @@ namespace DNIC.Erechtheion.Domain.Subject
 		/// </summary>
 		public SubjectStates State { get; private set; }
 
+		/// <summary>
+		/// 删除
+		/// </summary>
+		public bool Deleted { get; private set; }
+
 		#endregion prop
 
 		#region actions
 
-		public void Change(Guid sectionId, string title, ContentTypes contentType, string content, SubjectStates state)
+		public void Change(Guid channelId, string title, string slug, ContentTypes contentType, string content, SubjectStates state)
 		{
-			this.SectionId = sectionId;
+			this.ChannelId = channelId;
 			this.Title = title;
+			this.Slug = slug;
 			this.ContentType = contentType;
 			this.Content = content;
 			this.State = state;

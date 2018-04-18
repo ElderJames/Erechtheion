@@ -2,8 +2,9 @@
 using System.Threading.Tasks;
 using DNIC.Erechtheion.Core;
 using DNIC.Erechtheion.Core.Conditions;
+using DNIC.Erechtheion.Domain.Aggregates;
 
-namespace DNIC.Erechtheion.Domain.Topic
+namespace DNIC.Erechtheion.Domain.Repositories
 {
 	public interface ITopicRepository
 	{

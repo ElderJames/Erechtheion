@@ -3,7 +3,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using DNIC.Erechtheion.Core;
 using DNIC.Erechtheion.Core.Conditions;
-using DNIC.Erechtheion.Domain.Topic;
+using DNIC.Erechtheion.Domain.Aggregates;
+using DNIC.Erechtheion.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace DNIC.Erechtheion.EntityFrameworkCore.Repositories
@@ -45,7 +46,7 @@ namespace DNIC.Erechtheion.EntityFrameworkCore.Repositories
 			var query = _dbContext.Topic.AsQueryable();
 
 			if (!string.IsNullOrEmpty(search.Name))
-				query = query.Where(t => t.Name == search.Name);
+				query = query.Where(t => t.Title == search.Name);
 
 			if (search.BeginTime.HasValue)
 				query = query.Where(t => t.CreationTime >= search.BeginTime.Value);
