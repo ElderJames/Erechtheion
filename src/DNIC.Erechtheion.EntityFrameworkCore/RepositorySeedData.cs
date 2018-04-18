@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;
 using DNIC.Erechtheion.Core.EnumTypes;
-using DNIC.Erechtheion.Domain.Aggregates;
+using DNIC.Erechtheion.Domain.Entities;
 
 namespace DNIC.Erechtheion.EntityFrameworkCore
 {

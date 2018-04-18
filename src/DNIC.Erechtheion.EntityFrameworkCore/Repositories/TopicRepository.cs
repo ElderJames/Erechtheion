@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DNIC.Erechtheion.Core;
 using DNIC.Erechtheion.Core.Conditions;
-using DNIC.Erechtheion.Domain.Aggregates;
 using DNIC.Erechtheion.Domain.Repositories;
+using DNIC.Erechtheion.Core.DtoBase;
+using DNIC.Erechtheion.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace DNIC.Erechtheion.EntityFrameworkCore.Repositories
@@ -57,7 +57,7 @@ namespace DNIC.Erechtheion.EntityFrameworkCore.Repositories
 			return await query.ToListAsync();
 		}
 
-		public async Task<PagedData<Topic>> Search(TopicSearch search)
+		public async Task<PagedModel<Topic>> Search(TopicSearch search)
 		{
 			var query = _dbContext.Topic.AsQueryable();
 			if (search.BeginTime.HasValue)
@@ -67,11 +67,11 @@ namespace DNIC.Erechtheion.EntityFrameworkCore.Repositories
 
 			var count = await query.CountAsync();
 			if (count == 0)
-				return new PagedData<Topic>(search.PageNow, search.PageSize, 0, Enumerable.Empty<Topic>());
+				return new PagedModel<Topic>(search.PageNow, search.PageSize, 0, Enumerable.Empty<Topic>());
 
 			var records = await query.Skip(search.StartIndex).Take(search.PageSize).ToListAsync();
 
-			return new PagedData<Topic>(search.PageSize, search.PageNow, count, records);
+			return new PagedModel<Topic>(search.PageSize, search.PageNow, count, records);
 		}
 	}
 }

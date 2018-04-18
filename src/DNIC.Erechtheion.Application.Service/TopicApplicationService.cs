@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using DNIC.Erechtheion.Application.Dto;
 using DNIC.Erechtheion.Core.Configuration;
 using DNIC.Erechtheion.Core.EnumTypes;
-using DNIC.Erechtheion.Domain.Aggregates;
+using DNIC.Erechtheion.Domain.Entities;
 using DNIC.Erechtheion.Domain.Repositories;
 
 namespace DNIC.Erechtheion.Application.Service

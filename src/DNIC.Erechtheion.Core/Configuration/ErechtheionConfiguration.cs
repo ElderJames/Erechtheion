@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using DNIC.Erechtheion.Core.CustomExceptions;
+using Microsoft.Extensions.Configuration;
 using System;
 
 namespace DNIC.Erechtheion.Core.Configuration

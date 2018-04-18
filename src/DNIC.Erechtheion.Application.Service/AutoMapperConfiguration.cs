@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using DNIC.Erechtheion.Application.Dto;
-using DNIC.Erechtheion.Domain.Aggregates;
+using DNIC.Erechtheion.Domain.Entities;
 
 namespace DNIC.Erechtheion.Application.Service
 {

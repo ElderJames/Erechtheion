@@ -2,8 +2,9 @@
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
+using DNIC.Erechtheion.Core.Domain;
 using DNIC.Erechtheion.Domain;
-using DNIC.Erechtheion.Domain.Aggregates;
+using DNIC.Erechtheion.Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
@@ -55,7 +56,7 @@ namespace DNIC.Erechtheion.EntityFrameworkCore
 			var entries = ChangeTracker.Entries();
 			foreach (var entry in entries)
 			{
-				if (entry.Entity is IAuditedEntity e)
+				if (entry.Entity is IAudited e)
 				{
 					switch (entry.State)
 					{

@@ -1,9 +1,10 @@
 ﻿using System;
+using DNIC.Erechtheion.Core.Domain;
 using DNIC.Erechtheion.Core.EnumTypes;
 
-namespace DNIC.Erechtheion.Domain.Aggregates
+namespace DNIC.Erechtheion.Domain.Entities
 {
-	public class Topic : AuditedEntity<Guid>
+	public class Topic : DisableAggregateRootEntity
 	{
 		#region ctor
 

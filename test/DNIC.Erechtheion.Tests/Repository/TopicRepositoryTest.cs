@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using DNIC.Erechtheion.Core.EnumTypes;
-using DNIC.Erechtheion.Domain.Aggregates;
+using DNIC.Erechtheion.Domain.Entities;
 using DNIC.Erechtheion.Domain.Repositories;
 using DNIC.Erechtheion.EntityFrameworkCore;
 using DNIC.Erechtheion.EntityFrameworkCore.Repositories;
