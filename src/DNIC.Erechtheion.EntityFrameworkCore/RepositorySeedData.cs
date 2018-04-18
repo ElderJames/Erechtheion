@@ -4,7 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;
-using DNIC.Erechtheion.Domain.Topic;
+using DNIC.Erechtheion.Core.EnumTypes;
+using DNIC.Erechtheion.Domain.Entities;
 
 namespace DNIC.Erechtheion.EntityFrameworkCore
 {
@@ -37,8 +38,10 @@ namespace DNIC.Erechtheion.EntityFrameworkCore
 					context.Database.Migrate();
 					if (!context.Topic.Any())
 					{
-						context.Topic.Add(new Topic("topic1"));
-						context.Topic.Add(new Topic("topic2"));
+						var topic = new Topic(Guid.NewGuid(), 123456789L, Guid.NewGuid(), "Hello World", "hello-word", ContentTypes.Html, "I'm Iron man", SubjectStates.草稿);
+						var topic2 = new Topic(Guid.NewGuid(), 123456789L, Guid.NewGuid(), "Hello World", "hello-word", ContentTypes.Html, "I'm Iron man", SubjectStates.草稿);
+						context.Topic.Add(topic);
+						context.Topic.Add(topic2);
 						context.SaveChanges();
 					}
 				}

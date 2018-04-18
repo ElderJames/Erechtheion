@@ -7,13 +7,14 @@ namespace DNIC.Erechtheion.Core.Domain
 	[Serializable]
 	public abstract class AggregateRootEntity : PlainEntity
 	{
-		public Guid AggregateId { get; set; }
+		public Guid AggregateId { get; private set; }
 
 		/// <summary>
 		/// 构造器
 		/// </summary>
-		protected AggregateRootEntity()
+		protected AggregateRootEntity(Guid aggregateId)
 		{
+			this.AggregateId = aggregateId;
 		}
 	}
 
@@ -23,7 +24,7 @@ namespace DNIC.Erechtheion.Core.Domain
 		/// <summary>
 		/// 构造器
 		/// </summary>
-		protected DisableAggregateRootEntity()
+		protected DisableAggregateRootEntity(Guid aggregateId) : base(aggregateId)
 		{
 		}
 

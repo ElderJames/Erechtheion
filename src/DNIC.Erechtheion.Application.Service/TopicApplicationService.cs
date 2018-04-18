@@ -1,20 +1,21 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using DNIC.Erechtheion.Application.Dto;
 using DNIC.Erechtheion.Core.Configuration;
-using DNIC.Erechtheion.Domain.Topic;
+using DNIC.Erechtheion.Core.EnumTypes;
+using DNIC.Erechtheion.Domain.Entities;
+using DNIC.Erechtheion.Domain.Repositories;
 
 namespace DNIC.Erechtheion.Application.Service
 {
 	public class TopicApplicationService : ApplicationServiceBase, ITopicApplicationService
 	{
 		private readonly ITopicRepository _topicRepository;
-		private readonly TopicDomainService _topicDomainService;
 
-		public TopicApplicationService(IErechtheionConfiguration configuration, ITopicRepository topicRepository, TopicDomainService topicDomainService) : base(configuration)
+		public TopicApplicationService(IErechtheionConfiguration configuration, ITopicRepository topicRepository) : base(configuration)
 		{
 			_topicRepository = topicRepository;
-			_topicDomainService = topicDomainService;
 		}
 
 		public async Task<IEnumerable<TopicOutput>> GetAll()
@@ -31,13 +32,15 @@ namespace DNIC.Erechtheion.Application.Service
 
 		public async Task<TopicOutput> Create(string name)
 		{
-			var topic = await _topicDomainService.CreateTopic(name);
+			var topic = new Topic(Guid.NewGuid(), 123456789L, Guid.NewGuid(), "Hello World", "hello-word", ContentTypes.Html, "I'm Iron man", SubjectStates.草稿);
+
 			return AutoMapper.Mapper.Map<Topic, TopicOutput>(topic);
 		}
 
 		public async Task<TopicOutput> Change(long id, string name)
 		{
-			var topic = await _topicDomainService.ChangeTopic(id, name);
+			var topic = new Topic(Guid.NewGuid(), 123456789L, Guid.NewGuid(), "Hello World", "hello-word", ContentTypes.Html, "I'm Iron man", SubjectStates.草稿);
+
 			return AutoMapper.Mapper.Map<Topic, TopicOutput>(topic);
 		}
 	}

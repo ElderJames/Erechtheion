@@ -4,7 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using DNIC.Erechtheion.Core.Domain;
 using DNIC.Erechtheion.Domain;
-using DNIC.Erechtheion.Domain.Topic;
+using DNIC.Erechtheion.Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 

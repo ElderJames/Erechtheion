@@ -4,7 +4,7 @@ using DNIC.Erechtheion.Core.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using DNIC.Erechtheion.EntityFrameworkCore;
 using DNIC.Erechtheion.Domain;
-using DNIC.Erechtheion.Domain.Topic;
+using DNIC.Erechtheion.Domain.Repositories;
 using DNIC.Erechtheion.EntityFrameworkCore.Repositories;
 
 namespace DNIC.Erechtheion
@@ -17,7 +17,6 @@ namespace DNIC.Erechtheion
 			services.AddSingleton<IRepositorySeedData, RepositorySeedData>();
 			services.AddScoped<ITopicRepository, TopicRepository>();
 			services.AddScoped<ITopicApplicationService, TopicApplicationService>();
-			services.AddScoped<TopicDomainService>();
 		}
 	}
 }

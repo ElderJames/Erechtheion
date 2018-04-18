@@ -8,6 +8,10 @@ namespace DNIC.Erechtheion.Domain.Entities
 {
 	public class Channel : DisableAggregateRootEntity, ITree<Channel, long>
 	{
+		public Channel(Guid aggregateId) : base(aggregateId)
+		{
+		}
+
 		public bool IsRoot => this.ParentNode == null;
 
 		public bool IsLeaf => !this.ChildNodes.Any();
