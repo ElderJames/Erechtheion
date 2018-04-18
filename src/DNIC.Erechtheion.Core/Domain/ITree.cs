@@ -7,8 +7,10 @@ namespace DNIC.Erechtheion.Core.Domain
 	//
 	// Summary:
 	//     树形结构接口
-	public interface ITree<T>
+	public interface ITree<T, TPrimaryKey>
 	{
+		TPrimaryKey ParentId { get; }
+
 		//
 		// Summary:
 		//     是否是根级节点

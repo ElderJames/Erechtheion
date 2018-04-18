@@ -11,6 +11,7 @@ namespace DNIC.Erechtheion.Application.Service
 			Mapper.Initialize(config =>
 			{
 				config.CreateMap<Topic, TopicOutput>();
+				config.CreateMap<CreateChannelDto, Channel>();
 			});
 		}
 	}
