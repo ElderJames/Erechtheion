@@ -1,4 +1,5 @@
-﻿using DNIC.Erechtheion.Domain;
+﻿using DNIC.Erechtheion.Core;
+using DNIC.Erechtheion.Domain;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,7 +11,10 @@ namespace DNIC.Erechtheion
 		public static void Main(string[] args)
 		{
 			var host = BuildWebHost(args);
-			host.Services.GetRequiredService<IRepositorySeedData>()?.EnsureSeedData();
+			foreach (var initiator in host.Services.GetServices<ISeedDataInitiator>())
+			{
+				initiator.EnsureSeedData();
+			}
 			host.Run();
 		}
 

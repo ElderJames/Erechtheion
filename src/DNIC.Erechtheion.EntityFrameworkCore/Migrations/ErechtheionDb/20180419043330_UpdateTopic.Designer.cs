@@ -12,9 +12,10 @@ using System;
 namespace DNIC.Erechtheion.EntityFrameworkCore.Migrations.ErechtheionDb
 {
     [DbContext(typeof(ErechtheionDbContext))]
-    partial class ErechtheionDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180419043330_UpdateTopic")]
+    partial class UpdateTopic
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

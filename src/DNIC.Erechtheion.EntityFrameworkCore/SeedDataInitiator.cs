@@ -1,19 +1,18 @@
-﻿using DNIC.Erechtheion.Core.Configuration;
-using DNIC.Erechtheion.Domain;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;
+using DNIC.Erechtheion.Core;
 using DNIC.Erechtheion.Core.EnumTypes;
 using DNIC.Erechtheion.Domain.Entities;
 
 namespace DNIC.Erechtheion.EntityFrameworkCore
 {
-	public class RepositorySeedData : IRepositorySeedData
+	public class SeedDataInitiator : ISeedDataInitiator
 	{
 		private readonly IServiceProvider serviceProvider;
 
-		public RepositorySeedData(IServiceProvider serviceProvider)
+		public SeedDataInitiator(IServiceProvider serviceProvider)
 		{
 			this.serviceProvider = serviceProvider;
 		}
@@ -21,18 +20,9 @@ namespace DNIC.Erechtheion.EntityFrameworkCore
 		public void EnsureSeedData()
 		{
 			Console.WriteLine("Seeding database...");
-			var configuration = serviceProvider.GetRequiredService<IErechtheionConfiguration>();
 
 			using (var scope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope())
 			{
-				if ((configuration.AuthenticationMode & AuthenticationMode.Self) == AuthenticationMode.Self)
-				{
-					using (var context = scope.ServiceProvider.GetRequiredService<ErechtheionIdentityDbContext>())
-					{
-						context.Database.Migrate();
-					}
-				}
-
 				using (var context = scope.ServiceProvider.GetRequiredService<ErechtheionDbContext>())
 				{
 					context.Database.Migrate();
