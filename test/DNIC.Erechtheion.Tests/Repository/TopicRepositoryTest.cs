@@ -15,30 +15,11 @@ namespace DNIC.Erechtheion.Tests.Repository
 	/// <summary>
 	/// reference : https://docs.microsoft.com/en-us/ef/core/miscellaneous/testing/in-memory
 	/// </summary>
-	public class TopicRepositoryTest
+	public class TopicRepositoryTest : TestBase
 	{
 		private ITopicRepository GetReopsitory()
 		{
-			return new TopicRepository(GetContext("default"));
-		}
-
-		private ErechtheionDbContext GetContext(string databaseName)
-		{
-			var options = new DbContextOptionsBuilder<ErechtheionDbContext>()
-				.UseInMemoryDatabase("databaseName")
-				.Options;
-
-			var claimsPrincipal = new ClaimsPrincipal(new List<ClaimsIdentity>()
-			{
-				new ClaimsIdentity(new List<Claim>() {new Claim(ClaimTypes.NameIdentifier, "1")})
-			});
-
-			var mock = new Mock<IHttpContextAccessor>();
-			mock.Setup(acr => acr.HttpContext.User).Returns(claimsPrincipal);
-
-			var accessor = mock.Object;
-
-			return new ErechtheionDbContext(options, accessor);
+			return new TopicRepository(GetDbContext("default"));
 		}
 
 		private Topic CreateTopic()

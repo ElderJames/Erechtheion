@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
 using System;
 
-namespace DNIC.Erechtheion.EntityFrameworkCore.Migrations.ErechtheionDb
+namespace DNIC.Erechtheion.EntityFrameworkCore.Migrations
 {
     [DbContext(typeof(ErechtheionDbContext))]
-    [Migration("20180419043330_UpdateTopic")]
-    partial class UpdateTopic
+    [Migration("20180419072155_Erechtheion")]
+    partial class Erechtheion
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -24,14 +24,10 @@ namespace DNIC.Erechtheion.EntityFrameworkCore.Migrations.ErechtheionDb
 
             modelBuilder.Entity("DNIC.Erechtheion.Domain.Entities.Topic", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<long>("AuthorId");
-
-                    b.Property<Guid>("ChannelId");
-
-                    b.Property<int>("Comments");
+                    b.Property<int>("ChannelId");
 
                     b.Property<string>("Content");
 
@@ -41,19 +37,15 @@ namespace DNIC.Erechtheion.EntityFrameworkCore.Migrations.ErechtheionDb
 
                     b.Property<long?>("CreatorUserId");
 
-                    b.Property<bool>("Deleted");
-
                     b.Property<DateTime?>("DeletionTime");
 
-                    b.Property<int>("Hits");
+                    b.Property<bool>("Enabled");
 
                     b.Property<bool>("IsDeleted");
 
                     b.Property<DateTime?>("LastModificationTime");
 
                     b.Property<long?>("LastModifierUserId");
-
-                    b.Property<int>("Likes");
 
                     b.Property<bool>("Locked");
 

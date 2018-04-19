@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Dapper" Version="1.50.4" />
+    <PackageReference Include="JetBrains.Annotations" Version="11.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\DNIC.Erechtheion.Core\DNIC.Erechtheion.Core.csproj" />
     <ProjectReference Include="..\DNIC.Erechtheion.Domain\DNIC.Erechtheion.Domain.csproj" />
   </ItemGroup>

@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
 using System;
 
-namespace DNIC.Erechtheion.EntityFrameworkCore.Migrations.ErechtheionDb
+namespace DNIC.Erechtheion.EntityFrameworkCore.Migrations
 {
     [DbContext(typeof(ErechtheionDbContext))]
     partial class ErechtheionDbContextModelSnapshot : ModelSnapshot

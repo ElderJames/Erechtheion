@@ -1,11 +1,12 @@
 ﻿using DNIC.Erechtheion.Core.DtoBase;
+using DNIC.Erechtheion.Core.Services.Dto;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace DNIC.Erechtheion.Application.Dto
 {
-	public class CreateChannelDto : BaseDto
+	public class CreateChannelDto : EntityDto
 	{
 		public virtual string Name { get; private set; }
 

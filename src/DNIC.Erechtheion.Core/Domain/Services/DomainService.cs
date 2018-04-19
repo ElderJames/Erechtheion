@@ -10,7 +10,7 @@ namespace DNIC.Erechtheion.Core.DomainServiceBase
 	/// </summary>
 	public abstract class DomainService : ErechtheionService, IDomainService
 	{
-		public DomainService(IUnitOfWorkManager unitOfWorkManager) : base(unitOfWorkManager)
+		public DomainService()
 		{
 		}
 	}
