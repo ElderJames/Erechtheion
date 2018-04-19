@@ -15,6 +15,8 @@ using DNIC.Erechtheion.Models.ManageViewModels;
 using DNIC.Erechtheion.Services;
 using DNIC.Erechtheion.Core.Configuration;
 using DNIC.Erechtheion.EntityFrameworkCore;
+using DNIC.Erechtheion.Identity;
+using DNIC.Erechtheion.Identity.EntityFrameworkCore;
 
 namespace DNIC.Erechtheion.Controllers
 {
@@ -542,6 +544,6 @@ namespace DNIC.Erechtheion.Controllers
 			model.AuthenticatorUri = GenerateQrCodeUri(user.Email, unformattedKey);
 		}
 
-		#endregion
+		#endregion Helpers
 	}
 }
