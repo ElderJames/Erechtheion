@@ -1,8 +1,12 @@
-## DNICµÄÉçÇø
+# Erechtheionã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€ã€€[ä¸­æ–‡](README.zh-cn.md)
+
+## Summary
+
+Forum for dotnet-china
 
 * .NET CORE SDK >= 2.0
 * Visual Studio 2017 Community or JetBrains Rider 2017.3
 
-## ×¼±¸¿ª·¢
+## Start
 
-* AccountCenterÏîÄ¿Æô¶¯, ²¢ÇÒ×¢ÒâÁ½±ßÊÚÈ¨ClientÐÅÏ¢Ò»ÖÂ, ·ñÔò»á³öÏÖÊÚÈ¨Ê§°ÜµÄ´íÎó¡£¿ÉÉ¾³ýAccountCenterµÄÊý¾Ý¿âÖØÐÂÆô¶¯¼´¿É¡£
+* When project starts, note that the authorized Client information is consistent, otherwise an authorization failure error will occur (if this error occurs, delete Erechtheion's database then restarted).
