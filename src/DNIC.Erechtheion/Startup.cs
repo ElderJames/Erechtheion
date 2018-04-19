@@ -9,7 +9,9 @@ using DNIC.Erechtheion.Core.Configuration;
 using DNIC.Erechtheion.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using DNIC.Erechtheion.Application.Service;
+using DNIC.Erechtheion.Identity;
 using Serilog;
+using DNIC.Erechtheion.Identity.EntityFrameworkCore;
 
 namespace DNIC.Erechtheion
 {

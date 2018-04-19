@@ -15,6 +15,8 @@ using DNIC.Erechtheion.Models.AccountViewModels;
 using DNIC.Erechtheion.Services;
 using DNIC.Erechtheion.Core.Configuration;
 using DNIC.Erechtheion.EntityFrameworkCore;
+using DNIC.Erechtheion.Identity;
+using DNIC.Erechtheion.Identity.EntityFrameworkCore;
 
 namespace DNIC.Erechtheion.Controllers
 {
@@ -429,7 +431,6 @@ namespace DNIC.Erechtheion.Controllers
 			return View();
 		}
 
-
 		[HttpGet]
 		public IActionResult AccessDenied()
 		{
@@ -458,6 +459,6 @@ namespace DNIC.Erechtheion.Controllers
 			}
 		}
 
-		#endregion
+		#endregion Helpers
 	}
 }

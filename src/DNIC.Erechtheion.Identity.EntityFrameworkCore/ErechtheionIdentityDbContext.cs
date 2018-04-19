@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace DNIC.Erechtheion.EntityFrameworkCore
+namespace DNIC.Erechtheion.Identity.EntityFrameworkCore
 {
 	public class ErechtheionIdentityDbContext : IdentityDbContext<ErechtheionUser>
 	{
