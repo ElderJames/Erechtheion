@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DNIC.Erechtheion.Core.EnumTypes
 {
-	public enum ContentTypes
+	public enum ContentType
 	{
 		Html = 0,
 		MarkDown = 1

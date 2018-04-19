@@ -13,13 +13,22 @@ namespace DNIC.Erechtheion.EntityFrameworkCore.Migrations.ErechtheionDb
                 name: "Topic",
                 columns: table => new
                 {
-                    Id = table.Column<long>(nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CreationTime = table.Column<DateTime>(nullable: false),
+                    ChannelId = table.Column<int>(nullable: false),
+                    Content = table.Column<string>(nullable: true),
+                    ContentType = table.Column<int>(nullable: false),
+                    CreationTime = table.Column<DateTime>(nullable: true),
                     CreatorUserId = table.Column<long>(nullable: true),
+                    DeletionTime = table.Column<DateTime>(nullable: true),
+                    Enabled = table.Column<bool>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false),
                     LastModificationTime = table.Column<DateTime>(nullable: true),
                     LastModifierUserId = table.Column<long>(nullable: true),
-                    Name = table.Column<string>(maxLength: 32, nullable: false)
+                    Locked = table.Column<bool>(nullable: false),
+                    Slug = table.Column<string>(nullable: true),
+                    State = table.Column<int>(nullable: false),
+                    Title = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

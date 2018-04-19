@@ -15,11 +15,13 @@ namespace DNIC.Erechtheion.Core.Domain
 		/// <summary>
 		/// Used to mark an Entity as 'Deleted'. 
 		/// </summary>
-		bool IsDeleted { get; set; }
+		bool IsDeleted { get; }
 
 		/// <summary>
 		/// Deletion time of this entity.
 		/// </summary>
-		DateTime? DeletionTime { get; set; }
+		DateTime? DeletionTime { get; }
+
+		void Delete();
 	}
 }

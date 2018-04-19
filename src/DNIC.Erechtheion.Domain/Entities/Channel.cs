@@ -1,4 +1,5 @@
 ﻿using DNIC.Erechtheion.Core.Domain;
+using DNIC.Erechtheion.Core.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,17 +7,13 @@ using System.Text;
 
 namespace DNIC.Erechtheion.Domain.Entities
 {
-	public class Channel : DisableAggregateRootEntity, ITree<Channel, long>
+	public class Channel : AuditedAggregateRoot, ITree<Channel, int>, IDisable, ISoftDelete
 	{
-		public Channel(Guid aggregateId) : base(aggregateId)
-		{
-		}
-
 		public bool IsRoot => this.ParentNode == null;
 
 		public bool IsLeaf => !this.ChildNodes.Any();
 
-		public virtual long ParentId { get; }
+		public virtual int ParentId { get; }
 
 		public virtual Channel ParentNode { get; }
 
@@ -39,5 +36,59 @@ namespace DNIC.Erechtheion.Domain.Entities
 		public virtual string Class { get; private set; }
 
 		public virtual string ImageClass { get; private set; }
+
+		/// <summary>
+		/// 是否启用
+		/// </summary>
+		public bool Enabled { get; private set; }
+
+		/// <summary>
+		/// 是否删除
+		/// </summary>
+		public bool IsDeleted { get; private set; }
+
+		/// <summary>
+		/// 删除时间
+		/// </summary>
+		public DateTime? DeletionTime { get; private set; }
+
+		#region disbable
+
+		public void Enable()
+		{
+			if (Enabled)
+			{
+				return;
+			}
+
+			Enabled = true;
+		}
+
+		public void Disable()
+		{
+			if (!Enabled)
+			{
+				return;
+			}
+
+			Enabled = false;
+		}
+
+		#endregion
+
+		#region soft delete
+
+		public void Delete()
+		{
+			if (IsDeleted)
+			{
+				return;
+			}
+
+			IsDeleted = true;
+			DeletionTime = DateTime.Now;
+		}
+
+		#endregion
 	}
 }

@@ -23,7 +23,7 @@ namespace DNIC.Erechtheion.Core.RepositoryBase
 		/// <param name="pageCount">总页数</param>
 		/// <returns>对象集合</returns>
 		public static IEnumerable<T> ToPage<T>(this IEnumerable<T> enumerable, int pageIndex, int pageSize, out int rowCount, out int pageCount)
-			where T : PlainEntity
+			where T : IEntity
 		{
 			T[] list = enumerable.ToArray();
 			rowCount = list.Length;
@@ -44,7 +44,7 @@ namespace DNIC.Erechtheion.Core.RepositoryBase
 		/// <param name="pageCount">总页数</param>
 		/// <returns>对象集合</returns>
 		public static IQueryable<T> ToPage<T>(this IOrderedQueryable<T> queryable, int pageIndex, int pageSize, out int rowCount, out int pageCount)
-			where T : PlainEntity
+			where T : IEntity
 		{
 			rowCount = queryable.Count();
 			pageCount = (int)Math.Ceiling(rowCount * 1.0 / pageSize);

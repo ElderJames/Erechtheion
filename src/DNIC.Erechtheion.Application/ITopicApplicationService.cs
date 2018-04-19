@@ -6,12 +6,12 @@ namespace DNIC.Erechtheion.Application
 {
 	public interface ITopicApplicationService
 	{
-		Task<TopicOutput> GetById(long id);
+		Task<TopicOutput> GetAsync(int id);
 
-		Task<IEnumerable<TopicOutput>> GetAll();
+		Task<IEnumerable<TopicOutput>> GetAllListAsync();
 
-		Task<TopicOutput> Create(string name);
+		Task<TopicOutput> CreateAsync(string name);
 
-		Task<TopicOutput> Change(long id, string name);
+		Task<TopicOutput> ChangeAsync(int id, string name);
 	}
 }

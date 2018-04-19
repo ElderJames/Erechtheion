@@ -6,44 +6,26 @@ using DNIC.Erechtheion.Domain.Repositories;
 using DNIC.Erechtheion.Core.DtoBase;
 using DNIC.Erechtheion.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
 
 namespace DNIC.Erechtheion.EntityFrameworkCore.Repositories
 {
-	public class TopicRepository : ITopicRepository
+	public class TopicRepository : EfCoreRepositoryBase<Topic>, ITopicRepository
 	{
-		private readonly ErechtheionDbContext _dbContext;
-
-		public TopicRepository(ErechtheionDbContext dbContext)
+		public TopicRepository(ErechtheionDbContext dbContext) : base(dbContext)
 		{
-			_dbContext = dbContext;
 		}
 
 		public async Task<Topic> Create(Topic topic)
 		{
-			var entity = await _dbContext.Topic.AddAsync(topic);
-			await _dbContext.SaveChangesAsync();
+			var entity = await Table.AddAsync(topic);
+			await DbContext.SaveChangesAsync();
 			return entity.Entity;
-		}
-
-		public async Task<bool> Update(Topic topic)
-		{
-			_dbContext.Topic.Update(topic);
-			return await _dbContext.SaveChangesAsync() > 0;
-		}
-
-		public async Task<Topic> GetById(long id)
-		{
-			return await _dbContext.Topic.FirstOrDefaultAsync(x => x.Id == id);
-		}
-
-		public async Task<IEnumerable<Topic>> GetAll()
-		{
-			return await _dbContext.Topic.ToListAsync();
 		}
 
 		public async Task<IEnumerable<Topic>> FindList(TopicSearch search)
 		{
-			var query = _dbContext.Topic.AsQueryable();
+			var query = Table.AsQueryable();
 
 			if (!string.IsNullOrEmpty(search.Name))
 				query = query.Where(t => t.Title == search.Name);
@@ -59,7 +41,7 @@ namespace DNIC.Erechtheion.EntityFrameworkCore.Repositories
 
 		public async Task<PagedModel<Topic>> Search(TopicSearch search)
 		{
-			var query = _dbContext.Topic.AsQueryable();
+			var query = Table.AsQueryable();
 			if (search.BeginTime.HasValue)
 				query = query.Where(t => t.CreationTime >= search.BeginTime.Value);
 			if (search.EndTime.HasValue)

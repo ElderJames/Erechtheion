@@ -12,14 +12,14 @@ namespace DNIC.Erechtheion.EntityFrameworkCore
 {
 	public class ErechtheionDbContext : DbContext
 	{
-		private readonly IHttpContextAccessor _accessor;
+		public IHttpContextAccessor Accessor { get; private set; }
 
 		public DbSet<Topic> Topic { get; set; }
 
 		public ErechtheionDbContext(DbContextOptions<ErechtheionDbContext> options, IHttpContextAccessor accessor)
 			: base(options)
 		{
-			_accessor = accessor;
+			Accessor = accessor;
 		}
 
 		protected override void OnModelCreating(ModelBuilder builder)
@@ -50,7 +50,7 @@ namespace DNIC.Erechtheion.EntityFrameworkCore
 
 		private void ApplyConcepts()
 		{
-			var value = _accessor?.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+			var value = Accessor?.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 			long.TryParse(value, out var userId);
 
 			var entries = ChangeTracker.Entries();

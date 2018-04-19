@@ -43,7 +43,7 @@ namespace DNIC.Erechtheion.Tests.Repository
 
 		private Topic CreateTopic()
 		{
-			return new Topic(Guid.NewGuid(), 123456789L, Guid.NewGuid(), "Hello World", "hello-word", ContentTypes.Html, "I'm Iron man", SubjectStates.²Ý¸å);
+			return new Topic(1, "Hello World", "hello-word", ContentType.Html, "I'm Iron man", TopicState.²Ý¸å);
 		}
 	}
 }

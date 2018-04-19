@@ -1,17 +1,17 @@
 ﻿using System;
 using DNIC.Erechtheion.Core.Domain;
+using DNIC.Erechtheion.Core.Domain.Entities;
 using DNIC.Erechtheion.Core.EnumTypes;
 
 namespace DNIC.Erechtheion.Domain.Entities
 {
-	public class Topic : DisableAggregateRootEntity
+	public class Topic : AuditedAggregateRoot, IDisable, ISoftDelete
 	{
 		#region ctor
 
-		public Topic(Guid aggregateId, long authorId, Guid channelId, string title, string slug,
-			ContentTypes contentType, string content, SubjectStates state) : base(aggregateId)
+		public Topic(int channelId, string title, string slug,
+			ContentType contentType, string content, TopicState state)
 		{
-			this.AuthorId = authorId;
 			this.ChannelId = channelId;
 			this.Title = title;
 			this.Slug = slug;
@@ -20,7 +20,7 @@ namespace DNIC.Erechtheion.Domain.Entities
 			this.State = state;
 		}
 
-		protected Topic() : base(Guid.Empty)
+		protected Topic()
 		{
 		}
 
@@ -28,12 +28,10 @@ namespace DNIC.Erechtheion.Domain.Entities
 
 		#region prop
 
-		public long AuthorId { get; private set; }
-
 		/// <summary>
 		/// 板块id
 		/// </summary>
-		public Guid ChannelId { get; private set; }
+		public int ChannelId { get; private set; }
 
 		/// <summary>
 		/// 标题
@@ -53,7 +51,7 @@ namespace DNIC.Erechtheion.Domain.Entities
 		/// <summary>
 		/// 内容类型
 		/// </summary>
-		public ContentTypes ContentType { get; private set; }
+		public ContentType ContentType { get; private set; }
 
 		/// <summary>
 		/// 内容
@@ -61,35 +59,69 @@ namespace DNIC.Erechtheion.Domain.Entities
 		public string Content { get; private set; }
 
 		/// <summary>
-		/// 评论数
-		/// </summary>
-		public int Comments { get; private set; }
-
-		/// <summary>
-		/// 点赞数
-		/// </summary>
-		public int Likes { get; private set; }
-
-		/// <summary>
-		/// 点击量
-		/// </summary>
-		public int Hits { get; private set; }
-
-		/// <summary>
 		/// 状态
 		/// </summary>
-		public SubjectStates State { get; private set; }
+		public TopicState State { get; private set; }
 
 		/// <summary>
-		/// 删除
+		/// 是否启用
 		/// </summary>
-		public bool Deleted { get; private set; }
+		public bool Enabled { get; private set; }
+
+		/// <summary>
+		/// 是否删除
+		/// </summary>
+		public bool IsDeleted { get; private set; }
+
+		/// <summary>
+		/// 删除时间
+		/// </summary>
+		public DateTime? DeletionTime { get; private set; }
 
 		#endregion prop
 
+		#region disbable
+
+		public void Enable()
+		{
+			if (Enabled)
+			{
+				return;
+			}
+
+			Enabled = true;
+		}
+
+		public void Disable()
+		{
+			if (!Enabled)
+			{
+				return;
+			}
+
+			Enabled = false;
+		}
+
+		#endregion
+
+		#region soft delete
+
+		public void Delete()
+		{
+			if (IsDeleted)
+			{
+				return;
+			}
+
+			IsDeleted = true;
+			DeletionTime = DateTime.Now;
+		}
+
+		#endregion
+
 		#region actions
 
-		public void Change(Guid channelId, string title, string slug, ContentTypes contentType, string content, SubjectStates state)
+		public void Change(int channelId, string title, string slug, ContentType contentType, string content, TopicState state)
 		{
 			this.ChannelId = channelId;
 			this.Title = title;
@@ -97,37 +129,6 @@ namespace DNIC.Erechtheion.Domain.Entities
 			this.ContentType = contentType;
 			this.Content = content;
 			this.State = state;
-		}
-
-		public void AddComments()
-		{
-			this.Comments++;
-		}
-
-		public void SubtractComments()
-		{
-			if (this.Comments <= 0)
-				return;
-
-			this.Comments--;
-		}
-
-		public void AddHits()
-		{
-			this.Hits++;
-		}
-
-		public void AddLikes()
-		{
-			this.Likes++;
-		}
-
-		public void SubtractLikes()
-		{
-			if (this.Likes <= 0)
-				return;
-
-			this.Likes--;
 		}
 
 		#endregion actions

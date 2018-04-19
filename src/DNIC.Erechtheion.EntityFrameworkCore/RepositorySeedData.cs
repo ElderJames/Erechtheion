@@ -38,8 +38,8 @@ namespace DNIC.Erechtheion.EntityFrameworkCore
 					context.Database.Migrate();
 					if (!context.Topic.Any())
 					{
-						var topic = new Topic(Guid.NewGuid(), 123456789L, Guid.NewGuid(), "Hello World", "hello-word", ContentTypes.Html, "I'm Iron man", SubjectStates.草稿);
-						var topic2 = new Topic(Guid.NewGuid(), 123456789L, Guid.NewGuid(), "Hello World", "hello-word", ContentTypes.Html, "I'm Iron man", SubjectStates.草稿);
+						var topic = new Topic(1, "Hello World", "hello-word", ContentType.Html, "I'm Iron man", TopicState.草稿);
+						var topic2 = new Topic(2, "Hello World", "hello-word", ContentType.Html, "I'm Iron man", TopicState.草稿);
 						context.Topic.Add(topic);
 						context.Topic.Add(topic2);
 						context.SaveChanges();

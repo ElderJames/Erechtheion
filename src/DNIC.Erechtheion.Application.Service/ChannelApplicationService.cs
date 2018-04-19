@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using DNIC.Erechtheion.Application.Dto;
+using DNIC.Erechtheion.Core.Domain.Uow;
 using DNIC.Erechtheion.Core.RepositoryBase;
-using DNIC.Erechtheion.Core.Transaction;
 using DNIC.Erechtheion.Domain.Entities;
 using DNIC.Erechtheion.Domain.Repositories;
 using System;
@@ -24,11 +24,12 @@ namespace DNIC.Erechtheion.Application.Service
 
 		public async Task CreateChannelAsync(CreateChannelDto input)
 		{
-			//验证
-			//Assert.IsFalse(this.channelRepository.ExistsName(input.Name), "栏目名称已存在！");
-			Channel parentChannel = input.ParentId == 0 ? null : this.unitOfWork.Resolve<Channel>(input.ParentId);
-			this.unitOfWork.RegisterAdd(Mapper.Map<Channel>(input));
-			await this.unitOfWork.UnitedCommitAsync();
+			////验证
+			////Assert.IsFalse(this.channelRepository.ExistsName(input.Name), "栏目名称已存在！");
+			//Channel parentChannel = input.ParentId == 0 ? null : this.unitOfWork.Resolve<Channel>(input.ParentId);
+			//this.unitOfWork.RegisterAdd(Mapper.Map<Channel>(input));
+			//await this.unitOfWork.UnitedCommitAsync();
+
 		}
 	}
 }

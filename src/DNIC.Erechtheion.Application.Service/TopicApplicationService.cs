@@ -18,28 +18,28 @@ namespace DNIC.Erechtheion.Application.Service
 			_topicRepository = topicRepository;
 		}
 
-		public async Task<IEnumerable<TopicOutput>> GetAll()
+		public async Task<IEnumerable<TopicOutput>> GetAllListAsync()
 		{
-			var topics = await _topicRepository.GetAll();
+			var topics = await _topicRepository.GetAllListAsync();
 			return AutoMapper.Mapper.Map<IEnumerable<TopicOutput>>(topics);
 		}
 
-		public async Task<TopicOutput> GetById(long id)
+		public async Task<TopicOutput> GetAsync(int id)
 		{
-			var topic = await _topicRepository.GetById(id);
+			var topic = await _topicRepository.GetAsync(id);
 			return AutoMapper.Mapper.Map<Topic, TopicOutput>(topic);
 		}
 
-		public async Task<TopicOutput> Create(string name)
+		public async Task<TopicOutput> CreateAsync(string name)
 		{
-			var topic = new Topic(Guid.NewGuid(), 123456789L, Guid.NewGuid(), "Hello World", "hello-word", ContentTypes.Html, "I'm Iron man", SubjectStates.草稿);
+			var topic = new Topic(0, name, "hello-word", ContentType.Html, "I'm Iron man", TopicState.草稿);
 
 			return AutoMapper.Mapper.Map<Topic, TopicOutput>(topic);
 		}
 
-		public async Task<TopicOutput> Change(long id, string name)
+		public async Task<TopicOutput> ChangeAsync(int id, string name)
 		{
-			var topic = new Topic(Guid.NewGuid(), 123456789L, Guid.NewGuid(), "Hello World", "hello-word", ContentTypes.Html, "I'm Iron man", SubjectStates.草稿);
+			var topic = new Topic(0, name, "hello-word", ContentType.Html, "I'm Iron man", TopicState.草稿);
 
 			return AutoMapper.Mapper.Map<Topic, TopicOutput>(topic);
 		}

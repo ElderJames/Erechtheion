@@ -6,122 +6,51 @@ using Xunit;
 
 namespace DNIC.Erechtheion.Tests.Domain
 {
-	public class SubjectTest
+	public class TopicTest
 	{
-		[Fact(DisplayName = "Subject_Create_Test")]
-		public void Subject_Create_Test()
+		[Fact(DisplayName = "Topic_Create_Test")]
+		public void Topic_Create_Test()
 		{
 			// Arrange
-			var aggregateId = Guid.NewGuid();
-			var sectionId = Guid.NewGuid();
-			var authorId = 123456789L;
+			var channelId = 1;
 			var title = "ABCDEFG";
 			var slug = "abcdefg";
-			var type = ContentTypes.MarkDown;
+			var type = ContentType.MarkDown;
 			var content = "This is Content.";
-			var state = SubjectStates.已发布;
+			var state = TopicState.已发布;
 
 			// Act
-			var subject = new Topic(aggregateId, authorId, sectionId, title, slug, type, content, state);
+			var subject = new Topic(channelId, title, slug, type, content, state);
 
 			// Assert
-			Assert.Equal(aggregateId, subject.AggregateId);
-			Assert.Equal(sectionId, subject.ChannelId);
-			Assert.Equal(authorId, subject.AuthorId);
+			Assert.Equal(channelId, subject.ChannelId);
 			Assert.Equal(title, subject.Title);
 			Assert.Equal(type, subject.ContentType);
 			Assert.Equal(content, subject.Content);
 			Assert.Equal(state, subject.State);
 		}
 
-		[Fact(DisplayName = "Subject_Change_Test")]
-		public void Subject_Change_Test()
+		[Fact(DisplayName = "Topic_Change_Test")]
+		public void Topic_Change_Test()
 		{
 			// Arrange
-			var aggregateId = Guid.NewGuid();
-			var sectionId = Guid.NewGuid();
-			var authorId = 123456789L;
+			var channelId = 1;
 			var title = "ABCDEFG";
 			var slug = "abcdefg";
-			var type = ContentTypes.MarkDown;
+			var type = ContentType.MarkDown;
 			var content = "This is Content.";
-			var state = SubjectStates.已发布;
-			var subject = new Topic(aggregateId, authorId, Guid.NewGuid(), "Hello World", "hello-word", ContentTypes.Html, "I'm Iron man", SubjectStates.草稿);
+			var state = TopicState.已发布;
+			var subject = new Topic(channelId, "Hello World222", "hello-word222", ContentType.Html, "I'm Iron man", TopicState.草稿);
 
 			// Act
-			subject.Change(sectionId, title, slug, type, content, state);
+			subject.Change(1, title, slug, type, content, state);
 
 			// Assert
-			Assert.Equal(aggregateId, subject.AggregateId);
-			Assert.Equal(sectionId, subject.ChannelId);
-			Assert.Equal(authorId, subject.AuthorId);
+			Assert.Equal(channelId, subject.ChannelId);
 			Assert.Equal(title, subject.Title);
 			Assert.Equal(type, subject.ContentType);
 			Assert.Equal(content, subject.Content);
 			Assert.Equal(state, subject.State);
-		}
-
-		[Fact]
-		public void Subject_Add_And_Subtract_Comments_Test()
-		{
-			// Arrange
-			var subject = new Topic(Guid.NewGuid(), 12345678L, Guid.NewGuid(), "Hello World", "hello-word", ContentTypes.Html, "I'm Iron man", SubjectStates.草稿);
-
-			// Act
-			Enumerable.Range(1, 100).ToList().ForEach(x => subject.AddComments());
-
-			// Assert
-			Assert.Equal(100, subject.Comments);
-
-			// Act
-			Enumerable.Range(1, 50).ToList().ForEach(x => subject.SubtractComments());
-
-			// Assert
-			Assert.Equal(50, subject.Comments);
-
-			// Act
-			Enumerable.Range(1, 51).ToList().ForEach(x => subject.SubtractComments());
-
-			// Assert
-			Assert.Equal(0, subject.Comments);
-		}
-
-		[Fact]
-		public void Subject_AddHits_Test()
-		{
-			// Arrange
-			var subject = new Topic(Guid.NewGuid(), 12345678L, Guid.NewGuid(), "Hello World", "hello-word", ContentTypes.Html, "I'm Iron man", SubjectStates.草稿);
-
-			// Act
-			Enumerable.Range(1, 100).ToList().ForEach(x => subject.AddHits());
-
-			// Assert
-			Assert.Equal(100, subject.Hits);
-		}
-
-		[Fact]
-		public void Subject_Add_And_Subtract_Likes_Test()
-		{
-			// Arrange
-			var subject = new Topic(Guid.NewGuid(), 12345678L, Guid.NewGuid(), "Hello World", "hello-word", ContentTypes.Html, "I'm Iron man", SubjectStates.草稿);
-
-			// Act
-			Enumerable.Range(1, 100).ToList().ForEach(x => subject.AddLikes());
-
-			// Assert
-			Assert.Equal(100, subject.Likes);
-
-			// Act
-			Enumerable.Range(1, 50).ToList().ForEach(x => subject.SubtractLikes());
-
-			// Assert
-			Assert.Equal(50, subject.Likes);
-
-			// Act
-			Enumerable.Range(1, 51).ToList().ForEach(x => subject.SubtractLikes());
-
-			// Assert
-			Assert.Equal(0, subject.Likes);
 		}
 	}
 }
