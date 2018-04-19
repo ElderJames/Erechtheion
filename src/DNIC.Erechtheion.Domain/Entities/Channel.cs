@@ -1,4 +1,5 @@
-﻿using DNIC.Erechtheion.Core.Domain;
+﻿using DNIC.Erechtheion.Core.CustomExceptions;
+using DNIC.Erechtheion.Core.Domain;
 using DNIC.Erechtheion.Core.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -9,11 +10,11 @@ namespace DNIC.Erechtheion.Domain.Entities
 {
 	public class Channel : AuditedAggregateRoot, ITree<Channel, int>, IDisable, ISoftDelete
 	{
-		public bool IsRoot => this.ParentNode == null;
+		public bool IsRoot => ParentNode == null;
 
-		public bool IsLeaf => !this.ChildNodes.Any();
+		public bool IsLeaf => !ChildNodes.Any();
 
-		public virtual int ParentId { get; }
+		public virtual int ParentId { get; private set; }
 
 		public virtual Channel ParentNode { get; }
 
@@ -51,6 +52,29 @@ namespace DNIC.Erechtheion.Domain.Entities
 		/// 删除时间
 		/// </summary>
 		public DateTime? DeletionTime { get; private set; }
+
+		public Channel(string name,
+			string description,
+			string icon,
+			string bgColor,
+			string slug,
+			int order,
+			string link,
+			string @class,
+			string imageClass,
+			int parentId)
+		{
+			Name = name;
+			Description = description;
+			Icon = icon;
+			BgColor = bgColor;
+			Slug = slug;
+			Order = order;
+			Link = link;
+			Class = @class;
+			ImageClass = imageClass;
+			ParentId = parentId;
+		}
 
 		#region disbable
 
@@ -90,5 +114,29 @@ namespace DNIC.Erechtheion.Domain.Entities
 		}
 
 		#endregion
+
+		public void Change(
+			string name,
+			string description,
+			string icon,
+			string bgColor,
+			string slug,
+			int order,
+			string link,
+			string @class,
+			string imageClass,
+			int parentId)
+		{
+			Name = name;
+			Description = description;
+			Icon = icon;
+			BgColor = bgColor;
+			Slug = slug;
+			Order = order;
+			Link = link;
+			Class = @class;
+			ImageClass = imageClass;
+			ParentId = parentId;
+		}
 	}
 }
