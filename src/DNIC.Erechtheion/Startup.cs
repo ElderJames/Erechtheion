@@ -9,7 +9,6 @@ using DNIC.Erechtheion.Core.Configuration;
 using DNIC.Erechtheion.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using DNIC.Erechtheion.Application.Service;
-using DNIC.Erechtheion.Identity;
 using Serilog;
 using DNIC.Erechtheion.Identity.EntityFrameworkCore;
 
@@ -42,14 +41,6 @@ namespace DNIC.Erechtheion
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddEntityFrameworkSqlServer()
-			.AddDbContext<ErechtheionDbContext>(options => options.UseSqlServer(ErechtheionConfiguration.ConnectionString, b => b.UseRowNumberForPaging()));
-
-			if ((ErechtheionConfiguration.AuthenticationMode & AuthenticationMode.Self) == AuthenticationMode.Self)
-			{
-				services.AddDbContext<ErechtheionIdentityDbContext>(options => options.UseSqlServer(ErechtheionConfiguration.ConnectionString));
-			}
-
 			// Add application services.
 			services.AddTransient<IEmailSender, EmailSender>();
 
@@ -61,24 +52,34 @@ namespace DNIC.Erechtheion
 			// 重新注册
 			services.AddSingleton(ErechtheionConfiguration.Configuration);
 
-			// 注册系统配置
 			services.AddSingleton(ErechtheionConfiguration);
 
+			//注册web所需
 			services.AddErechtheion();
 
-			services.AddIdentity<ErechtheionUser, IdentityRole>(config =>
+			//注册应用服务里的服务，分离后在服务端注册，AddErechtheion里注册客户端
+			services.AddErechtheionServices(config =>
 			{
-				config.User.RequireUniqueEmail = true;
-				config.Password = new PasswordOptions
+				config.UseEntityFrameworkCore(options => options.UseSqlServer(ErechtheionConfiguration.ConnectionString, b => b.UseRowNumberForPaging()));
+			});
+
+			if ((ErechtheionConfiguration.AuthenticationMode & AuthenticationMode.Self) == AuthenticationMode.Self)
+			{
+				services.AddDbContext<ErechtheionIdentityDbContext>(options => options.UseSqlServer(ErechtheionConfiguration.ConnectionString));
+				services.AddIdentity<ErechtheionUser, IdentityRole>(config =>
 				{
-					RequireDigit = true,
-					RequireUppercase = false,
-					RequireLowercase = true,
-					RequiredLength = 8
-				};
-				config.SignIn.RequireConfirmedEmail = false;
-				config.SignIn.RequireConfirmedPhoneNumber = false;
-			}).AddEntityFrameworkStores<ErechtheionIdentityDbContext>().AddDefaultTokenProviders();
+					config.User.RequireUniqueEmail = true;
+					config.Password = new PasswordOptions
+					{
+						RequireDigit = true,
+						RequireUppercase = false,
+						RequireLowercase = true,
+						RequiredLength = 8
+					};
+					config.SignIn.RequireConfirmedEmail = false;
+					config.SignIn.RequireConfirmedPhoneNumber = false;
+				}).AddEntityFrameworkStores<ErechtheionIdentityDbContext>().AddDefaultTokenProviders();
+			}
 
 			// 如果没有配置全局登录系统, 则使用默认注册和登录
 			if ((ErechtheionConfiguration.AuthenticationMode & AuthenticationMode.External) == AuthenticationMode.External)
@@ -131,8 +132,6 @@ namespace DNIC.Erechtheion
 					name: "default",
 					template: "{controller=Home}/{action=Index}/{id?}");
 			});
-
-			AutoMapperConfiguration.CreateMap();
 		}
 	}
 }
