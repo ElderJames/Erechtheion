@@ -10,7 +10,6 @@ namespace DNIC.Erechtheion.Core.Domain.Entities
 	[Serializable]
 	public abstract class AuditedEntity : AuditedEntity<int>, IEntity
 	{
-
 	}
 
 	/// <summary>

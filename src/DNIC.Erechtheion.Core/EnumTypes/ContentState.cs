@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DNIC.Erechtheion.Core.EnumTypes
 {
-	public enum TopicState
+	public enum ContentState
 	{
 		草稿 = 0,
 		已发布 = 5,

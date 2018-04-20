@@ -24,7 +24,7 @@ namespace DNIC.Erechtheion.Tests.Repository
 
 		private Topic CreateTopic()
 		{
-			return new Topic(1, "Hello World", "hello-word", ContentType.Html, "I'm Iron man", TopicState.²Ý¸å);
+			return new Topic( "Hello World", "hello-word", ContentType.Html, "I'm Iron man", ContentState.²Ý¸å);
 		}
 	}
 }

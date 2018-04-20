@@ -16,6 +16,10 @@ namespace DNIC.Erechtheion.EntityFrameworkCore
 
 		public DbSet<Topic> Topic { get; set; }
 
+		public DbSet<Channel> Channel { get; set; }
+
+		public DbSet<ContentChannels> ContentChannels { get; set; }
+
 		public ErechtheionDbContext(DbContextOptions<ErechtheionDbContext> options, IHttpContextAccessor accessor)
 			: base(options)
 		{

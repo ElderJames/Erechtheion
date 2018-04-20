@@ -8,7 +8,7 @@ using Xunit;
 
 namespace DNIC.Erechtheion.Tests
 {
-	public class ChannelTests : TestBase
+	public class ChannelTests
 	{
 		string name = "c";
 		string description = "description";

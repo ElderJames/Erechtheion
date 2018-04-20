@@ -32,14 +32,14 @@ namespace DNIC.Erechtheion.Application.Service
 
 		public async Task<TopicOutput> CreateAsync(string name)
 		{
-			var topic = new Topic(0, name, "hello-word", ContentType.Html, "I'm Iron man", TopicState.草稿);
+			var topic = new Topic(name, "hello-word", ContentType.Html, "I'm Iron man", ContentState.草稿);
 
 			return AutoMapper.Mapper.Map<Topic, TopicOutput>(topic);
 		}
 
 		public async Task<TopicOutput> ChangeAsync(int id, string name)
 		{
-			var topic = new Topic(0, name, "hello-word", ContentType.Html, "I'm Iron man", TopicState.草稿);
+			var topic = new Topic(name, "hello-word", ContentType.Html, "I'm Iron man", ContentState.草稿);
 
 			return AutoMapper.Mapper.Map<Topic, TopicOutput>(topic);
 		}

@@ -6,11 +6,11 @@ using System.Text;
 
 namespace DNIC.Erechtheion.Core.Domain.Entities
 {
-	public class AggregateRoot : AggregateRoot<int>, IAggregateRoot
+	public abstract class AggregateRoot : AggregateRoot<int>, IAggregateRoot
 	{
 	}
 
-	public class AggregateRoot<TPrimaryKey> : Entity<TPrimaryKey>, IAggregateRoot<TPrimaryKey>
+	public abstract class AggregateRoot<TPrimaryKey> : Entity<TPrimaryKey>, IAggregateRoot<TPrimaryKey>
 	{
 		public virtual ICollection<IEventData> DomainEvents { get; }
 
