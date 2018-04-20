@@ -19,4 +19,16 @@ namespace DNIC.Erechtheion.Core.Domain.Entities
 			DomainEvents = new Collection<IEventData>();
 		}
 	}
+
+	public abstract class AggregateRoot<TPrimaryKey, TAggregateId> : Entity<TPrimaryKey>, IAggregateRoot<TPrimaryKey>
+	{
+		public virtual ICollection<IEventData> DomainEvents { get; }
+
+		public virtual TAggregateId AggregateId { get; }
+
+		public AggregateRoot()
+		{
+			DomainEvents = new Collection<IEventData>();
+		}
+	}
 }

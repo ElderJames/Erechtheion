@@ -7,7 +7,7 @@ using System.Text;
 
 namespace DNIC.Erechtheion.Domain.Entities
 {
-	public abstract class AbstractContent : AuditedAggregateRootOfSecondPrimaryKey, ISoftDelete
+	public abstract class AbstractContent : AuditedAggregateRoot<int, Guid>, ISoftDelete
 	{
 		#region ctor
 

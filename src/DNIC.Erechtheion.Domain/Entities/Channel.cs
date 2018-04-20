@@ -13,7 +13,7 @@ namespace DNIC.Erechtheion.Domain.Entities
 	/// 频道、分类
 	/// </summary>
 	[Serializable]
-	public class Channel : AuditedAggregateRoot, ITree<Channel, int>, IDisable, ISoftDelete
+	public class Channel : AuditedEntity, ITree<Channel, int>, IDisable, ISoftDelete
 	{
 		/// <summary>
 		/// 是否根节点

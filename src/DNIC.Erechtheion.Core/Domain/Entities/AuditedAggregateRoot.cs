@@ -27,7 +27,7 @@ namespace DNIC.Erechtheion.Core.Domain.Entities
 		public virtual long? CreatorUserId { get; set; }
 	}
 
-	public abstract class AuditedAggregateRootOfSecondPrimaryKey : AggregateRootOfSecondPrimaryKey, IAudited
+	public abstract class AuditedAggregateRoot<TPrimaryKey, TAggregateId> : AggregateRoot<TPrimaryKey, TAggregateId>, IAudited
 	{
 		/// <summary>
 		/// Last modification date of this entity.

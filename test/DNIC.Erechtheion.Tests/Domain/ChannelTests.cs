@@ -10,7 +10,7 @@ namespace DNIC.Erechtheion.Tests
 {
 	public class ChannelTests
 	{
-		string name = "c";
+		string name = "channel";
 		string description = "description";
 		string icon = "icon";
 		string bgColor = "bgColor";
@@ -43,17 +43,6 @@ namespace DNIC.Erechtheion.Tests
 		[Fact(DisplayName = "Channel_Change_Test")]
 		public void Channel_Change_Test()
 		{
-			var name = "channel";
-			var description = "description";
-			var icon = "icon";
-			var bgColor = "bgColor";
-			var slug = "slug";
-			var order = 1;
-			var link = "link";
-			var @class = "class";
-			var imageClass = "imageClass";
-			var parentId = 1;
-
 			var channel = new Channel(name, description, icon, bgColor, slug, order, link, @class, imageClass, parentId);
 
 			var nameNew = "channelNew";
