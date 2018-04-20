@@ -3,11 +3,13 @@ using DNIC.Erechtheion.Core.Domain;
 using DNIC.Erechtheion.Core.Domain.Entities;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 
 namespace DNIC.Erechtheion.Domain.Entities
 {
+	[Serializable]
 	public class Channel : AuditedAggregateRoot, ITree<Channel, int>, IDisable, ISoftDelete
 	{
 		public bool IsRoot => ParentNode == null;
@@ -20,22 +22,32 @@ namespace DNIC.Erechtheion.Domain.Entities
 
 		public virtual ICollection<Channel> ChildNodes { get; }
 
+		[Required]
+		[MinLength(2)]
+		[StringLength(50)]
 		public virtual string Name { get; private set; }
 
+		[StringLength(500)]
 		public virtual string Description { get; private set; }
 
+		[StringLength(100)]
 		public virtual string Icon { get; private set; }
 
+		[StringLength(100)]
 		public virtual string BgColor { get; private set; }
 
+		[StringLength(100)]
 		public virtual string Slug { get; private set; }
 
 		public virtual int Order { get; private set; }
 
+		[StringLength(100)]
 		public virtual string Link { get; private set; }
 
+		[StringLength(100)]
 		public virtual string Class { get; private set; }
 
+		[StringLength(100)]
 		public virtual string ImageClass { get; private set; }
 
 		/// <summary>
@@ -64,6 +76,7 @@ namespace DNIC.Erechtheion.Domain.Entities
 			string imageClass,
 			int parentId)
 		{
+
 			Name = name;
 			Description = description;
 			Icon = icon;
@@ -116,8 +129,8 @@ namespace DNIC.Erechtheion.Domain.Entities
 		#endregion
 
 		public void Change(
-			string name,
-			string description,
+			[Required, MinLength(2), StringLength(50)]string name,
+			[MaxLength(100)]string description,
 			string icon,
 			string bgColor,
 			string slug,
@@ -127,6 +140,7 @@ namespace DNIC.Erechtheion.Domain.Entities
 			string imageClass,
 			int parentId)
 		{
+			Validator.ValidateProperty(name, new ValidationContext(this));
 			Name = name;
 			Description = description;
 			Icon = icon;
