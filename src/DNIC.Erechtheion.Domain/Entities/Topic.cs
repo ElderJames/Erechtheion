@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using DNIC.Erechtheion.Core.Domain;
-using DNIC.Erechtheion.Core.Domain.Entities;
 using DNIC.Erechtheion.Core.EnumTypes;
+using DNIC.Erechtheion.Domain.ValueObjects;
 
 namespace DNIC.Erechtheion.Domain.Entities
 {
@@ -9,8 +11,7 @@ namespace DNIC.Erechtheion.Domain.Entities
 	{
 		#region ctor
 
-		public Topic(string title, string slug,
-			ContentType contentType, string content, ContentState state) : base(title, slug, contentType, content, state)
+		public Topic(Guid aggregateId, string title, string slug, ICollection<ContentChannels> channels, ContentType contentType, string content, ContentState state) : base(aggregateId, channels, title, slug, contentType, content, state)
 		{
 			this.Title = title;
 			this.Slug = slug;
@@ -61,7 +62,7 @@ namespace DNIC.Erechtheion.Domain.Entities
 			Enabled = false;
 		}
 
-		#endregion
+		#endregion disbable
 
 		#region actions
 

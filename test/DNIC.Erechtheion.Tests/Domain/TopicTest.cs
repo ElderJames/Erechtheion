@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using DNIC.Erechtheion.Core.EnumTypes;
 using DNIC.Erechtheion.Domain.Entities;
+using DNIC.Erechtheion.Domain.ValueObjects;
 using Xunit;
 
 namespace DNIC.Erechtheion.Tests.Domain
@@ -19,7 +21,7 @@ namespace DNIC.Erechtheion.Tests.Domain
 			var state = ContentState.已发布;
 
 			// Act
-			var subject = new Topic(title, slug, type, content, state);
+			var subject = new Topic(Guid.NewGuid(), title, slug, new List<ContentChannels>(), type, content, state);
 
 			// Assert
 			Assert.Equal(title, subject.Title);
@@ -37,7 +39,7 @@ namespace DNIC.Erechtheion.Tests.Domain
 			var type = ContentType.MarkDown;
 			var content = "This is Content.";
 			var state = ContentState.已发布;
-			var subject = new Topic("Hello World222", "hello-word222", ContentType.Html, "I'm Iron man", ContentState.草稿);
+			var subject = new Topic(Guid.NewGuid(), "Hello World222", "hello-word222", new List<ContentChannels>(), ContentType.Html, "I'm Iron man", ContentState.草稿);
 
 			// Act
 			subject.Change(title, slug, type, content, state);

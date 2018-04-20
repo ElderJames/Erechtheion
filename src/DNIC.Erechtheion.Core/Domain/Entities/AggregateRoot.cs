@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace DNIC.Erechtheion.Core.Domain.Entities
@@ -26,8 +27,9 @@ namespace DNIC.Erechtheion.Core.Domain.Entities
 
 		public virtual TAggregateId AggregateId { get; }
 
-		public AggregateRoot()
+		public AggregateRoot(TAggregateId aggregateId)
 		{
+			AggregateId = aggregateId;
 			DomainEvents = new Collection<IEventData>();
 		}
 	}

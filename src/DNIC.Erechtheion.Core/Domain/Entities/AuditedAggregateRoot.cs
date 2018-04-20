@@ -48,5 +48,9 @@ namespace DNIC.Erechtheion.Core.Domain.Entities
 		/// Creator of this entity.
 		/// </summary>
 		public virtual long? CreatorUserId { get; set; }
+
+		protected AuditedAggregateRoot(TAggregateId aggregateId) : base(aggregateId)
+		{
+		}
 	}
 }

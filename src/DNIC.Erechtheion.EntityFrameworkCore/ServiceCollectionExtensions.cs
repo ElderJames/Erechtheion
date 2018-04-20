@@ -21,7 +21,6 @@ namespace DNIC.Erechtheion.EntityFrameworkCore
 			//仓储
 			services.AddScoped<ITopicRepository, TopicRepository>();
 			services.AddScoped<IChannelRepository, ChannelRepository>();
-			services.AddScoped<IContentChannelsRepository, ContentChannelsRepository>();
 		}
 	}
 }
