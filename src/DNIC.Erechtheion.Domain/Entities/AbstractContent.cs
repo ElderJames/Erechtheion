@@ -1,8 +1,8 @@
 ﻿using DNIC.Erechtheion.Core.Domain;
 using DNIC.Erechtheion.Core.Domain.Entities;
-using DNIC.Erechtheion.Core.EnumTypes;
 using System;
 using System.Collections.Generic;
+using DNIC.Erechtheion.Application.EnumTypes;
 using DNIC.Erechtheion.Domain.ValueObjects;
 
 namespace DNIC.Erechtheion.Domain.Entities
@@ -11,7 +11,7 @@ namespace DNIC.Erechtheion.Domain.Entities
 	{
 		#region ctor
 
-		public AbstractContent(Guid aggregateId, ICollection<ContentChannels> channels, string title, string slug, ContentType contentType, string content, ContentState state) : base(aggregateId)
+		protected AbstractContent(Guid aggregateId, ICollection<ContentChannels> channels, string title, string slug, ContentType contentType, string content, ContentState state) : base(aggregateId)
 		{
 			this.Channels = channels;
 			this.Title = title;

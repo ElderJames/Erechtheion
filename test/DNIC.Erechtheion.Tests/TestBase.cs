@@ -2,18 +2,16 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Moq;
-using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Security.Claims;
-using System.Text;
 
 namespace DNIC.Erechtheion.Tests
 {
 	public abstract class TestBase
 	{
 		private readonly ConcurrentDictionary<string, ErechtheionDbContext> _contexts = new ConcurrentDictionary<string, ErechtheionDbContext>();
-		private readonly static object _locker = new object();
+		private static readonly object _locker = new object();
 
 		protected ErechtheionDbContext GetDbContext(string databaseName)
 		{
