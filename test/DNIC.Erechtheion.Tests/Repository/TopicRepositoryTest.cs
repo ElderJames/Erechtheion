@@ -39,12 +39,12 @@ namespace DNIC.Erechtheion.Tests.Repository
 
 			// Act
 			var topic = new Topic(topicId, "Hello World", "hello-word", contentChannels, ContentType.Html, "I'm Iron man", ContentState.²Ý¸å);
-			var entity = context.Topic.Add(topic);
+			var entity = context.Topics.Add(topic);
 			context.SaveChanges();
 			topic = entity.Entity;
 
-			var sameTopic = context.Topic.FirstOrDefault(x => x.AggregateId == topicId);
-			var topicGotByChannel = context.Topic.FirstOrDefault(x => x.Channels.Any(o => o.ChannelId == 1));
+			var sameTopic = context.Topics.FirstOrDefault(x => x.AggregateId == topicId);
+			var topicGotByChannel = context.Topics.FirstOrDefault(x => x.Channels.Any(o => o.ChannelId == 1));
 
 			// Assert
 			Assert.NotNull(topic);

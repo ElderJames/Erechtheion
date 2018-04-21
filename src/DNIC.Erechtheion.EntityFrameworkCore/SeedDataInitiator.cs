@@ -28,12 +28,12 @@ namespace DNIC.Erechtheion.EntityFrameworkCore
 				using (var context = scope.ServiceProvider.GetRequiredService<ErechtheionDbContext>())
 				{
 					context.Database.Migrate();
-					if (!context.Topic.Any())
+					if (!context.Topics.Any())
 					{
 						var topic = new Topic(Guid.NewGuid(), "Hello World", "hello-word", new List<ContentChannels>(), ContentType.Html, "I'm Iron man", ContentState.草稿);
 						var topic2 = new Topic(Guid.NewGuid(), "Hello World", "hello-word", new List<ContentChannels>(), ContentType.Html, "I'm Iron man", ContentState.草稿);
-						context.Topic.Add(topic);
-						context.Topic.Add(topic2);
+						context.Topics.Add(topic);
+						context.Topics.Add(topic2);
 						context.SaveChanges();
 					}
 				}

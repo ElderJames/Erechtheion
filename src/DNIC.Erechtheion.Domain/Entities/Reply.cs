@@ -1,6 +1,7 @@
 ﻿using System;
 using DNIC.Erechtheion.Application.EnumTypes;
 using DNIC.Erechtheion.Core.CustomExceptions;
+using DNIC.Erechtheion.Core.Database;
 using DNIC.Erechtheion.Core.Domain.Entities;
 using DNIC.Erechtheion.Core.Extensions;
 
@@ -9,11 +10,15 @@ namespace DNIC.Erechtheion.Domain.Entities
 	/// <summary>
 	/// 回复实体
 	/// </summary>
-	public class Reply : AuditedAggregateRoot<int, Guid>
+	public class Reply : AuditedAggregateRoot<int, Guid>, ISoftDeletable
 	{
+		private Reply() : base(Guid.Empty)
+		{
+		}
+
 		public Reply(Guid aggregateId, Guid targetId, ReplyTargets target, long userId, string content) : base(aggregateId)
 		{
-			if (Content.IsNullOrEmpty())
+			if (content.IsNullOrEmpty())
 				throw new DomainException("内容不能为空");
 
 			this.ContentId = ContentId;
@@ -50,7 +55,7 @@ namespace DNIC.Erechtheion.Domain.Entities
 
 		public void Change(string content)
 		{
-			if (Content.IsNullOrEmpty())
+			if (content.IsNullOrEmpty())
 				throw new DomainException("内容不能为空");
 
 			this.Content = content;
