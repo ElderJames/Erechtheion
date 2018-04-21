@@ -70,24 +70,26 @@ namespace DNIC.Erechtheion.EntityFrameworkCore
 			{
 				if (entry.Entity is IAudited e)
 				{
+					var deletable = entry.Entity is ISoftDeletable;
 					switch (entry.State)
 					{
 						case EntityState.Added:
 							e.CreatorUserId = userId;
 							e.CreationTime = DateTime.Now;
-							entry.CurrentValues[_isDeletedProperty] = false;
+							if (deletable) entry.CurrentValues[_isDeletedProperty] = false;
 							break;
 
 						case EntityState.Modified:
 							e.LastModifierUserId = userId;
 							e.LastModificationTime = DateTime.Now;
+							if (deletable) entry.CurrentValues[_isDeletedProperty] = false;
 							break;
 
 						case EntityState.Deleted:
 							e.LastModifierUserId = userId;
 							e.LastModificationTime = DateTime.Now;
 							entry.State = EntityState.Modified;
-							entry.CurrentValues[_isDeletedProperty] = true;
+							if (deletable) entry.CurrentValues[_isDeletedProperty] = true;
 							break;
 					}
 				}

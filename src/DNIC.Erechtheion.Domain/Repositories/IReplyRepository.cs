@@ -7,6 +7,8 @@ namespace DNIC.Erechtheion.Domain.Repositories
 {
 	public interface IReplyRepository
 	{
+		Reply Get(Guid aggregateId);
+
 		int Create(Reply reply);
 
 		int Delete(Reply reply);
