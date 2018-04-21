@@ -3,8 +3,8 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using DNIC.Erechtheion.Application.EnumTypes;
 using DNIC.Erechtheion.Core;
-using DNIC.Erechtheion.Core.EnumTypes;
 using DNIC.Erechtheion.Domain.Entities;
 using DNIC.Erechtheion.Domain.ValueObjects;
 
