@@ -1,10 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using DNIC.Erechtheion.Core;
 using DNIC.Erechtheion.Core.EnumTypes;
 using DNIC.Erechtheion.Domain.Entities;
+using DNIC.Erechtheion.Domain.ValueObjects;
 
 namespace DNIC.Erechtheion.EntityFrameworkCore
 {
@@ -28,8 +30,8 @@ namespace DNIC.Erechtheion.EntityFrameworkCore
 					context.Database.Migrate();
 					if (!context.Topic.Any())
 					{
-						var topic = new Topic("Hello World", "hello-word", ContentType.Html, "I'm Iron man", ContentState.草稿);
-						var topic2 = new Topic("Hello World", "hello-word", ContentType.Html, "I'm Iron man", ContentState.草稿);
+						var topic = new Topic(Guid.NewGuid(), "Hello World", "hello-word", new List<ContentChannels>(), ContentType.Html, "I'm Iron man", ContentState.草稿);
+						var topic2 = new Topic(Guid.NewGuid(), "Hello World", "hello-word", new List<ContentChannels>(), ContentType.Html, "I'm Iron man", ContentState.草稿);
 						context.Topic.Add(topic);
 						context.Topic.Add(topic2);
 						context.SaveChanges();

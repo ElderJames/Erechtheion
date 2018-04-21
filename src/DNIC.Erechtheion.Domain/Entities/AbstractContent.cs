@@ -3,7 +3,7 @@ using DNIC.Erechtheion.Core.Domain.Entities;
 using DNIC.Erechtheion.Core.EnumTypes;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using DNIC.Erechtheion.Domain.ValueObjects;
 
 namespace DNIC.Erechtheion.Domain.Entities
 {
@@ -11,9 +11,9 @@ namespace DNIC.Erechtheion.Domain.Entities
 	{
 		#region ctor
 
-		public AbstractContent(string title, string slug,
-			ContentType contentType, string content, ContentState state)
+		public AbstractContent(Guid aggregateId, ICollection<ContentChannels> channels, string title, string slug, ContentType contentType, string content, ContentState state) : base(aggregateId)
 		{
+			this.Channels = channels;
 			this.Title = title;
 			this.Slug = slug;
 			this.ContentType = contentType;
@@ -21,7 +21,7 @@ namespace DNIC.Erechtheion.Domain.Entities
 			this.State = state;
 		}
 
-		protected AbstractContent()
+		protected AbstractContent() : base(Guid.Empty)
 		{
 		}
 
@@ -50,14 +50,14 @@ namespace DNIC.Erechtheion.Domain.Entities
 		public string Content { get; protected set; }
 
 		/// <summary>
+		/// 内容所属所有频道
+		/// </summary>
+		public ICollection<ContentChannels> Channels { get; protected set; }
+
+		/// <summary>
 		/// 状态
 		/// </summary>
 		public ContentState State { get; protected set; }
-
-		/// <summary>
-		/// 内容所属所有频道
-		/// </summary>
-		public IEnumerable<Channel> Channels { get; }
 
 		/// <summary>
 		/// 是否删除
@@ -84,6 +84,6 @@ namespace DNIC.Erechtheion.Domain.Entities
 			DeletionTime = DateTime.Now;
 		}
 
-		#endregion
+		#endregion soft delete
 	}
 }

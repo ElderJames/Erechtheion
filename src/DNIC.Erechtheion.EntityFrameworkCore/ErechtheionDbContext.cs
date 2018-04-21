@@ -3,7 +3,6 @@ using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using DNIC.Erechtheion.Core.Domain;
-using DNIC.Erechtheion.Domain;
 using DNIC.Erechtheion.Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
@@ -18,12 +17,15 @@ namespace DNIC.Erechtheion.EntityFrameworkCore
 
 		public DbSet<Channel> Channel { get; set; }
 
-		public DbSet<ContentChannels> ContentChannels { get; set; }
-
 		public ErechtheionDbContext(DbContextOptions<ErechtheionDbContext> options, IHttpContextAccessor accessor)
 			: base(options)
 		{
 			Accessor = accessor;
+		}
+
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
+		{
+			modelBuilder.Entity<Topic>().HasMany(o => o.Channels);
 		}
 
 		public override int SaveChanges()
