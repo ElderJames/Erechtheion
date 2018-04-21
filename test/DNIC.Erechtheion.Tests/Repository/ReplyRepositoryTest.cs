@@ -14,7 +14,7 @@ namespace DNIC.Erechtheion.Tests.Repository
 		{
 			var context = GetDbContext("reply");
 
-			var reply = new Reply(Guid.NewGuid(), Guid.NewGuid(), ReplyTargets.Topic, 10000, "dnic is greate!");
+			var reply = new Reply(Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid(), ReplyTargets.Topic, 10000, "dnic is greate!");
 
 			context.Add(reply);
 			context.SaveChanges();

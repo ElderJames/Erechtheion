@@ -16,12 +16,12 @@ namespace DNIC.Erechtheion.Domain.Entities
 		{
 		}
 
-		public Reply(Guid aggregateId, Guid targetId, ReplyTargets target, long userId, string content) : base(aggregateId)
+		public Reply(Guid aggregateId, Guid contentId, Guid targetId, ReplyTargets target, long userId, string content) : base(aggregateId)
 		{
 			if (content.IsNullOrEmpty())
 				throw new DomainException("内容不能为空");
 
-			this.ContentId = ContentId;
+			this.ContentId = contentId;
 			this.TargetId = targetId;
 			this.Target = target;
 			this.UserId = userId;
