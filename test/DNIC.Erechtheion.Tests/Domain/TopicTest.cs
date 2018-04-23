@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using DNIC.Erechtheion.Application.EnumTypes;
 using DNIC.Erechtheion.Domain.Entities;
 using DNIC.Erechtheion.Domain.ValueObjects;
