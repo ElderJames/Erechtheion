@@ -15,30 +15,24 @@ namespace DNIC.Erechtheion.Tests
 
 		protected ErechtheionDbContext GetDbContext(string databaseName)
 		{
-			if (!_contexts.ContainsKey(databaseName))
+			return _contexts.GetOrAdd(databaseName, (name) =>
 			{
-				lock (_locker)
+				var options = new DbContextOptionsBuilder<ErechtheionDbContext>()
+					.UseInMemoryDatabase(name)
+					.Options;
+
+				var claimsPrincipal = new ClaimsPrincipal(new List<ClaimsIdentity>()
 				{
-					var options = new DbContextOptionsBuilder<ErechtheionDbContext>()
-						.UseInMemoryDatabase(databaseName)
-						.Options;
+					new ClaimsIdentity(new List<Claim>() { new Claim(ClaimTypes.NameIdentifier, "1") })
+				});
 
-					var claimsPrincipal = new ClaimsPrincipal(new List<ClaimsIdentity>()
-					{
-						new ClaimsIdentity(new List<Claim>() {new Claim(ClaimTypes.NameIdentifier, "1")})
-					});
+				var mock = new Mock<IHttpContextAccessor>();
+				mock.Setup(acr => acr.HttpContext.User).Returns(claimsPrincipal);
 
-					var mock = new Mock<IHttpContextAccessor>();
-					mock.Setup(acr => acr.HttpContext.User).Returns(claimsPrincipal);
+				var accessor = mock.Object;
 
-					var accessor = mock.Object;
-
-					var context = new ErechtheionDbContext(options, accessor);
-					_contexts.TryAdd(databaseName, context);
-				}
-			}
-
-			return _contexts[databaseName];
+				return new ErechtheionDbContext(options, accessor);
+			});
 		}
 	}
 }
