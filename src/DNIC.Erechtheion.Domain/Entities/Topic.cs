@@ -7,6 +7,7 @@ using DNIC.Erechtheion.Domain.ValueObjects;
 
 namespace DNIC.Erechtheion.Domain.Entities
 {
+	[Table("Topic")]
 	public class Topic : AbstractContent, IDisable
 	{
 		#region ctor

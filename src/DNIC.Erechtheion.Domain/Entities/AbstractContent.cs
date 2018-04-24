@@ -4,6 +4,7 @@ using DNIC.Erechtheion.Core.EnumTypes;
 using System;
 using System.Collections.Generic;
 using DNIC.Erechtheion.Domain.ValueObjects;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DNIC.Erechtheion.Domain.Entities
 {
@@ -11,7 +12,7 @@ namespace DNIC.Erechtheion.Domain.Entities
 	{
 		#region ctor
 
-		public AbstractContent(Guid aggregateId, ICollection<ContentChannels> channels, string title, string slug, ContentType contentType, string content, ContentState state) : base(aggregateId)
+		protected AbstractContent(Guid aggregateId, ICollection<ContentChannels> channels, string title, string slug, ContentType contentType, string content, ContentState state) : base(aggregateId)
 		{
 			this.Channels = channels;
 			this.Title = title;
@@ -68,6 +69,21 @@ namespace DNIC.Erechtheion.Domain.Entities
 		/// 删除时间
 		/// </summary>
 		public DateTime? DeletionTime { get; protected set; }
+
+		/// <summary>
+		/// 阅读数
+		/// </summary>
+		public int ViewCount { get; protected set; }
+
+		/// <summary>
+		/// 点赞数
+		/// </summary>
+		public int LikeCount { get; protected set; }
+
+		/// <summary>
+		/// 否定数
+		/// </summary>
+		public int DenyCount { get; protected set; }
 
 		#endregion prop
 

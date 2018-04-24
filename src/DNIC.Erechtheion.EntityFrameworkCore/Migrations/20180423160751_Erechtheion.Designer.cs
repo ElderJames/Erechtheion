@@ -7,12 +7,13 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
+using Microsoft.EntityFrameworkCore.ValueGeneration;
 using System;
 
 namespace DNIC.Erechtheion.EntityFrameworkCore.Migrations
 {
     [DbContext(typeof(ErechtheionDbContext))]
-    [Migration("20180420030139_Erechtheion")]
+    [Migration("20180423160751_Erechtheion")]
     partial class Erechtheion
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,6 +22,67 @@ namespace DNIC.Erechtheion.EntityFrameworkCore.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.0.2-rtm-10011")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("DNIC.Erechtheion.Domain.Entities.AbstractContent", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("ChannelId");
+
+                    b.Property<string>("Content");
+
+                    b.Property<int>("ContentType");
+
+                    b.Property<DateTime?>("CreationTime");
+
+                    b.Property<long?>("CreatorUserId");
+
+                    b.Property<bool>("Deleted");
+
+                    b.Property<DateTime?>("DeletionTime");
+
+                    b.Property<int>("DenyCount");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired();
+
+                    b.Property<DateTime?>("LastModificationTime");
+
+                    b.Property<long?>("LastModifierUserId");
+
+                    b.Property<int>("LikeCount");
+
+                    b.Property<string>("Slug");
+
+                    b.Property<int>("State");
+
+                    b.Property<string>("Title");
+
+                    b.Property<int>("ViewCount");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ChannelId");
+
+                    b.ToTable("AbstractContent");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("AbstractContent");
+                });
+
+            modelBuilder.Entity("DNIC.Erechtheion.Domain.Entities.Analytics", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Key");
+
+                    b.Property<string>("Value");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Analytics");
+                });
 
             modelBuilder.Entity("DNIC.Erechtheion.Domain.Entities.Channel", b =>
                 {
@@ -72,77 +134,49 @@ namespace DNIC.Erechtheion.EntityFrameworkCore.Migrations
                     b.Property<string>("Slug")
                         .HasMaxLength(100);
 
-                    b.Property<int?>("TopicId");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ChannelId");
 
-                    b.HasIndex("TopicId");
-
                     b.ToTable("Channel");
                 });
 
-            modelBuilder.Entity("DNIC.Erechtheion.Domain.Entities.ContentChannels", b =>
+            modelBuilder.Entity("DNIC.Erechtheion.Domain.ValueObjects.ContentChannels", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<Guid>("ChannelId");
+                    b.Property<int?>("AbstractContentId");
 
-                    b.Property<Guid>("ContentId");
+                    b.Property<long>("ChannelId");
 
-                    b.Property<DateTime?>("CreationTime");
-
-                    b.Property<long?>("CreatorUserId");
-
-                    b.Property<DateTime?>("LastModificationTime");
-
-                    b.Property<long?>("LastModifierUserId");
+                    b.Property<string>("ChannelName");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AbstractContentId");
 
                     b.ToTable("ContentChannels");
                 });
 
             modelBuilder.Entity("DNIC.Erechtheion.Domain.Entities.Topic", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Content");
-
-                    b.Property<int>("ContentType");
-
-                    b.Property<DateTime?>("CreationTime");
-
-                    b.Property<long?>("CreatorUserId");
-
-                    b.Property<bool>("Deleted");
-
-                    b.Property<DateTime?>("DeletionTime");
+                    b.HasBaseType("DNIC.Erechtheion.Domain.Entities.AbstractContent");
 
                     b.Property<bool>("Enabled");
 
-                    b.Property<DateTime?>("LastModificationTime");
-
-                    b.Property<long?>("LastModifierUserId");
-
                     b.Property<bool>("Locked");
-
-                    b.Property<int>("SecondId");
-
-                    b.Property<string>("Slug");
-
-                    b.Property<int>("State");
-
-                    b.Property<string>("Title");
-
-                    b.HasKey("Id");
 
                     b.ToTable("Topic");
 
                     b.HasDiscriminator().HasValue("Topic");
+                });
+
+            modelBuilder.Entity("DNIC.Erechtheion.Domain.Entities.AbstractContent", b =>
+                {
+                    b.HasOne("DNIC.Erechtheion.Domain.Entities.Channel")
+                        .WithMany("Contents")
+                        .HasForeignKey("ChannelId");
                 });
 
             modelBuilder.Entity("DNIC.Erechtheion.Domain.Entities.Channel", b =>
@@ -150,11 +184,13 @@ namespace DNIC.Erechtheion.EntityFrameworkCore.Migrations
                     b.HasOne("DNIC.Erechtheion.Domain.Entities.Channel")
                         .WithMany("ChildNodes")
                         .HasForeignKey("ChannelId");
+                });
 
-                    b.HasOne("DNIC.Erechtheion.Domain.Entities.Topic")
+            modelBuilder.Entity("DNIC.Erechtheion.Domain.ValueObjects.ContentChannels", b =>
+                {
+                    b.HasOne("DNIC.Erechtheion.Domain.Entities.AbstractContent")
                         .WithMany("Channels")
-                        .HasForeignKey("TopicId")
-                        .HasPrincipalKey("Id");
+                        .HasForeignKey("AbstractContentId");
                 });
 #pragma warning restore 612, 618
         }

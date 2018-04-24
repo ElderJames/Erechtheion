@@ -17,6 +17,8 @@ namespace DNIC.Erechtheion.EntityFrameworkCore
 
 		public DbSet<Channel> Channel { get; set; }
 
+		public DbSet<Analytics> Analytics { get; set; }
+
 		public ErechtheionDbContext(DbContextOptions<ErechtheionDbContext> options, IHttpContextAccessor accessor)
 			: base(options)
 		{
@@ -25,7 +27,7 @@ namespace DNIC.Erechtheion.EntityFrameworkCore
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
-			modelBuilder.Entity<Topic>().HasMany(o => o.Channels);
+			modelBuilder.Entity<Topic>().ToTable("Topic").HasMany(o => o.Channels);
 		}
 
 		public override int SaveChanges()

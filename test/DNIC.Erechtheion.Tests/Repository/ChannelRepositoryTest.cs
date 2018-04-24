@@ -9,7 +9,7 @@ using Xunit;
 
 namespace DNIC.Erechtheion.Tests.Repository
 {
-	public class ChannelTests : TestBase
+	public class ChannelRepositoryTest : TestBase
 	{
 		private ChannelRepository GetReopsitory(string name)
 		{
