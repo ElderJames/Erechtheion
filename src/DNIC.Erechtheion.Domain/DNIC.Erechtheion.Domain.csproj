@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DNIC.Erechtheion.Application\DNIC.Erechtheion.Application.csproj" />
     <ProjectReference Include="..\DNIC.Erechtheion.Core\DNIC.Erechtheion.Core.csproj" />
   </ItemGroup>
 

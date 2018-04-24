@@ -1,25 +1,22 @@
 ﻿using DNIC.Erechtheion.Core.Validations;
 using DNIC.Erechtheion.Domain.Entities;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Xunit;
 
 namespace DNIC.Erechtheion.Tests
 {
 	public class ChannelTests
 	{
-		string name = "channel";
-		string description = "description";
-		string icon = "icon";
-		string bgColor = "bgColor";
-		string slug = "slug";
-		int order = 1;
-		string link = "link";
-		string @class = "class";
-		string imageClass = "imageClass";
-		int parentId = 1;
+		private string name = "channel";
+		private string description = "description";
+		private string icon = "icon";
+		private string bgColor = "bgColor";
+		private string slug = "slug";
+		private int order = 1;
+		private string link = "link";
+		private string @class = "class";
+		private string imageClass = "imageClass";
+		private int parentId = 1;
 
 		[Fact(DisplayName = "Channel_Create_Test")]
 		public void Channel_Create_Test()
