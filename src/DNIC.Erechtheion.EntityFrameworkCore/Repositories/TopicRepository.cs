@@ -9,10 +9,23 @@ using Microsoft.AspNetCore.Http;
 
 namespace DNIC.Erechtheion.EntityFrameworkCore.Repositories
 {
-	public class TopicRepository : EfCoreRepositoryBase<Topic>, ITopicRepository
+	public class TopicRepository : ITopicRepository
 	{
-		public TopicRepository(ErechtheionDbContext dbContext) : base(dbContext)
+		private ErechtheionDbContext dbContext;
+
+		public TopicRepository(ErechtheionDbContext dbContext)
 		{
+			this.dbContext = dbContext;
+		}
+
+		public async Task<Topic> Get(int id)
+		{
+			return await dbContext.Topics.FirstOrDefaultAsync(x => x.Id == id);
+		}
+
+		public async Task<IEnumerable<Topic>> GetAll()
+		{
+			return await dbContext.Topics.ToListAsync();
 		}
 	}
 }

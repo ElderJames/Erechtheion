@@ -22,13 +22,13 @@ namespace DNIC.Erechtheion.Application.Service
 
 		public async Task<IEnumerable<TopicOutput>> GetAllListAsync()
 		{
-			var topics = await _topicRepository.GetAllListAsync();
+			var topics = await _topicRepository.GetAll();
 			return AutoMapper.Mapper.Map<IEnumerable<TopicOutput>>(topics);
 		}
 
 		public async Task<TopicOutput> GetAsync(int id)
 		{
-			var topic = await _topicRepository.GetAsync(id);
+			var topic = await _topicRepository.Get(id);
 			return AutoMapper.Mapper.Map<Topic, TopicOutput>(topic);
 		}
 

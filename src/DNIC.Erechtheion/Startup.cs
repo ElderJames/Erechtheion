@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System.Data.SqlClient;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Hosting;
@@ -11,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using DNIC.Erechtheion.Application.Service;
 using Serilog;
 using DNIC.Erechtheion.Identity.EntityFrameworkCore;
+using DNIC.Erechtheion.SmartSql;
 
 namespace DNIC.Erechtheion
 {
@@ -60,7 +62,14 @@ namespace DNIC.Erechtheion
 			//注册应用服务里的服务，分离后在服务端注册，AddErechtheion里注册客户端
 			services.AddErechtheionServices(config =>
 			{
-				config.UseEntityFrameworkCore(options => options.UseSqlServer(ErechtheionConfiguration.ConnectionString, b => b.UseRowNumberForPaging()));
+				//config.UseEntityFrameworkCore(options => options.UseSqlServer(ErechtheionConfiguration.ConnectionString, b => b.UseRowNumberForPaging()));
+				config.UseSmartSql(options =>
+				{
+					options.ConnectionString = ErechtheionConfiguration.ConnectionString;
+					options.SqlMapperPath = "SqlMaps";
+					options.DbProviderFactory = SqlClientFactory.Instance;
+					options.LoggingName = ErechtheionConfiguration.ApiName;
+				});
 			});
 
 			if ((ErechtheionConfiguration.AuthenticationMode & AuthenticationMode.Self) == AuthenticationMode.Self)
