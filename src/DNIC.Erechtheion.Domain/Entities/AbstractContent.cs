@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using DNIC.Erechtheion.Application.EnumTypes;
 using DNIC.Erechtheion.Domain.ValueObjects;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DNIC.Erechtheion.Domain.Entities
 {
@@ -71,6 +70,11 @@ namespace DNIC.Erechtheion.Domain.Entities
 		public DateTime? DeletionTime { get; protected set; }
 
 		/// <summary>
+		/// 定时关闭时间
+		/// </summary>
+		public DateTime? TimedCloseTime { get; protected set; }
+
+		/// <summary>
 		/// 阅读数
 		/// </summary>
 		public int ViewCount { get; protected set; }
@@ -84,6 +88,16 @@ namespace DNIC.Erechtheion.Domain.Entities
 		/// 否定数
 		/// </summary>
 		public int DenyCount { get; protected set; }
+
+		/// <summary>
+		/// 评论数
+		/// </summary>
+		public int CommentCount { get; protected set; }
+
+		/// <summary>
+		/// 关闭评论
+		/// </summary>
+		public bool CloseComment { get; protected set; }
 
 		#endregion prop
 

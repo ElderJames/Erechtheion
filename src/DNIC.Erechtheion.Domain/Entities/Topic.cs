@@ -30,11 +30,6 @@ namespace DNIC.Erechtheion.Domain.Entities
 		#region prop
 
 		/// <summary>
-		/// 是否锁定
-		/// </summary>
-		public bool Locked { get; private set; }
-
-		/// <summary>
 		/// 是否启用
 		/// </summary>
 		public bool Enabled { get; private set; }
