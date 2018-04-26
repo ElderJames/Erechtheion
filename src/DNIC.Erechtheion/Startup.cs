@@ -7,7 +7,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using DNIC.Erechtheion.Services;
 using DNIC.Erechtheion.Core.Configuration;
-using DNIC.Erechtheion.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using DNIC.Erechtheion.Application.Service;
 using Serilog;
@@ -69,6 +68,7 @@ namespace DNIC.Erechtheion
 					options.SqlMapperPath = "SqlMaps";
 					options.DbProviderFactory = SqlClientFactory.Instance;
 					options.LoggingName = ErechtheionConfiguration.ApiName;
+					options.UseManifestResource = true;
 				});
 			});
 
