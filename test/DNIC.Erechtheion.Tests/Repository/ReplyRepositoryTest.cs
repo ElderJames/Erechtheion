@@ -16,7 +16,7 @@ namespace DNIC.Erechtheion.Tests.Repository
 		{
 			var context = GetDbContext("Reply_Delete_With_Context_Test");
 
-			var reply = new Reply(Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid(), ReplyTargets.Topic, 10000, "dnic is greate!");
+			var reply = new Reply(Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid(), ReplyTargets.Topic, 10000, ContentType.Html, "dnic is greate!");
 
 			context.Add(reply);
 			context.SaveChanges();
@@ -37,7 +37,7 @@ namespace DNIC.Erechtheion.Tests.Repository
 		{
 			var repository = GetReplyRepository("Reply_Create_Test");
 			var aggregateId = Guid.NewGuid();
-			var reply = new Reply(aggregateId, Guid.NewGuid(), Guid.NewGuid(), ReplyTargets.Topic, 10000, "dnic is greate!");
+			var reply = new Reply(aggregateId, Guid.NewGuid(), Guid.NewGuid(), ReplyTargets.Topic, 10000, ContentType.Html, "dnic is greate!");
 
 			var updateRows = repository.Create(reply);
 
@@ -49,7 +49,7 @@ namespace DNIC.Erechtheion.Tests.Repository
 		{
 			var repository = GetReplyRepository("Reply_Get_Test");
 			var aggregateId = Guid.NewGuid();
-			var reply = new Reply(aggregateId, Guid.NewGuid(), Guid.NewGuid(), ReplyTargets.Topic, 10000, "dnic is greate!");
+			var reply = new Reply(aggregateId, Guid.NewGuid(), Guid.NewGuid(), ReplyTargets.Topic, 10000, ContentType.Html, "dnic is greate!");
 
 			var updateRows = repository.Create(reply);
 			var createdReply = repository.Get(aggregateId);
@@ -64,12 +64,12 @@ namespace DNIC.Erechtheion.Tests.Repository
 		{
 			var repository = GetReplyRepository("Reply_Change_Test");
 			var aggregateId = Guid.NewGuid();
-			var reply = new Reply(aggregateId, Guid.NewGuid(), Guid.NewGuid(), ReplyTargets.Topic, 10000, "dnic is greate!");
+			var reply = new Reply(aggregateId, Guid.NewGuid(), Guid.NewGuid(), ReplyTargets.Topic, 10000, ContentType.Html, "dnic is greate!");
 
 			repository.Create(reply);
 			var createdReply = repository.Get(aggregateId);
 
-			createdReply.Change("hhhhhhh");
+			createdReply.ChangeContent(ContentType.Html, "hhhhhhh");
 			var updateRows = repository.Update(createdReply);
 
 			var updateReply = repository.Get(aggregateId);
@@ -83,7 +83,7 @@ namespace DNIC.Erechtheion.Tests.Repository
 		{
 			var repository = GetReplyRepository("Reply_Delete_Test");
 			var aggregateId = Guid.NewGuid();
-			var reply = new Reply(aggregateId, Guid.NewGuid(), Guid.NewGuid(), ReplyTargets.Topic, 10000, "dnic is greate!");
+			var reply = new Reply(aggregateId, Guid.NewGuid(), Guid.NewGuid(), ReplyTargets.Topic, 10000, ContentType.Html, "dnic is greate!");
 
 			repository.Create(reply);
 			var createdReply = repository.Get(aggregateId);

@@ -12,21 +12,7 @@ namespace DNIC.Erechtheion.Domain.Entities
 	/// </summary>
 	public class Reply : AuditedAggregateRoot<int, Guid>, ISoftDeletable
 	{
-		private Reply() : base(Guid.Empty)
-		{
-		}
-
-		public Reply(Guid aggregateId, Guid contentId, Guid targetId, ReplyTargets target, long userId, string content) : base(aggregateId)
-		{
-			if (content.IsNullOrEmpty())
-				throw new DomainException("内容不能为空");
-
-			this.ContentId = contentId;
-			this.TargetId = targetId;
-			this.Target = target;
-			this.UserId = userId;
-			this.Content = content;
-		}
+		#region props
 
 		/// <summary>
 		/// 内容Id
@@ -49,16 +35,51 @@ namespace DNIC.Erechtheion.Domain.Entities
 		public long UserId { get; private set; }
 
 		/// <summary>
+		/// 内容类型
+		/// </summary>
+		public ContentType ContentType { get; private set; }
+
+		/// <summary>
 		/// 回复内容
 		/// </summary>
 		public string Content { get; private set; }
 
-		public void Change(string content)
+		/// <summary>
+		/// 关闭
+		/// </summary>
+		public bool Closed { get; private set; }
+
+		#endregion props
+
+		private Reply() : base(Guid.Empty)
+		{
+		}
+
+		public Reply(Guid aggregateId, Guid contentId, Guid targetId, ReplyTargets target, long userId, ContentType contentType, string content) : base(aggregateId)
 		{
 			if (content.IsNullOrEmpty())
 				throw new DomainException("内容不能为空");
 
+			this.ContentId = contentId;
+			this.TargetId = targetId;
+			this.Target = target;
+			this.UserId = userId;
+			this.ContentType = contentType;
 			this.Content = content;
+		}
+
+		public void ChangeContent(ContentType contentType, string content)
+		{
+			if (content.IsNullOrEmpty())
+				throw new DomainException("内容不能为空");
+
+			this.ContentType = contentType;
+			this.Content = content;
+		}
+
+		public void Close()
+		{
+			this.Closed = true;
 		}
 	}
 }

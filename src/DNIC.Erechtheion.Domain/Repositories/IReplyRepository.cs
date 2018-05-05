@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using DNIC.Erechtheion.Application.Dto.Reply;
+using DNIC.Erechtheion.Core.DtoBase;
+using DNIC.Erechtheion.Core.Services.Dto;
 using DNIC.Erechtheion.Domain.Entities;
 
 namespace DNIC.Erechtheion.Domain.Repositories
@@ -14,5 +17,7 @@ namespace DNIC.Erechtheion.Domain.Repositories
 		int Delete(Reply reply);
 
 		int Update(Reply reply);
+
+		(IEnumerable<Reply> records, int count) Search(ReplyQuery query);
 	}
 }
