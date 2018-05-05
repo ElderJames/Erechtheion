@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
+using System.Runtime.InteropServices.ComTypes;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
@@ -84,32 +86,42 @@ namespace DNIC.Erechtheion.SmartSql
 				{
 					ParameterPrefix = _smartSqlOptions.ParameterPrefix,
 					IsWatchConfigFile = true
-				}
+				},
 			};
 
-			foreach (var sqlmapSource in config.SmartSqlMapSources)
+			if (_smartSqlOptions.UseManifestResource)
 			{
-				switch (sqlmapSource.Type)
+				foreach (var sourceName in Assembly.GetExecutingAssembly().GetManifestResourceNames())
 				{
-					case SmartSqlMapSource.ResourceType.File:
-						{
-							LoadSmartSqlMap(config, sqlmapSource.Path);
-							break;
-						}
-					case SmartSqlMapSource.ResourceType.Directory:
-						{
-							var childSqlmapSources = Directory.EnumerateFiles(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, sqlmapSource.Path), "*.xml");
-							foreach (var childSqlmapSource in childSqlmapSources)
+					LoadManifestSmartSqlMap(config, sourceName);
+				}
+			}
+			else
+			{
+				foreach (var sqlmapSource in config.SmartSqlMapSources)
+				{
+					switch (sqlmapSource.Type)
+					{
+						case SmartSqlMapSource.ResourceType.File:
 							{
-								LoadSmartSqlMap(config, childSqlmapSource);
+								LoadSmartSqlMap(config, sqlmapSource.Path);
+								break;
 							}
-							break;
-						}
-					default:
-						{
-							_logger.LogDebug($"LocalFileConfigLoader unknow SmartSqlMapSource.ResourceType:{sqlmapSource.Type}.");
-							break;
-						}
+						case SmartSqlMapSource.ResourceType.Directory:
+							{
+								var childSqlmapSources = Directory.EnumerateFiles(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, sqlmapSource.Path), "*.xml");
+								foreach (var childSqlmapSource in childSqlmapSources)
+								{
+									LoadSmartSqlMap(config, childSqlmapSource);
+								}
+								break;
+							}
+						default:
+							{
+								_logger.LogDebug($"LocalFileConfigLoader unknow SmartSqlMapSource.ResourceType:{sqlmapSource.Type}.");
+								break;
+							}
+					}
 				}
 			}
 			_logger.LogDebug($"LocalFileConfigLoader Load: { _smartSqlOptions.SqlMapperPath} End");
@@ -140,6 +152,17 @@ namespace DNIC.Erechtheion.SmartSql
 				Stream = FileLoader.Load(path)
 			};
 			return configStream;
+		}
+
+		private void LoadManifestSmartSqlMap(SmartSqlMapConfig config, string name)
+		{
+			var configStream = new ConfigStream
+			{
+				Path = name,
+				Stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(name)
+			};
+			var sqlmap = LoadSmartSqlMap(configStream, config);
+			config.SmartSqlMaps.Add(sqlmap);
 		}
 
 		/// <summary>

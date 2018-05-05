@@ -4,7 +4,6 @@ using DNIC.Erechtheion.Domain.Repositories;
 using DNIC.Erechtheion.SmartSql.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using SmartSql.Abstractions;
 using MapperContainer = SmartSql.MapperContainer;
 
 namespace DNIC.Erechtheion.SmartSql
@@ -16,12 +15,6 @@ namespace DNIC.Erechtheion.SmartSql
 			var services = builder.Services;
 			var options = new SmartSqlOptions();
 			optionAction(options);
-
-			services.AddSingleton<ISmartSqlMapperAsync>(sp =>
-			{
-				var loggerFactory = sp.GetRequiredService<ILoggerFactory>();
-				return MapperContainer.Instance.GetSqlMapper(loggerFactory, string.Empty, new NativeConfigLoader(loggerFactory, options));
-			});
 
 			services.AddSingleton(sp =>
 			{

@@ -17,5 +17,7 @@ namespace DNIC.Erechtheion.SmartSql
 		public string LoggingName { get; set; }
 
 		public string ParameterPrefix { get; set; } = "@";
+
+		public bool UseManifestResource { get; set; }
 	}
 }
