@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using DNIC.Erechtheion.Application.Dto.Topic;
 using DNIC.Erechtheion.Domain.Entities;
 using DNIC.Erechtheion.Domain.Repositories;
 using SmartSql.Abstractions;
@@ -25,6 +26,16 @@ namespace DNIC.Erechtheion.SmartSql.Repositories
 				SqlId = "QueryTopic",
 				Request = new { Id = id }
 			});
+		}
+
+		public Task<Topic> Get(Guid id)
+		{
+			throw new NotImplementedException();
+		}
+
+		public Task<(IEnumerable<Topic> records, int count)> Search(TopicCondition condition)
+		{
+			throw new NotImplementedException();
 		}
 
 		public async Task<IEnumerable<Topic>> GetAll()
