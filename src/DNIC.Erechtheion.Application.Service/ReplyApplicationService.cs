@@ -94,7 +94,7 @@ namespace DNIC.Erechtheion.Application.Service
 			}
 		}
 
-		public ApiResult<PaginationQueryResult<ReplyDto>> Search(ReplyQuery request)
+		public ApiResult<PaginationQueryResult<ReplyDto>> Search(ReplyCondition request)
 		{
 			try
 			{

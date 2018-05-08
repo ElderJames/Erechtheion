@@ -15,6 +15,6 @@ namespace DNIC.Erechtheion.Application
 
 		ApiResult<ReplyDto> GetById(Guid id);
 
-		ApiResult<PaginationQueryResult<ReplyDto>> Search(ReplyQuery request);
+		ApiResult<PaginationQueryResult<ReplyDto>> Search(ReplyCondition request);
 	}
 }

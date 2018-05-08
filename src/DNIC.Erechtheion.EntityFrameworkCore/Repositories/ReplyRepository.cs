@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using DNIC.Erechtheion.Application.Dto.Reply;
 using DNIC.Erechtheion.Domain.Entities;
 using DNIC.Erechtheion.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -39,6 +41,11 @@ namespace DNIC.Erechtheion.EntityFrameworkCore.Repositories
 			_dbContext.Attach(reply).State = EntityState.Modified;
 			_dbContext.Update(reply);
 			return _dbContext.SaveChanges();
+		}
+
+		public (IEnumerable<Reply> records, int count) Search(ReplyCondition condition)
+		{
+			throw new NotImplementedException();
 		}
 	}
 }
