@@ -1,18 +1,11 @@
 ﻿using System.Threading.Tasks;
-using DNIC.Erechtheion.Domain.Repositories;
 using DNIC.Erechtheion.Domain.Entities;
+using DNIC.Erechtheion.Domain.Repositories;
 
-namespace DNIC.Erechtheion.EntityFrameworkCore.Repositories
+namespace DNIC.Erechtheion.Repositories.SmartSql
 {
 	public class TopicRepository : ITopicRepository
 	{
-		private ErechtheionDbContext dbContext;
-
-		public TopicRepository(ErechtheionDbContext dbContext)
-		{
-			this.dbContext = dbContext;
-		}
-
 		public Task<int> CreateAsync(Topic topic)
 		{
 			throw new System.NotImplementedException();

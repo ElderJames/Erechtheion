@@ -1,11 +1,9 @@
 ﻿using System;
 using DNIC.Erechtheion.Core;
 using DNIC.Erechtheion.Core.Extensions;
-using DNIC.Erechtheion.Domain.Repositories;
-using DNIC.Erechtheion.SmartSql.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace DNIC.Erechtheion.Application.Service
+namespace DNIC.Erechtheion.Application.Services
 {
 	public static class ServiceCollectionExtensions
 	{

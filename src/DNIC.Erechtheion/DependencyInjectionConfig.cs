@@ -1,5 +1,4 @@
-﻿using DNIC.Erechtheion.Application;
-using DNIC.Erechtheion.Application.Service;
+﻿using DNIC.Erechtheion.Application.Services;
 using DNIC.Erechtheion.Core;
 using Microsoft.Extensions.DependencyInjection;
 using DNIC.Erechtheion.Identity.EntityFrameworkCore;

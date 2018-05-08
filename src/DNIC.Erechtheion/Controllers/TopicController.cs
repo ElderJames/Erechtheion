@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using DNIC.Erechtheion.Application;
 using DNIC.Erechtheion.Application.Dto;
+using DNIC.Erechtheion.Application.Services;
 using DNIC.Erechtheion.Core.Configuration;
 using Microsoft.AspNetCore.Mvc;
 

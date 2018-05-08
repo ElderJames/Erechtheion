@@ -2,13 +2,11 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using System.Runtime.InteropServices.ComTypes;
 using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Abstractions;
 using SmartSql.Abstractions;
 using SmartSql.Abstractions.Config;
+using SmartSql.Abstractions.Logging;
 using SmartSql.Common;
 using SmartSql.SqlMap;
 
@@ -159,7 +157,7 @@ namespace DNIC.Erechtheion.SmartSql
 			var configStream = new ConfigStream
 			{
 				Path = name,
-				Stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(name)
+				Stream = Assembly.GetCallingAssembly().GetManifestResourceStream(name)
 			};
 			var sqlmap = LoadSmartSqlMap(configStream, config);
 			config.SmartSqlMaps.Add(sqlmap);

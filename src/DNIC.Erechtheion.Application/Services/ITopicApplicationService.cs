@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using DNIC.Erechtheion.Application.Dto;
 
-namespace DNIC.Erechtheion.Application
+namespace DNIC.Erechtheion.Application.Services
 {
 	public interface ITopicApplicationService
 	{
