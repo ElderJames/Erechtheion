@@ -12,9 +12,9 @@ namespace DNIC.Erechtheion.QuerySerivces.SmartSql
 	{
 		private readonly ISmartSqlMapper _sqlMapper;
 
-		public TopicQueryService(ISmartSqlMapper sqlMapper)
+		public TopicQueryService(QueryServiceSqlMapper queryServiceSqlMapper)
 		{
-			_sqlMapper = sqlMapper;
+			_sqlMapper = queryServiceSqlMapper.sqlMapper;
 		}
 
 		public async Task<TopicOutput> Get(int id)
