@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using DNIC.Erechtheion.Application.Dto;
 using DNIC.Erechtheion.Application.EnumTypes;
-using DNIC.Erechtheion.Application.QueryServices;
 using DNIC.Erechtheion.Core.Configuration;
 using DNIC.Erechtheion.Domain.Entities;
 using DNIC.Erechtheion.Domain.Repositories;
 using DNIC.Erechtheion.Domain.ValueObjects;
+using DNIC.Erechtheion.QuerySerivces.QueryServices;
 
 namespace DNIC.Erechtheion.Application.Services
 {

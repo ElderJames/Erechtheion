@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
-using DNIC.Erechtheion.Application.QueryServices;
 using DNIC.Erechtheion.Core;
+using DNIC.Erechtheion.QuerySerivces.QueryServices;
 using DNIC.Erechtheion.SmartSql;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;

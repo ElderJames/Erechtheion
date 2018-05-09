@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using DNIC.Erechtheion.Application.Dto;
 
-namespace DNIC.Erechtheion.Application.QueryServices
+namespace DNIC.Erechtheion.QuerySerivces.QueryServices
 {
 	public interface ITopicQuerySerivce
 	{

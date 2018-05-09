@@ -1,5 +1,4 @@
 ﻿using DNIC.Erechtheion.Core;
-using DNIC.Erechtheion.Domain;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;

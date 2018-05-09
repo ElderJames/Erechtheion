@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DNIC.Erechtheion.Application\DNIC.Erechtheion.Application.csproj" />
+    <ProjectReference Include="..\DNIC.Erechtheion.QuerySerivces\DNIC.Erechtheion.QuerySerivces.csproj" />
     <ProjectReference Include="..\DNIC.Erechtheion.SmartSql\DNIC.Erechtheion.SmartSql.csproj" />
   </ItemGroup>
 </Project>
