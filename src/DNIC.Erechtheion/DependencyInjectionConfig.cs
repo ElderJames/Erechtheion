@@ -1,5 +1,5 @@
 ﻿using DNIC.Erechtheion.Application;
-using DNIC.Erechtheion.Application.Service;
+using DNIC.Erechtheion.Application.Services;
 using DNIC.Erechtheion.Core;
 using DNIC.Erechtheion.Migrator;
 using Microsoft.Extensions.DependencyInjection;

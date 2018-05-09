@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
-using System.Runtime.InteropServices.ComTypes;
 using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Abstractions;
 using SmartSql.Abstractions;
 using SmartSql.Abstractions.Config;
+using SmartSql.Abstractions.Logging;
 using SmartSql.Common;
 using SmartSql.SqlMap;
 
@@ -19,27 +18,29 @@ namespace DNIC.Erechtheion.SmartSql
 		private readonly ILogger _logger;
 		private const int DELAYED_LOAD_FILE = 500;
 		private readonly SmartSqlOptions _smartSqlOptions;
+		private List<(Assembly assembly, string[] names)> assemblyList;
 
-		public string ConnectString { get; private set; }
+		private string[] _names;
 
-		public NativeConfigLoader(string connectString) : this(NullLoggerFactory.Instance, connectString)
+		public void SetAssemblyOf(Assembly assembly)
 		{
+			assemblyList.Add((assembly, assembly.GetManifestResourceNames()));
 		}
 
-		public NativeConfigLoader(ILoggerFactory loggerFactory, string connectString)
+		public NativeConfigLoader(SmartSqlOptions options) : this(NullLoggerFactory.Instance, options)
 		{
-			ConnectString = connectString;
 		}
 
 		public NativeConfigLoader(ILoggerFactory loggerFactory, SmartSqlOptions options)
 		{
 			_logger = loggerFactory.CreateLogger(GetType());
 			_smartSqlOptions = options;
+			assemblyList = new List<(Assembly assembly, string[] names)>();
 		}
 
 		public override void Dispose()
 		{
-			throw new NotImplementedException();
+			FileWatcherLoader.Instance.Clear();
 		}
 
 		public override SmartSqlMapConfig Load(string path, ISmartSqlMapper smartSqlMapper)
@@ -91,9 +92,12 @@ namespace DNIC.Erechtheion.SmartSql
 
 			if (_smartSqlOptions.UseManifestResource)
 			{
-				foreach (var sourceName in Assembly.GetExecutingAssembly().GetManifestResourceNames())
+				foreach (var assembly in assemblyList)
 				{
-					LoadManifestSmartSqlMap(config, sourceName);
+					foreach (var sourceName in assembly.names)
+					{
+						LoadManifestSmartSqlMap(config, assembly.assembly, sourceName);
+					}
 				}
 			}
 			else
@@ -154,12 +158,12 @@ namespace DNIC.Erechtheion.SmartSql
 			return configStream;
 		}
 
-		private void LoadManifestSmartSqlMap(SmartSqlMapConfig config, string name)
+		private void LoadManifestSmartSqlMap(SmartSqlMapConfig config, Assembly assembly, string name)
 		{
 			var configStream = new ConfigStream
 			{
 				Path = name,
-				Stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(name)
+				Stream = assembly.GetManifestResourceStream(name)
 			};
 			var sqlmap = LoadSmartSqlMap(configStream, config);
 			config.SmartSqlMaps.Add(sqlmap);

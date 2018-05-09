@@ -1,15 +1,9 @@
-﻿using AutoMapper;
+﻿using System.Threading.Tasks;
 using DNIC.Erechtheion.Application.Dto;
 using DNIC.Erechtheion.Core.Domain.Uow;
-using DNIC.Erechtheion.Core.RepositoryBase;
-using DNIC.Erechtheion.Domain.Entities;
 using DNIC.Erechtheion.Domain.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace DNIC.Erechtheion.Application.Service
+namespace DNIC.Erechtheion.Application.Services
 {
 	public class ChannelAppService : IChannelAppService
 	{
@@ -29,7 +23,6 @@ namespace DNIC.Erechtheion.Application.Service
 			//Channel parentChannel = input.ParentId == 0 ? null : this.unitOfWork.Resolve<Channel>(input.ParentId);
 			//this.unitOfWork.RegisterAdd(Mapper.Map<Channel>(input));
 			//await this.unitOfWork.UnitedCommitAsync();
-
 		}
 	}
 }

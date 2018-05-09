@@ -1,5 +1,5 @@
 ﻿using DNIC.Erechtheion.Domain.Repositories;
-using DNIC.Erechtheion.SmartSql.Repositories;
+using DNIC.Erechtheion.SmartSql;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 using System.Collections.Concurrent;

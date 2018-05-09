@@ -1,7 +1,7 @@
 ﻿using DNIC.Erechtheion.Core.Configuration;
 using Serilog;
 
-namespace DNIC.Erechtheion.Application.Service
+namespace DNIC.Erechtheion.Application.Services
 {
 	public abstract class AppServiceBase
 	{

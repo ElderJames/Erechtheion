@@ -1,17 +1,16 @@
 ﻿using System.Data.SqlClient;
+using DNIC.Erechtheion.Application.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using DNIC.Erechtheion.Services;
 using DNIC.Erechtheion.Core.Configuration;
 using Microsoft.Extensions.Logging;
-using DNIC.Erechtheion.Application.Service;
 using Serilog;
-using DNIC.Erechtheion.SmartSql;
-using DNIC.Erechtheion.Application;
+using DNIC.Erechtheion.QuerySerivces.SmartSql;
+using DNIC.Erechtheion.Repositories.SmartSql;
 using DNIC.Erechtheion.Domain.Entities;
 using AspNetCore.Identity.Dapper;
 
@@ -64,7 +63,16 @@ namespace DNIC.Erechtheion
 			services.AddErechtheionServices(config =>
 			{
 				//config.UseEntityFrameworkCore(options => options.UseSqlServer(ErechtheionConfiguration.ConnectionString, b => b.UseRowNumberForPaging()));
-				config.UseSmartSql(options =>
+				config.UseSmartSqlRepositories(options =>
+				{
+					options.ConnectionString = ErechtheionConfiguration.ConnectionString;
+					options.SqlMapperPath = "SqlMaps";
+					options.DbProviderFactory = SqlClientFactory.Instance;
+					options.LoggingName = ErechtheionConfiguration.ApiName;
+					options.UseManifestResource = true;
+				});
+
+				config.UseSmartSqlQueryServices(options =>
 				{
 					options.ConnectionString = ErechtheionConfiguration.ConnectionString;
 					options.SqlMapperPath = "SqlMaps";
