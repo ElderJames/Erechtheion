@@ -9,10 +9,12 @@ using DNIC.Erechtheion.Services;
 using DNIC.Erechtheion.Core.Configuration;
 using Microsoft.Extensions.Logging;
 using Serilog;
-using DNIC.Erechtheion.QuerySerivces.SmartSql;
 using DNIC.Erechtheion.Repositories.SmartSql;
 using DNIC.Erechtheion.Domain.Entities;
 using AspNetCore.Identity.Dapper;
+using System;
+using DNIC.Erechtheion.Queries.SmartSql;
+using DNIC.Erechtheion.SmartSql;
 
 namespace DNIC.Erechtheion
 {
@@ -63,6 +65,7 @@ namespace DNIC.Erechtheion
 			services.AddErechtheionServices(config =>
 			{
 				//config.UseEntityFrameworkCore(options => options.UseSqlServer(ErechtheionConfiguration.ConnectionString, b => b.UseRowNumberForPaging()));
+
 				config.UseSmartSqlRepositories(options =>
 				{
 					options.ConnectionString = ErechtheionConfiguration.ConnectionString;
@@ -72,7 +75,7 @@ namespace DNIC.Erechtheion
 					options.UseManifestResource = true;
 				});
 
-				config.UseSmartSqlQueryServices(options =>
+				config.UseSmartSqlQueries(options =>
 				{
 					options.ConnectionString = ErechtheionConfiguration.ConnectionString;
 					options.SqlMapperPath = "SqlMaps";

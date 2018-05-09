@@ -7,11 +7,11 @@ namespace DNIC.Erechtheion.Repositories.SmartSql
 {
 	public class RepositorySqlMapper
 	{
-		private ISmartSqlMapper smartSqlMapper { get; }
+		public ISmartSqlMapper SmartSqlMapper { get; }
 
 		public RepositorySqlMapper(ISmartSqlMapper smartSqlMapper)
 		{
-			this.smartSqlMapper = smartSqlMapper;
+			SmartSqlMapper = smartSqlMapper;
 		}
 	}
 }

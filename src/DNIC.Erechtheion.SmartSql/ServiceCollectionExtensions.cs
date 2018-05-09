@@ -8,18 +8,18 @@ namespace DNIC.Erechtheion.SmartSql
 {
 	public static class ServiceCollectionExtensions
 	{
-		public static void AddSmartSql(this IServiceCollection services, Action<SmartSqlOptions> optionAction)
+		public static void AddSmartSql(this IServiceCollection services, Action<SmartSqlOptions> configureOptions)
 		{
 			var options = new SmartSqlOptions();
-			optionAction(options);
+			configureOptions(options);
 
-			services.AddSingleton(sp =>
+			services.AddSingleton(serviceProvider =>
 			{
-				var loggerFactory = sp.GetRequiredService<ILoggerFactory>();
-				return MapperContainer.Instance.GetSqlMapper(loggerFactory, string.Empty, new NativeConfigLoader(loggerFactory, options));
+				var loggerFactory = serviceProvider.GetRequiredService<ILoggerFactory>();
+				return MapperContainer.Instance.GetSqlMapper(loggerFactory, string.Empty, new NativeConfigLoader(options));
 			});
 
-			services.AddSingleton<ISmartSqlMapperAsync>(sp => sp.GetRequiredService<ISmartSqlMapper>());
+			services.AddSingleton<ISmartSqlMapperAsync>(serviceProvider => serviceProvider.GetRequiredService<ISmartSqlMapper>());
 		}
 	}
 }

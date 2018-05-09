@@ -7,11 +7,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using SmartSql;
 
-namespace DNIC.Erechtheion.QuerySerivces.SmartSql
+namespace DNIC.Erechtheion.Queries.SmartSql
 {
 	public static class ServiceCollectionExtensions
 	{
-		public static void UseSmartSqlQueryServices(this IErechtheionBuilder builder, Action<SmartSqlOptions> optionAction)
+		public static void UseSmartSqlQueries(this IErechtheionBuilder builder, Action<SmartSqlOptions> optionAction)
 		{
 			var options = new SmartSqlOptions();
 			optionAction(options);
@@ -21,10 +21,10 @@ namespace DNIC.Erechtheion.QuerySerivces.SmartSql
 			services.AddSingleton(sp =>
 			{
 				var loggerFactory = sp.GetRequiredService<ILoggerFactory>();
-				var configLoader = new NativeConfigLoader(loggerFactory, options);
+				var configLoader = new NativeConfigLoader(options);
 
 				configLoader.SetAssemblyOf(assembly);
-				return new QueryServiceSqlMapper(new SmartSqlMapper(loggerFactory, optionAction.GetType().AssemblyQualifiedName, configLoader));
+				return new QueriesSqlMapper(new SmartSqlMapper(loggerFactory, optionAction.GetType().AssemblyQualifiedName, configLoader));
 			});
 
 			services.AddScoped<ITopicQuerySerivce, TopicQueryService>();

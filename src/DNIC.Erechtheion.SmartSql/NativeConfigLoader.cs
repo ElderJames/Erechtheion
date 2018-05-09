@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Threading;
-using Microsoft.Extensions.Logging;
+using Serilog;
 using SmartSql.Abstractions;
 using SmartSql.Abstractions.Config;
-using SmartSql.Abstractions.Logging;
 using SmartSql.Common;
 using SmartSql.SqlMap;
 
@@ -15,27 +13,19 @@ namespace DNIC.Erechtheion.SmartSql
 {
 	public class NativeConfigLoader : ConfigLoader
 	{
-		private readonly ILogger _logger;
-		private const int DELAYED_LOAD_FILE = 500;
+		private const int DelayedLoadFile = 500;
 		private readonly SmartSqlOptions _smartSqlOptions;
-		private List<(Assembly assembly, string[] names)> assemblyList;
-
-		private string[] _names;
+		private readonly List<(Assembly assembly, string[] names)> _assemblies;
 
 		public void SetAssemblyOf(Assembly assembly)
 		{
-			assemblyList.Add((assembly, assembly.GetManifestResourceNames()));
+			_assemblies.Add((assembly, assembly.GetManifestResourceNames()));
 		}
 
-		public NativeConfigLoader(SmartSqlOptions options) : this(NullLoggerFactory.Instance, options)
+		public NativeConfigLoader(SmartSqlOptions options)
 		{
-		}
-
-		public NativeConfigLoader(ILoggerFactory loggerFactory, SmartSqlOptions options)
-		{
-			_logger = loggerFactory.CreateLogger(GetType());
 			_smartSqlOptions = options;
-			assemblyList = new List<(Assembly assembly, string[] names)>();
+			_assemblies = new List<(Assembly assembly, string[] names)>();
 		}
 
 		public override void Dispose()
@@ -45,37 +35,37 @@ namespace DNIC.Erechtheion.SmartSql
 
 		public override SmartSqlMapConfig Load(string path, ISmartSqlMapper smartSqlMapper)
 		{
-			_logger.LogDebug($"NativeConfigLoader Load: { _smartSqlOptions.SqlMapperPath} Starting");
+			Log.Logger.Debug($"NativeConfigLoader Load: { _smartSqlOptions.SqlMapperPath} Starting");
 
-			var config = new SmartSqlMapConfig()
+			var config = new SmartSqlMapConfig
 			{
 				Path = _smartSqlOptions.SqlMapperPath,
 				SmartSqlMapper = smartSqlMapper,
 				SmartSqlMaps = new List<SmartSqlMap>(),
-				SmartSqlMapSources = new List<SmartSqlMapSource>()
+				SmartSqlMapSources = new List<SmartSqlMapSource>
 				{
-					new SmartSqlMapSource()
+					new SmartSqlMapSource
 					{
 						Path = _smartSqlOptions.SqlMapperPath,
 						Type = SmartSqlMapSource.ResourceType.Directory
 					}
 				},
-				Database = new Database()
+				Database = new Database
 				{
-					DbProvider = new DbProvider()
+					DbProvider = new DbProvider
 					{
 						ParameterPrefix = _smartSqlOptions.ParameterPrefix,
 						Name = _smartSqlOptions.DbProviderFactory.GetType().Name,
 						Type = _smartSqlOptions.DbProviderFactory.GetType().AssemblyQualifiedName
 					},
-					WriteDataSource = new WriteDataSource()
+					WriteDataSource = new WriteDataSource
 					{
 						ConnectionString = _smartSqlOptions.ConnectionString,
 						Name = _smartSqlOptions.LoggingName
 					},
-					ReadDataSources = new List<ReadDataSource>()
+					ReadDataSources = new List<ReadDataSource>
 					{
-						new ReadDataSource()
+						new ReadDataSource
 						{
 							ConnectionString = _smartSqlOptions.ConnectionString,
 							Name = _smartSqlOptions.LoggingName,
@@ -83,7 +73,7 @@ namespace DNIC.Erechtheion.SmartSql
 						}
 					},
 				},
-				Settings = new Settings()
+				Settings = new Settings
 				{
 					ParameterPrefix = _smartSqlOptions.ParameterPrefix,
 					IsWatchConfigFile = true
@@ -92,11 +82,11 @@ namespace DNIC.Erechtheion.SmartSql
 
 			if (_smartSqlOptions.UseManifestResource)
 			{
-				foreach (var assembly in assemblyList)
+				foreach (var assembly in _assemblies)
 				{
 					foreach (var sourceName in assembly.names)
 					{
-						LoadManifestSmartSqlMap(config, assembly.assembly, sourceName);
+						LoadManifestSmartSqlMaps(config, assembly.assembly, sourceName);
 					}
 				}
 			}
@@ -108,7 +98,7 @@ namespace DNIC.Erechtheion.SmartSql
 					{
 						case SmartSqlMapSource.ResourceType.File:
 							{
-								LoadSmartSqlMap(config, sqlmapSource.Path);
+								LoadSmartSqlMaps(config, sqlmapSource.Path);
 								break;
 							}
 						case SmartSqlMapSource.ResourceType.Directory:
@@ -116,33 +106,33 @@ namespace DNIC.Erechtheion.SmartSql
 								var childSqlmapSources = Directory.EnumerateFiles(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, sqlmapSource.Path), "*.xml");
 								foreach (var childSqlmapSource in childSqlmapSources)
 								{
-									LoadSmartSqlMap(config, childSqlmapSource);
+									LoadSmartSqlMaps(config, childSqlmapSource);
 								}
 								break;
 							}
 						default:
 							{
-								_logger.LogDebug($"LocalFileConfigLoader unknow SmartSqlMapSource.ResourceType:{sqlmapSource.Type}.");
+								Log.Logger.Debug($"LocalFileConfigLoader unknow SmartSqlMapSource.ResourceType:{sqlmapSource.Type}.");
 								break;
 							}
 					}
 				}
 			}
-			_logger.LogDebug($"LocalFileConfigLoader Load: { _smartSqlOptions.SqlMapperPath} End");
+			Log.Logger.Debug($"LocalFileConfigLoader Load: { _smartSqlOptions.SqlMapperPath} End");
 			smartSqlMapper.LoadConfig(config);
 
 			if (config.Settings.IsWatchConfigFile)
 			{
-				_logger.LogDebug($"LocalFileConfigLoader Load Add WatchConfig: { _smartSqlOptions.SqlMapperPath} Starting.");
+				Log.Logger.Debug($"LocalFileConfigLoader Load Add WatchConfig: { _smartSqlOptions.SqlMapperPath} Starting.");
 				WatchConfig(smartSqlMapper);
-				_logger.LogDebug($"LocalFileConfigLoader Load Add WatchConfig: { _smartSqlOptions.SqlMapperPath} End.");
+				Log.Logger.Debug($"LocalFileConfigLoader Load Add WatchConfig: { _smartSqlOptions.SqlMapperPath} End.");
 			}
 			return config;
 		}
 
-		private void LoadSmartSqlMap(SmartSqlMapConfig config, String sqlmapSourcePath)
+		private void LoadSmartSqlMaps(SmartSqlMapConfig config, string sqlmapSourcePath)
 		{
-			_logger.LogDebug($"LoadSmartSqlMap Load: {sqlmapSourcePath}");
+			Log.Logger.Debug($"LoadSmartSqlMap Load: {sqlmapSourcePath}");
 			var sqlmapStream = LoadConfigStream(sqlmapSourcePath);
 			var sqlmap = LoadSmartSqlMap(sqlmapStream, config);
 			config.SmartSqlMaps.Add(sqlmap);
@@ -158,7 +148,7 @@ namespace DNIC.Erechtheion.SmartSql
 			return configStream;
 		}
 
-		private void LoadManifestSmartSqlMap(SmartSqlMapConfig config, Assembly assembly, string name)
+		private void LoadManifestSmartSqlMaps(SmartSqlMapConfig config, Assembly assembly, string name)
 		{
 			var configStream = new ConfigStream
 			{
@@ -173,29 +163,28 @@ namespace DNIC.Erechtheion.SmartSql
 		/// 监控配置文件-热更新
 		/// </summary>
 		/// <param name="smartSqlMapper"></param>
-		/// <param name="config"></param>
 		private void WatchConfig(ISmartSqlMapper smartSqlMapper)
 		{
 			var config = smartSqlMapper.SqlMapConfig;
 
 			#region SmartSqlMapConfig File Watch
 
-			_logger.LogDebug($"LocalFileConfigLoader Watch SmartSqlMapConfig: {config.Path} .");
+			Log.Logger.Debug($"LocalFileConfigLoader Watch SmartSqlMapConfig: {config.Path} .");
 			var cofigFileInfo = FileLoader.GetInfo(config.Path);
 			FileWatcherLoader.Instance.Watch(cofigFileInfo, () =>
 			{
-				Thread.Sleep(DELAYED_LOAD_FILE);
+				Thread.Sleep(DelayedLoadFile);
 				lock (this)
 				{
 					try
 					{
-						_logger.LogDebug($"LocalFileConfigLoader Changed ReloadConfig: {config.Path} Starting");
-						var newConfig = Load(config.Path, smartSqlMapper);
-						_logger.LogDebug($"LocalFileConfigLoader Changed ReloadConfig: {config.Path} End");
+						Log.Logger.Debug($"LocalFileConfigLoader Changed ReloadConfig: {config.Path} Starting");
+						Load(config.Path, smartSqlMapper);
+						Log.Logger.Debug($"LocalFileConfigLoader Changed ReloadConfig: {config.Path} End");
 					}
 					catch (Exception ex)
 					{
-						_logger.LogError(new EventId(ex.HResult), ex, ex.Message);
+						Log.Logger.Error(ex, ex.Message);
 					}
 				}
 			});
@@ -208,16 +197,16 @@ namespace DNIC.Erechtheion.SmartSql
 			{
 				#region SqlMap File Watch
 
-				_logger.LogDebug($"LocalFileConfigLoader Watch SmartSqlMap: {sqlmap.Path} .");
+				Log.Logger.Debug($"LocalFileConfigLoader Watch SmartSqlMap: {sqlmap.Path} .");
 				var sqlMapFileInfo = FileLoader.GetInfo(sqlmap.Path);
 				FileWatcherLoader.Instance.Watch(sqlMapFileInfo, () =>
 				{
-					Thread.Sleep(DELAYED_LOAD_FILE);
+					Thread.Sleep(DelayedLoadFile);
 					lock (this)
 					{
 						try
 						{
-							_logger.LogDebug($"LocalFileConfigLoader Changed Reload SmartSqlMap: {sqlmap.Path} Starting");
+							Log.Logger.Debug($"LocalFileConfigLoader Changed Reload SmartSqlMap: {sqlmap.Path} Starting");
 							var sqlmapStream = LoadConfigStream(sqlmap.Path);
 							var newSqlmap = LoadSmartSqlMap(sqlmapStream, config);
 							sqlmap.Scope = newSqlmap.Scope;
@@ -225,11 +214,11 @@ namespace DNIC.Erechtheion.SmartSql
 							sqlmap.Caches = newSqlmap.Caches;
 							config.ResetMappedStatements();
 							smartSqlMapper.CacheManager.ResetMappedCaches();
-							_logger.LogDebug($"LocalFileConfigLoader Changed Reload SmartSqlMap: {sqlmap.Path} End");
+							Log.Logger.Debug($"LocalFileConfigLoader Changed Reload SmartSqlMap: {sqlmap.Path} End");
 						}
 						catch (Exception ex)
 						{
-							_logger.LogError(new EventId(ex.HResult), ex, ex.Message);
+							Log.Logger.Error(ex, ex.Message);
 						}
 					}
 				});

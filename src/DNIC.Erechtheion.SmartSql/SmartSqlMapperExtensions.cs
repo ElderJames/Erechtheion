@@ -160,7 +160,7 @@ namespace DNIC.Erechtheion.SmartSql
 
 		private static void EnsurePoint(ref string fullSqlId)
 		{
-			if (!fullSqlId.Contains(".")) fullSqlId = "." + fullSqlId;
+			if (!fullSqlId.Contains(".")) fullSqlId = $".{fullSqlId}";
 		}
 	}
 }

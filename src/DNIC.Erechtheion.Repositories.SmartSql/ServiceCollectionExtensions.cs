@@ -11,20 +11,19 @@ namespace DNIC.Erechtheion.Repositories.SmartSql
 {
 	public static class ServiceCollectionExtensions
 	{
-		public static void UseSmartSqlRepositories(this IErechtheionBuilder builder, Action<SmartSqlOptions> optionAction)
+		public static void UseSmartSqlRepositories(this IErechtheionBuilder builder, Action<SmartSqlOptions> configureOptions)
 		{
 			var options = new SmartSqlOptions();
-			optionAction(options);
+			configureOptions(options);
 			var services = builder.Services;
-			//services.AddSmartSql(optionAction);
+		
 			var assembly = Assembly.GetExecutingAssembly();
-			services.AddSingleton(sp =>
+			services.AddSingleton(serviceProvider =>
 			{
-				var loggerFactory = sp.GetRequiredService<ILoggerFactory>();
-				var configLoader = new NativeConfigLoader(loggerFactory, options);
-
+				var loggerFactory = serviceProvider.GetRequiredService<ILoggerFactory>();
+				var configLoader = new NativeConfigLoader( options);
 				configLoader.SetAssemblyOf(assembly);
-				return new RepositorySqlMapper(new SmartSqlMapper(loggerFactory, optionAction.GetType().AssemblyQualifiedName, configLoader));
+				return new RepositorySqlMapper(new SmartSqlMapper(loggerFactory, configureOptions.GetType().AssemblyQualifiedName, configLoader));
 			});
 
 			services.AddScoped<ITopicRepository, TopicRepository>();
