@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using DNIC.Erechtheion.Models;
-using DNIC.Erechtheion.Models.AccountViewModels;
+﻿using DNIC.Erechtheion.Models.AccountViewModels;
 using DNIC.Erechtheion.Services;
 using DNIC.Erechtheion.Core.Configuration;
+using DNIC.Erechtheion.Extensions;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using DNIC.Erechtheion.Domain.Entities;
+using System.Threading.Tasks;
+using System;
+using Microsoft.AspNetCore.Authentication;
+using System.Security.Claims;
 
 namespace DNIC.Erechtheion.Controllers
 {

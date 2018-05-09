@@ -1,8 +1,8 @@
-﻿using System.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
-using DNIC.Erechtheion.Models;
+﻿using DNIC.Erechtheion.Models;
 using DNIC.Erechtheion.Core.Configuration;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 
 namespace DNIC.Erechtheion.Controllers
 {

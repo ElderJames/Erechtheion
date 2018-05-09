@@ -1,8 +1,4 @@
-﻿using DNIC.Erechtheion.Core.Domain;
-using DNIC.Erechtheion.Core.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using DNIC.Erechtheion.Core.Domain.Entities;
 
 namespace DNIC.Erechtheion.Domain.Entities
 {

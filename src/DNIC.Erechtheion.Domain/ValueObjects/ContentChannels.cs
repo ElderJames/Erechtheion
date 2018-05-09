@@ -1,6 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using DNIC.Erechtheion.Core.Domain.ValueObjects;
+﻿using DNIC.Erechtheion.Core.Domain.ValueObjects;
 
 namespace DNIC.Erechtheion.Domain.ValueObjects
 {

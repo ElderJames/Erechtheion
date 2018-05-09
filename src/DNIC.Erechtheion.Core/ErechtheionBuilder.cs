@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace DNIC.Erechtheion.Core
@@ -13,5 +11,9 @@ namespace DNIC.Erechtheion.Core
 		}
 
 		public IServiceCollection Services { get; }
+
+		public void UseSmartSql(Func<object, object> p)
+		{
+		}
 	}
 }

@@ -3,18 +3,16 @@ using DNIC.Erechtheion.Core.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace DNIC.Erechtheion.Migrator
 {
 	public class SeedDataInitiator : ISeedDataInitiator
 	{
-		private readonly IServiceProvider serviceProvider;
+		private readonly IServiceProvider _serviceProvider;
 
 		public SeedDataInitiator(IServiceProvider serviceProvider)
 		{
-			this.serviceProvider = serviceProvider;
+			_serviceProvider = serviceProvider;
 		}
 
 		public void EnsureSeedData()
@@ -25,16 +23,15 @@ namespace DNIC.Erechtheion.Migrator
 		private void InitAccountData()
 		{
 			Console.WriteLine("Seeding identity data...");
-			var configuration = serviceProvider.GetRequiredService<IErechtheionConfiguration>();
+			var configuration = _serviceProvider.GetRequiredService<IErechtheionConfiguration>();
 
-			using (var scope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope())
+			var factory = new DbContextFactory(configuration.ConnectionString);
+
+			if ((configuration.AuthenticationMode & AuthenticationMode.Self) == AuthenticationMode.Self)
 			{
-				if ((configuration.AuthenticationMode & AuthenticationMode.Self) == AuthenticationMode.Self)
+				using (var context = factory.CreateDbContext(new string[0]))
 				{
-					using (var context = new ErechtheionDbContext(new DbContextOptions<ErechtheionDbContext>()))
-					{
-						context.Database.Migrate();
-					}
+					context.Database.Migrate();
 				}
 			}
 

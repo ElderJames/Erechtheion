@@ -1,20 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Encodings.Web;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using DNIC.Erechtheion.Models;
-using DNIC.Erechtheion.Models.ManageViewModels;
+﻿using DNIC.Erechtheion.Models.ManageViewModels;
 using DNIC.Erechtheion.Services;
 using DNIC.Erechtheion.Core.Configuration;
+using DNIC.Erechtheion.Extensions;
+using System;
+using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using DNIC.Erechtheion.Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Logging;
+using System.Text.Encodings.Web;
+using Microsoft.AspNetCore.Authentication;
+using System.Linq;
+using System.Text;
 
 namespace DNIC.Erechtheion.Controllers
 {
@@ -241,7 +239,7 @@ namespace DNIC.Erechtheion.Controllers
 			model.OtherLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync())
 				.Where(auth => model.CurrentLogins.All(ul => auth.Name != ul.LoginProvider))
 				.ToList();
-			model.ShowRemoveButton = await _userManager.HasPasswordAsync(user) || model.CurrentLogins.Count > 1;
+			model.ShowRemoveButton = await _userManager.HasPasswordAsync(user) || model.CurrentLogins.Count() > 1;
 			model.StatusMessage = StatusMessage;
 
 			return View(model);

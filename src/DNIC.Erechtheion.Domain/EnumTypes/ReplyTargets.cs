@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace DNIC.Erechtheion.Application.EnumTypes
+﻿namespace DNIC.Erechtheion.Domain.EnumTypes
 {
 	public enum ReplyTargets
 	{

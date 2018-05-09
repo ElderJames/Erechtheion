@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace DNIC.Erechtheion.Core.Domain
+﻿namespace DNIC.Erechtheion.Core.Domain
 {
 	/// <summary>
 	/// 可并发接口

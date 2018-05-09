@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using DNIC.Erechtheion.Core.Domain.Repositories;
 using DNIC.Erechtheion.Domain.Entities;
 

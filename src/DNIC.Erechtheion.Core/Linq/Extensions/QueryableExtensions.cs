@@ -1,12 +1,11 @@
 ﻿using AutoMapper;
 using DNIC.Erechtheion.Core.Domain;
-using DNIC.Erechtheion.Core.DtoBase;
 using DNIC.Erechtheion.Core.Services.Dto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
+using DNIC.Erechtheion.Core.Domain.Entities;
 
 namespace DNIC.Erechtheion.Core.Linq.Extensions
 {

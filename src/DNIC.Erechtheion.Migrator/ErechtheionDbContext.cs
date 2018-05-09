@@ -3,10 +3,8 @@ using DNIC.Erechtheion.Domain.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Text;
 
 namespace DNIC.Erechtheion.Migrator
 {
@@ -39,11 +37,11 @@ namespace DNIC.Erechtheion.Migrator
 			{
 				if (typeof(ISoftDeletable).IsAssignableFrom(entity.ClrType))
 				{
-					entity.AddProperty(_isDeletedProperty, typeof(bool));
+					entity.AddProperty(IsDeletedProperty, typeof(bool));
 
 					builder.Entity(entity.ClrType)
 						.HasQueryFilter(GetIsDeletedRestriction(entity.ClrType))
-						.HasIndex(_isDeletedProperty).HasName($"IDX_{_isDeletedProperty}");
+						.HasIndex(IsDeletedProperty).HasName($"IDX_{IsDeletedProperty}");
 				}
 			}
 			builder.Entity<Topic>().ToTable("Topic").HasMany(o => o.Channels);
@@ -52,8 +50,8 @@ namespace DNIC.Erechtheion.Migrator
 	
 		#region solf delete
 
-		private const string _isDeletedProperty = "IsDeleted";
-		private static readonly MethodInfo _propertyMethod = typeof(EF).GetMethod(nameof(EF.Property), BindingFlags.Static | BindingFlags.Public).MakeGenericMethod(typeof(bool));
+		private const string IsDeletedProperty = "IsDeleted";
+		private static readonly MethodInfo PropertyMethod = typeof(EF).GetMethod(nameof(EF.Property), BindingFlags.Static | BindingFlags.Public).MakeGenericMethod(typeof(bool));
 
 		/// <summary>
 		/// 创建lambda条件表达式
@@ -63,7 +61,7 @@ namespace DNIC.Erechtheion.Migrator
 		private static LambdaExpression GetIsDeletedRestriction(Type type)
 		{
 			var parm = Expression.Parameter(type, "it");
-			var prop = Expression.Call(_propertyMethod, parm, Expression.Constant(_isDeletedProperty));
+			var prop = Expression.Call(PropertyMethod, parm, Expression.Constant(IsDeletedProperty));
 			var condition = Expression.MakeBinary(ExpressionType.Equal, prop, Expression.Constant(false));
 			return Expression.Lambda(condition, parm);
 		}

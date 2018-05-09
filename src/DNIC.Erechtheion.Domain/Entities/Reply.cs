@@ -1,9 +1,9 @@
 ﻿using System;
-using DNIC.Erechtheion.Application.EnumTypes;
 using DNIC.Erechtheion.Core.CustomExceptions;
 using DNIC.Erechtheion.Core.Database;
 using DNIC.Erechtheion.Core.Domain.Entities;
 using DNIC.Erechtheion.Core.Extensions;
+using DNIC.Erechtheion.Domain.EnumTypes;
 
 namespace DNIC.Erechtheion.Domain.Entities
 {

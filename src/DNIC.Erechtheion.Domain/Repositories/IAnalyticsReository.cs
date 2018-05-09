@@ -1,8 +1,6 @@
 ﻿using DNIC.Erechtheion.Core.Domain.Repositories;
 using DNIC.Erechtheion.Domain.Entities;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace DNIC.Erechtheion.Domain.Repositories

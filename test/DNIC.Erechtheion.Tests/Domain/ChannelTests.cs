@@ -1,9 +1,9 @@
-﻿using DNIC.Erechtheion.Core.Validations;
+﻿using System.Linq;
+using DNIC.Erechtheion.Core.Validations;
 using DNIC.Erechtheion.Domain.Entities;
-using System.Linq;
 using Xunit;
 
-namespace DNIC.Erechtheion.Tests
+namespace DNIC.Erechtheion.Tests.Domain
 {
 	public class ChannelTests
 	{

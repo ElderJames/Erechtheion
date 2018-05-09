@@ -1,9 +1,6 @@
-﻿using DNIC.Erechtheion.Core.Services.Dto;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
-namespace DNIC.Erechtheion.Core.DtoBase
+namespace DNIC.Erechtheion.Core.Services.Dto
 {
 	public class PaginationQueryResult<TEntity> where TEntity : IEntityDto
 	{

@@ -1,9 +1,6 @@
 ﻿using DNIC.Erechtheion.Core.Dependency;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace DNIC.Erechtheion.Core.AppServiceBase
+namespace DNIC.Erechtheion.Core.Services
 {
 	/// <summary>
 	/// This interface must be implemented by all application services to identify them by convention.

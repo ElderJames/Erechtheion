@@ -1,6 +1,6 @@
 ﻿using System;
-using DNIC.Erechtheion.Application.EnumTypes;
 using DNIC.Erechtheion.Domain.Entities;
+using DNIC.Erechtheion.Domain.EnumTypes;
 using Xunit;
 
 namespace DNIC.Erechtheion.Tests.Domain

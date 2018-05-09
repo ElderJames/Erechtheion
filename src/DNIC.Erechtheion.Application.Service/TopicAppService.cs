@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using DNIC.Erechtheion.Application.Dto;
-using DNIC.Erechtheion.Application.EnumTypes;
 using DNIC.Erechtheion.Core.Configuration;
 using DNIC.Erechtheion.Domain.Entities;
+using DNIC.Erechtheion.Domain.EnumTypes;
 using DNIC.Erechtheion.Domain.Repositories;
 using DNIC.Erechtheion.Domain.ValueObjects;
 

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace DNIC.Erechtheion.Core.RepositoryBase
+﻿namespace DNIC.Erechtheion.Core.Domain.Repositories
 {
 	/// <summary>
 	/// 数据库清理者接口

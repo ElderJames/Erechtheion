@@ -1,13 +1,12 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
+﻿using System;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace DNIC.Erechtheion.Core
 {
 	public interface IErechtheionBuilder
 	{
 		IServiceCollection Services { get; }
+
+		void UseSmartSql(Func<object, object> p);
 	}
 }

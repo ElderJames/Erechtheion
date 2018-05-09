@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Runtime.Serialization;
-using System.Text;
 
 namespace DNIC.Erechtheion.Core.CustomExceptions
 {
 	public class ErechtheionException : Exception
 	{
 		/// <summary>
-		/// Creates a new <see cref="AbpException"/> object.
+		/// Creates a new <see /> object.
 		/// </summary>
 		public ErechtheionException()
 		{
@@ -16,7 +14,7 @@ namespace DNIC.Erechtheion.Core.CustomExceptions
 		}
 
 		/// <summary>
-		/// Creates a new <see cref="AbpException"/> object.
+		/// Creates a new <see /> object.
 		/// </summary>
 		public ErechtheionException(SerializationInfo serializationInfo, StreamingContext context)
 			: base(serializationInfo, context)
@@ -25,7 +23,7 @@ namespace DNIC.Erechtheion.Core.CustomExceptions
 		}
 
 		/// <summary>
-		/// Creates a new <see cref="AbpException"/> object.
+		/// Creates a new <see /> object.
 		/// </summary>
 		/// <param name="message">Exception message</param>
 		public ErechtheionException(string message)
@@ -35,7 +33,7 @@ namespace DNIC.Erechtheion.Core.CustomExceptions
 		}
 
 		/// <summary>
-		/// Creates a new <see cref="AbpException"/> object.
+		/// Creates a new <see /> object.
 		/// </summary>
 		/// <param name="message">Exception message</param>
 		/// <param name="innerException">Inner exception</param>

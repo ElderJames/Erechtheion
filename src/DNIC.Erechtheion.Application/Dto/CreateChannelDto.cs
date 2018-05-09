@@ -1,8 +1,4 @@
-﻿using DNIC.Erechtheion.Core.DtoBase;
-using DNIC.Erechtheion.Core.Services.Dto;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using DNIC.Erechtheion.Core.Services.Dto;
 
 namespace DNIC.Erechtheion.Application.Dto
 {

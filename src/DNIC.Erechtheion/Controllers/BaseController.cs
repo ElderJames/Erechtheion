@@ -2,17 +2,13 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Serilog;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace DNIC.Erechtheion.Controllers
 {
 	public class BaseController : Controller
 	{
 		protected readonly IErechtheionConfiguration _erechtheionConfiguration;
-		protected readonly ILogger Logger;
+		protected readonly Serilog.ILogger Logger;
 
 		public BaseController(IErechtheionConfiguration erechtheionConfiguration)
 		{

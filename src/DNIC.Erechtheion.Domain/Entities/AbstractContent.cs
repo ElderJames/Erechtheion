@@ -2,9 +2,8 @@
 using DNIC.Erechtheion.Core.Domain.Entities;
 using System;
 using System.Collections.Generic;
-using DNIC.Erechtheion.Application.EnumTypes;
+using DNIC.Erechtheion.Domain.EnumTypes;
 using DNIC.Erechtheion.Domain.ValueObjects;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DNIC.Erechtheion.Domain.Entities
 {

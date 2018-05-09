@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.Options;
-using System.Data;
 using System.Data.Common;
 
 namespace DNIC.Erechtheion.SmartSql

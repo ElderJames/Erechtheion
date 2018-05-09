@@ -1,7 +1,4 @@
 ﻿using DNIC.Erechtheion.Core.Dependency;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace DNIC.Erechtheion.Core.Domain.Repositories
 {

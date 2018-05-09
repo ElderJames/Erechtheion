@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace DNIC.Erechtheion.Core.EventBase
+﻿namespace DNIC.Erechtheion.Core.EventBase
 {
 	/// <summary>
 	/// 领域事件处理者基接口

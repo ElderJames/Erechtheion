@@ -1,19 +1,15 @@
-﻿using System.Data.SqlClient;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using DNIC.Erechtheion.Services;
+﻿using DNIC.Erechtheion.Services;
 using DNIC.Erechtheion.Core.Configuration;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Logging;
-using DNIC.Erechtheion.Application.Service;
+using Microsoft.Extensions.Configuration;
 using Serilog;
-using DNIC.Erechtheion.SmartSql;
-using DNIC.Erechtheion.Application;
+using Microsoft.Extensions.DependencyInjection;
 using DNIC.Erechtheion.Domain.Entities;
+using Microsoft.AspNetCore.Identity;
 using AspNetCore.Identity.Dapper;
+using DNIC.Erechtheion.Application.Service;
 
 namespace DNIC.Erechtheion
 {
@@ -64,14 +60,14 @@ namespace DNIC.Erechtheion
 			services.AddErechtheionServices(config =>
 			{
 				//config.UseEntityFrameworkCore(options => options.UseSqlServer(ErechtheionConfiguration.ConnectionString, b => b.UseRowNumberForPaging()));
-				config.UseSmartSql(options =>
-				{
-					options.ConnectionString = ErechtheionConfiguration.ConnectionString;
-					options.SqlMapperPath = "SqlMaps";
-					options.DbProviderFactory = SqlClientFactory.Instance;
-					options.LoggingName = ErechtheionConfiguration.ApiName;
-					options.UseManifestResource = true;
-				});
+				//config.UseSmartSql(options =>
+				//{
+				//	options.ConnectionString = ErechtheionConfiguration.ConnectionString;
+				//	options.SqlMapperPath = "SqlMaps";
+				//	options.DbProviderFactory = SqlClientFactory.Instance;
+				//	options.LoggingName = ErechtheionConfiguration.ApiName;
+				//	options.UseManifestResource = true;
+				//});
 			});
 
 			if ((ErechtheionConfiguration.AuthenticationMode & AuthenticationMode.Self) == AuthenticationMode.Self)

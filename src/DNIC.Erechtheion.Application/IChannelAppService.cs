@@ -1,9 +1,6 @@
 ﻿using DNIC.Erechtheion.Application.Dto;
-using DNIC.Erechtheion.Core.AppServiceBase;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
+using DNIC.Erechtheion.Core.Services;
 
 namespace DNIC.Erechtheion.Application
 {

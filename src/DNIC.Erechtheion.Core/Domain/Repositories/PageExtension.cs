@@ -1,10 +1,9 @@
-﻿using DNIC.Erechtheion.Core.Domain;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using DNIC.Erechtheion.Core.Domain.Entities;
 
-namespace DNIC.Erechtheion.Core.RepositoryBase
+namespace DNIC.Erechtheion.Core.Domain.Repositories
 {
 	/// <summary>
 	/// 分页扩展工具类

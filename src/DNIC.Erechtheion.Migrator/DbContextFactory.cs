@@ -13,6 +13,11 @@ namespace DNIC.Erechtheion.Migrator
 			_connectionString = GetConnectionString();
 		}
 
+		public DbContextFactory(string connectionString)
+		{
+			_connectionString = connectionString;
+		}
+
 		public ErechtheionDbContext CreateDbContext(string[] args)
 		{
 			var builder = new DbContextOptionsBuilder<ErechtheionDbContext>();

@@ -1,4 +1,4 @@
-﻿namespace DNIC.Erechtheion.Application.EnumTypes
+﻿namespace DNIC.Erechtheion.Domain.EnumTypes
 {
 	public enum ContentState
 	{

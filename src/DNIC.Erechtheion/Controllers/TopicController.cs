@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using DNIC.Erechtheion.Application;
+﻿using DNIC.Erechtheion.Application;
 using DNIC.Erechtheion.Application.Dto;
 using DNIC.Erechtheion.Core.Configuration;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace DNIC.Erechtheion.Controllers
 {

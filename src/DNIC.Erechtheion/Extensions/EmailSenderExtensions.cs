@@ -1,11 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using DNIC.Erechtheion.Services;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
-using DNIC.Erechtheion.Services;
 
-namespace DNIC.Erechtheion.Services
+namespace DNIC.Erechtheion.Extensions
 {
     public static class EmailSenderExtensions
     {

@@ -1,5 +1,3 @@
-using System;
-
 namespace DNIC.Erechtheion.Models
 {
     public class ErrorViewModel
