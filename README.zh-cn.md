@@ -1,12 +1,23 @@
 # Erechtheion　　　　　　　　　　　　　　　　　　　[English](README.md)
 
-## 概述
+#### 概述
 
 本项目是 dotnet-china 的论坛项目
 
-* .NET CORE SDK >= 2.0
-* Visual Studio 2017 社区版或 JetBrains Rider 2017.3
++ .NET CORE SDK >= 2.0
++ Visual Studio 2017 社区版或 JetBrains Rider 2017.3
 
-## 开始
+#### 设计
 
-* 当项目启动时，请确保授权 Client 信息是否一致，否则会出现授权失败的错误（如果出现这种错误，可以删除 Erechtheion 的数据库并重新启动）。
++ 使用 EF 做 CodeFirst 工具, 仅用于数据库创建和迁移: DNIC.Erechtheion.Migrator
+
+#### 创建数据库
+
+##### 开发者
+
++ 设置 DNIC.Erechtheion 为启动项目
++ 在 Package Mananger Console中运行 update-database
+
+##### 生产环境
+
++ 提供WEB安装界面, 执行完整的SQL脚本

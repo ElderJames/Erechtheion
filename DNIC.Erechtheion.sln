@@ -11,8 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DNIC.Erechtheion.Applicatio
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DNIC.Erechtheion.Domain", "src\DNIC.Erechtheion.Domain\DNIC.Erechtheion.Domain.csproj", "{04BFE5D4-424E-4CEC-B685-098217169DAC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DNIC.Erechtheion.EntityFrameworkCore", "src\DNIC.Erechtheion.EntityFrameworkCore\DNIC.Erechtheion.EntityFrameworkCore.csproj", "{E2E5F672-DF95-4748-A31F-970588A1DCC9}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{42A7B1ED-421B-48C9-AD88-AA923382EB4D}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
@@ -20,6 +18,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Design.md = Design.md
 		Dev.md = Dev.md
 		Readme.md = Readme.md
+		README.zh-cn.md = README.zh-cn.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{5D4514D9-6AF1-4E39-B130-A5A3B7B80B0C}"
@@ -28,8 +27,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{B58AB3BB-B
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DNIC.Erechtheion.Tests", "test\DNIC.Erechtheion.Tests\DNIC.Erechtheion.Tests.csproj", "{9FB383D7-D1B8-4060-9D88-143A10484280}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DNIC.Erechtheion.Identity.EntityFrameworkCore", "src\DNIC.Erechtheion.Identity.EntityFrameworkCore\DNIC.Erechtheion.Identity.EntityFrameworkCore.csproj", "{D3265426-22CC-411E-B9E7-7A4B20963849}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DNIC.Erechtheion.SmartSql", "src\DNIC.Erechtheion.SmartSql\DNIC.Erechtheion.SmartSql.csproj", "{27587E67-E2F4-4A47-850B-EBC30CD27836}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DNIC.Erechtheion.Application.Services", "src\DNIC.Erechtheion.Application.Services\DNIC.Erechtheion.Application.Services.csproj", "{42C1492A-FE95-45F3-9426-E97E10F2FAE9}"
@@ -37,6 +34,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DNIC.Erechtheion.Repositories.SmartSql", "src\DNIC.Erechtheion.Repositories.SmartSql\DNIC.Erechtheion.Repositories.SmartSql.csproj", "{EBA64BCA-EBCE-4E9B-B721-E097284C9464}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DNIC.Erechtheion.QuerySerivces.SmartSql", "src\DNIC.Erechtheion.QuerySerivces.SmartSql\DNIC.Erechtheion.QuerySerivces.SmartSql.csproj", "{4E266BB5-5656-4464-BAC1-270115FCB289}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DNIC.Erechtheion.Migrator", "src\DNIC.Erechtheion.Migrator\DNIC.Erechtheion.Migrator.csproj", "{A7B1A0DA-8330-48DE-BA87-89C01B262A3D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -64,14 +63,14 @@ Global
 		{E2E5F672-DF95-4748-A31F-970588A1DCC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E2E5F672-DF95-4748-A31F-970588A1DCC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E2E5F672-DF95-4748-A31F-970588A1DCC9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E648C590-1D08-4B96-8AA4-22F3710E25CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E648C590-1D08-4B96-8AA4-22F3710E25CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E648C590-1D08-4B96-8AA4-22F3710E25CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E648C590-1D08-4B96-8AA4-22F3710E25CE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9FB383D7-D1B8-4060-9D88-143A10484280}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9FB383D7-D1B8-4060-9D88-143A10484280}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9FB383D7-D1B8-4060-9D88-143A10484280}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9FB383D7-D1B8-4060-9D88-143A10484280}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D3265426-22CC-411E-B9E7-7A4B20963849}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D3265426-22CC-411E-B9E7-7A4B20963849}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D3265426-22CC-411E-B9E7-7A4B20963849}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D3265426-22CC-411E-B9E7-7A4B20963849}.Release|Any CPU.Build.0 = Release|Any CPU
 		{27587E67-E2F4-4A47-850B-EBC30CD27836}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{27587E67-E2F4-4A47-850B-EBC30CD27836}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{27587E67-E2F4-4A47-850B-EBC30CD27836}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -88,6 +87,10 @@ Global
 		{4E266BB5-5656-4464-BAC1-270115FCB289}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E266BB5-5656-4464-BAC1-270115FCB289}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4E266BB5-5656-4464-BAC1-270115FCB289}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7B1A0DA-8330-48DE-BA87-89C01B262A3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7B1A0DA-8330-48DE-BA87-89C01B262A3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7B1A0DA-8330-48DE-BA87-89C01B262A3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7B1A0DA-8330-48DE-BA87-89C01B262A3D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -98,12 +101,13 @@ Global
 		{0DF4CD9B-7E89-466A-9827-99DA9648B84B} = {5D4514D9-6AF1-4E39-B130-A5A3B7B80B0C}
 		{04BFE5D4-424E-4CEC-B685-098217169DAC} = {5D4514D9-6AF1-4E39-B130-A5A3B7B80B0C}
 		{E2E5F672-DF95-4748-A31F-970588A1DCC9} = {5D4514D9-6AF1-4E39-B130-A5A3B7B80B0C}
+		{E648C590-1D08-4B96-8AA4-22F3710E25CE} = {5D4514D9-6AF1-4E39-B130-A5A3B7B80B0C}
 		{9FB383D7-D1B8-4060-9D88-143A10484280} = {B58AB3BB-BFA3-4F88-9EB0-DE6B41A12A15}
-		{D3265426-22CC-411E-B9E7-7A4B20963849} = {5D4514D9-6AF1-4E39-B130-A5A3B7B80B0C}
 		{27587E67-E2F4-4A47-850B-EBC30CD27836} = {5D4514D9-6AF1-4E39-B130-A5A3B7B80B0C}
 		{42C1492A-FE95-45F3-9426-E97E10F2FAE9} = {5D4514D9-6AF1-4E39-B130-A5A3B7B80B0C}
 		{EBA64BCA-EBCE-4E9B-B721-E097284C9464} = {5D4514D9-6AF1-4E39-B130-A5A3B7B80B0C}
 		{4E266BB5-5656-4464-BAC1-270115FCB289} = {5D4514D9-6AF1-4E39-B130-A5A3B7B80B0C}
+		{A7B1A0DA-8330-48DE-BA87-89C01B262A3D} = {5D4514D9-6AF1-4E39-B130-A5A3B7B80B0C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {41D738A8-6AFD-4A98-B21F-2F68B5251238}

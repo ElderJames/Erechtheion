@@ -4,7 +4,6 @@
     <Statement Id="QueryFields">
       SELECT * FROM Topic
     </Statement>
-
     <Statement Id="QueryParams">
       <Where>
         <IsNotEmpty Prepend="and" Property="Id">
@@ -12,18 +11,15 @@
         </IsNotEmpty>
       </Where>
     </Statement>
-
     <Statement Id="QueryTopic">
       <Include RefId="QueryFields" />
       <Include RefId="QueryParams" />
     </Statement>
-
     <Statement Id="QueryTopicPaged">
       <Include RefId="QueryFields" />
       <Include RefId="QueryParams" />
       LIMIT @StartIndex,@PageSize;
     </Statement>
-
     <Statement Id="QueryTopicCount">
       SELECT COUNT(Id) From Topic
       <Include RefId="QueryParams" />

@@ -11,9 +11,9 @@ namespace DNIC.Erechtheion.Controllers
 	[Route("topic")]
 	public class TopicController : BaseController
 	{
-		private readonly ITopicApplicationService _topicApplicationService;
+		private readonly ITopicAppService _topicApplicationService;
 
-		public TopicController(IErechtheionConfiguration erechtheionConfiguration, ITopicApplicationService topicApplicationService) : base(erechtheionConfiguration)
+		public TopicController(IErechtheionConfiguration erechtheionConfiguration, ITopicAppService topicApplicationService) : base(erechtheionConfiguration)
 		{
 			_topicApplicationService = topicApplicationService;
 		}

@@ -2,7 +2,6 @@
 using DNIC.Erechtheion.Application.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,9 +9,10 @@ using DNIC.Erechtheion.Services;
 using DNIC.Erechtheion.Core.Configuration;
 using Microsoft.Extensions.Logging;
 using Serilog;
-using DNIC.Erechtheion.Identity.EntityFrameworkCore;
 using DNIC.Erechtheion.QuerySerivces.SmartSql;
 using DNIC.Erechtheion.Repositories.SmartSql;
+using DNIC.Erechtheion.Domain.Entities;
+using AspNetCore.Identity.Dapper;
 
 namespace DNIC.Erechtheion
 {
@@ -84,7 +84,6 @@ namespace DNIC.Erechtheion
 
 			if ((ErechtheionConfiguration.AuthenticationMode & AuthenticationMode.Self) == AuthenticationMode.Self)
 			{
-				services.AddDbContext<ErechtheionIdentityDbContext>(options => options.UseSqlServer(ErechtheionConfiguration.ConnectionString));
 				services.AddIdentity<ErechtheionUser, IdentityRole>(config =>
 				{
 					config.User.RequireUniqueEmail = true;
@@ -93,11 +92,11 @@ namespace DNIC.Erechtheion
 						RequireDigit = true,
 						RequireUppercase = false,
 						RequireLowercase = true,
-						RequiredLength = 8
+						RequiredLength = 6
 					};
 					config.SignIn.RequireConfirmedEmail = false;
 					config.SignIn.RequireConfirmedPhoneNumber = false;
-				}).AddEntityFrameworkStores<ErechtheionIdentityDbContext>().AddDefaultTokenProviders();
+				}).AddDapperStores(new SqlServerProvider(ErechtheionConfiguration.ConnectionString)).AddDefaultTokenProviders();
 			}
 
 			// 如果没有配置全局登录系统, 则使用默认注册和登录

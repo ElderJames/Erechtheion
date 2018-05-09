@@ -14,9 +14,7 @@ using DNIC.Erechtheion.Models;
 using DNIC.Erechtheion.Models.ManageViewModels;
 using DNIC.Erechtheion.Services;
 using DNIC.Erechtheion.Core.Configuration;
-using DNIC.Erechtheion.EntityFrameworkCore;
-using DNIC.Erechtheion.Identity;
-using DNIC.Erechtheion.Identity.EntityFrameworkCore;
+using DNIC.Erechtheion.Domain.Entities;
 
 namespace DNIC.Erechtheion.Controllers
 {

@@ -5,12 +5,12 @@ using DNIC.Erechtheion.Domain.Repositories;
 
 namespace DNIC.Erechtheion.Application.Services
 {
-	public class ChannelApplicationService : IChannelApplicationService
+	public class ChannelAppService : IChannelAppService
 	{
 		private readonly IUnitOfWork unitOfWork;
 		private readonly IChannelRepository channelRepository;
 
-		public ChannelApplicationService(IUnitOfWork unitOfWork, IChannelRepository channelRepository)
+		public ChannelAppService(IUnitOfWork unitOfWork, IChannelRepository channelRepository)
 		{
 			this.unitOfWork = unitOfWork;
 			this.channelRepository = channelRepository;
