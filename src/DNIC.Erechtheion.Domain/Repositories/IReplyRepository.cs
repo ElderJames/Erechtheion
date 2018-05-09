@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using DNIC.Erechtheion.Core.Domain.Repositories;
 using DNIC.Erechtheion.Domain.Entities;
 
 namespace DNIC.Erechtheion.Domain.Repositories
 {
-	public interface IReplyRepository
+	public interface IReplyRepository : IRepository
 	{
 		Reply Get(Guid aggregateId);
 
