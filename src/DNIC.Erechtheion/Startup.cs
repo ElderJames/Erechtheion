@@ -7,18 +7,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using DNIC.Erechtheion.Services;
 using DNIC.Erechtheion.Core.Configuration;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Configuration;
 using Serilog;
 using DNIC.Erechtheion.QuerySerivces.SmartSql;
 using DNIC.Erechtheion.Repositories.SmartSql;
-using Microsoft.Extensions.DependencyInjection;
 using DNIC.Erechtheion.Domain.Entities;
-using Microsoft.AspNetCore.Identity;
 using AspNetCore.Identity.Dapper;
-using DNIC.Erechtheion.Application.Service;
 
 namespace DNIC.Erechtheion
 {

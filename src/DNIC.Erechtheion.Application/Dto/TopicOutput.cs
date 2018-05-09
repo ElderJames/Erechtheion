@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using DNIC.Erechtheion.Application.EnumTypes;
+using DNIC.Erechtheion.Domain.EnumTypes;
 
 namespace DNIC.Erechtheion.Application.Dto
 {
