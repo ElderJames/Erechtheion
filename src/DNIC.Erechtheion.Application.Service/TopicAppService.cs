@@ -11,11 +11,11 @@ using DNIC.Erechtheion.Domain.ValueObjects;
 
 namespace DNIC.Erechtheion.Application.Service
 {
-	public class TopicApplicationService : ApplicationServiceBase, ITopicApplicationService
+	public class TopicAppService : AppServiceBase, ITopicAppService
 	{
 		private readonly ITopicRepository _topicRepository;
 
-		public TopicApplicationService(IErechtheionConfiguration configuration, ITopicRepository topicRepository) : base(configuration)
+		public TopicAppService(IErechtheionConfiguration configuration, ITopicRepository topicRepository) : base(configuration)
 		{
 			_topicRepository = topicRepository;
 		}

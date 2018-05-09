@@ -3,12 +3,12 @@ using Serilog;
 
 namespace DNIC.Erechtheion.Application.Service
 {
-	public abstract class ApplicationServiceBase
+	public abstract class AppServiceBase
 	{
 		protected readonly IErechtheionConfiguration Configuration;
 		protected readonly ILogger Logger;
 
-		protected ApplicationServiceBase(IErechtheionConfiguration configuration)
+		protected AppServiceBase(IErechtheionConfiguration configuration)
 		{
 			Configuration = configuration;
 

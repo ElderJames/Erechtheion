@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DNIC.Erechtheion.Application
 {
-	public interface IChannelApplicationService : IApplicationService
+	public interface IChannelAppService : IApplicationService
 	{
 		Task CreateChannelAsync(CreateChannelDto input);
 	}

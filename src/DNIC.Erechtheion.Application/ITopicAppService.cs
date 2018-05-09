@@ -4,7 +4,7 @@ using DNIC.Erechtheion.Application.Dto;
 
 namespace DNIC.Erechtheion.Application
 {
-	public interface ITopicApplicationService
+	public interface ITopicAppService
 	{
 		Task<TopicOutput> GetAsync(int id);
 
