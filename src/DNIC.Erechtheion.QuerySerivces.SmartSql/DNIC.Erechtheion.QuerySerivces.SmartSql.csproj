@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="SqlMaps\Topic.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="SqlMaps\Topic.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DNIC.Erechtheion.QuerySerivces\DNIC.Erechtheion.QuerySerivces.csproj" />
+    <ProjectReference Include="..\DNIC.Erechtheion.SmartSql\DNIC.Erechtheion.SmartSql.csproj" />
+  </ItemGroup>
+</Project>

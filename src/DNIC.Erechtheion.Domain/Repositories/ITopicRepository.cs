@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using DNIC.Erechtheion.Core.Domain.Repositories;
 using DNIC.Erechtheion.Domain.Entities;
 
@@ -7,8 +6,10 @@ namespace DNIC.Erechtheion.Domain.Repositories
 {
 	public interface ITopicRepository : IRepository
 	{
-		Task<Topic> Get(int id);
+		Task<int> CreateAsync(Topic topic);
 
-		Task<IEnumerable<Topic>> GetAll();
+		Task<int> UpdateAsync(Topic topic);
+
+		Task<int> DeleteAsync(Topic topic);
 	}
 }
