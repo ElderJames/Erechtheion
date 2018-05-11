@@ -32,8 +32,8 @@
     <ProjectReference Include="..\..\src\DNIC.Erechtheion.Application\DNIC.Erechtheion.Application.csproj" />
     <ProjectReference Include="..\..\src\DNIC.Erechtheion.Core\DNIC.Erechtheion.Core.csproj" />
     <ProjectReference Include="..\..\src\DNIC.Erechtheion.Domain\DNIC.Erechtheion.Domain.csproj" />
-    <ProjectReference Include="..\..\src\DNIC.Erechtheion.Queries.SmartSql\DNIC.Erechtheion.Queries.Dapper.csproj" />
+    <ProjectReference Include="..\..\src\DNIC.Erechtheion.Queries.Dapper\DNIC.Erechtheion.Queries.Dapper.csproj" />
     <ProjectReference Include="..\..\src\DNIC.Erechtheion.Queries\DNIC.Erechtheion.Queries.csproj" />
-    <ProjectReference Include="..\..\src\DNIC.Erechtheion.Repositories.SmartSql\DNIC.Erechtheion.Repositories.Dapper.csproj" />
+    <ProjectReference Include="..\..\src\DNIC.Erechtheion.Repositories.Dapper\DNIC.Erechtheion.Repositories.Dapper.csproj" />
   </ItemGroup>
 </Project>

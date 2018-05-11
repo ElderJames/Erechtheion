@@ -29,13 +29,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DNIC.Erechtheion.Tests", "t
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DNIC.Erechtheion.Application.Services", "src\DNIC.Erechtheion.Application.Services\DNIC.Erechtheion.Application.Services.csproj", "{42C1492A-FE95-45F3-9426-E97E10F2FAE9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DNIC.Erechtheion.Repositories.Dapper", "src\DNIC.Erechtheion.Repositories.SmartSql\DNIC.Erechtheion.Repositories.Dapper.csproj", "{EBA64BCA-EBCE-4E9B-B721-E097284C9464}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DNIC.Erechtheion.Repositories.Dapper", "src\DNIC.Erechtheion.Repositories.Dapper\DNIC.Erechtheion.Repositories.Dapper.csproj", "{EBA64BCA-EBCE-4E9B-B721-E097284C9464}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DNIC.Erechtheion.Migrator", "src\DNIC.Erechtheion.Migrator\DNIC.Erechtheion.Migrator.csproj", "{A7B1A0DA-8330-48DE-BA87-89C01B262A3D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DNIC.Erechtheion.Queries", "src\DNIC.Erechtheion.Queries\DNIC.Erechtheion.Queries.csproj", "{6E3F4824-F646-4997-99BF-7819C6E7964E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DNIC.Erechtheion.Queries.Dapper", "src\DNIC.Erechtheion.Queries.SmartSql\DNIC.Erechtheion.Queries.Dapper.csproj", "{7CA58702-5D9E-4225-A3A9-AD7A8A1B7345}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DNIC.Erechtheion.Queries.Dapper", "src\DNIC.Erechtheion.Queries.Dapper\DNIC.Erechtheion.Queries.Dapper.csproj", "{7CA58702-5D9E-4225-A3A9-AD7A8A1B7345}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
