@@ -5,21 +5,19 @@ using DNIC.Erechtheion.Application.Dto;
 using DNIC.Erechtheion.QuerySerivces.QueryServices;
 using Dapper;
 using DNIC.Erechtheion.Core.Sql;
+using DNIC.Erechtheion.Core.Configuration;
 
 namespace DNIC.Erechtheion.Queries.Dapper
 {
-	public class TopicQueryService : ITopicQuerySerivce
+	public class TopicQueryService : BaseQueryService, ITopicQuerySerivce
 	{
-		private readonly DbProviderFactory _dbProviderFactory;
-
-		public TopicQueryService(DbProviderFactory dbProviderFactory)
+		public TopicQueryService(DbProviderFactory dbProviderFactory, IErechtheionConfiguration configuration) : base(dbProviderFactory, configuration)
 		{
-			_dbProviderFactory = dbProviderFactory;
 		}
 
 		public async Task<TopicOutput> Get(int id)
 		{
-			using (var conn = _dbProviderFactory.CreateConnection())
+			using (var conn = GetDbConnection())
 			{
 				return await conn.QueryFirstAsync<TopicOutput>(SqlMap.Instance["topic", "queryById"], new { Id = id });
 			}
@@ -27,7 +25,7 @@ namespace DNIC.Erechtheion.Queries.Dapper
 
 		public async Task<IEnumerable<TopicOutput>> GetAll()
 		{
-			using (var conn = _dbProviderFactory.CreateConnection())
+			using (var conn = GetDbConnection())
 			{
 				return await conn.QueryAsync<TopicOutput>(SqlMap.Instance["topic", "queryAll"]);
 			}

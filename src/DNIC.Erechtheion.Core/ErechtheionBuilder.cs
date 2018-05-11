@@ -8,7 +8,7 @@ namespace DNIC.Erechtheion.Core
 {
 	public class ErechtheionBuilder : IErechtheionBuilder
 	{
-		private readonly IErechtheionConfiguration _configuration;
+		private IErechtheionConfiguration _configuration;
 
 		public ErechtheionBuilder(IServiceCollection services)
 		{
@@ -21,7 +21,8 @@ namespace DNIC.Erechtheion.Core
 
 		public void UseConfiguration(IConfigurationRoot configuration)
 		{
-			Services.AddSingleton(new ErechtheionConfiguration(configuration));
+			_configuration = new ErechtheionConfiguration(configuration);
+			Services.AddSingleton<IErechtheionConfiguration>(_configuration);
 		}
 
 		public void UseDbProviderFactory(DbProviderFactory dbProviderFactory)
