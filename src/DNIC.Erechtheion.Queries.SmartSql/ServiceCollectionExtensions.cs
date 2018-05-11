@@ -1,33 +1,25 @@
 ﻿using System;
+using System.Linq;
 using System.Reflection;
 using DNIC.Erechtheion.Core;
+using DNIC.Erechtheion.Core.Sql;
 using DNIC.Erechtheion.QuerySerivces.QueryServices;
-using DNIC.Erechtheion.SmartSql;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using SmartSql;
 
-namespace DNIC.Erechtheion.Queries.SmartSql
+namespace DNIC.Erechtheion.Queries.Dapper
 {
 	public static class ServiceCollectionExtensions
 	{
-		public static void UseSmartSqlQueries(this IErechtheionBuilder builder, Action<SmartSqlOptions> optionAction)
+		public static void UseDapperQueries(this IErechtheionBuilder builder)
 		{
-			var options = new SmartSqlOptions();
-			optionAction(options);
-			var services = builder.Services;
-			//services.AddSmartSql(optionAction);
 			var assembly = Assembly.GetExecutingAssembly();
-			services.AddSingleton(sp =>
+			var sqlMaps = assembly.GetManifestResourceNames().Where(r => r.Contains("SqlMaps"));
+			var streams = sqlMaps.Select(s => assembly.GetManifestResourceStream(s));
+			foreach (var stream in streams)
 			{
-				var loggerFactory = sp.GetRequiredService<ILoggerFactory>();
-				var configLoader = new NativeConfigLoader(options);
-
-				configLoader.SetAssemblyOf(assembly);
-				return new QueriesSqlMapper(new SmartSqlMapper(loggerFactory, optionAction.GetType().AssemblyQualifiedName, configLoader));
-			});
-
-			services.AddScoped<ITopicQuerySerivce, TopicQueryService>();
+				SqlMap.Instance.Load(stream);
+			}
+			builder.Services.AddScoped<ITopicQuerySerivce, TopicQueryService>();
 		}
 	}
 }

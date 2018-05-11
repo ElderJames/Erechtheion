@@ -1,32 +1,43 @@
-﻿using System.Threading.Tasks;
+﻿using System.Data.Common;
+using System.Threading.Tasks;
 using DNIC.Erechtheion.Domain.Entities;
 using DNIC.Erechtheion.Domain.Repositories;
-using SmartSql.Abstractions;
+using Dapper;
+using DNIC.Erechtheion.Core.Sql;
 
-namespace DNIC.Erechtheion.Repositories.SmartSql
+namespace DNIC.Erechtheion.Repositories.Dapper
 {
 	public class TopicRepository : ITopicRepository
 	{
-		private readonly RepositorySqlMapper _sqlMapper;
+		private readonly DbProviderFactory _dbProviderFactory;
 
-		public TopicRepository(RepositorySqlMapper sqlMapper)
+		public TopicRepository(DbProviderFactory dbProviderFactory)
 		{
-			_sqlMapper = sqlMapper;
+			_dbProviderFactory = dbProviderFactory;
 		}
 
 		public async Task<int> CreateAsync(Topic topic)
 		{
-			return await _sqlMapper.SmartSqlMapper.ExecuteAsync(new RequestContext { Scope = "Topic", SqlId = "Create", Request = topic });
+			using (var conn = _dbProviderFactory.CreateConnection())
+			{
+				return await conn.ExecuteAsync(SqlMap.Instance["topic", "create"], topic);
+			}
 		}
 
 		public async Task<int> DeleteAsync(Topic topic)
 		{
-			return await _sqlMapper.SmartSqlMapper.ExecuteAsync(new RequestContext());
+			using (var conn = _dbProviderFactory.CreateConnection())
+			{
+				return await conn.ExecuteAsync(SqlMap.Instance["topic", "delete"], topic);
+			}
 		}
 
-		public Task<int> UpdateAsync(Topic topic)
+		public async Task<int> UpdateAsync(Topic topic)
 		{
-			throw new System.NotImplementedException();
+			using (var conn = _dbProviderFactory.CreateConnection())
+			{
+				return await conn.ExecuteAsync(SqlMap.Instance["topic", "update"], topic);
+			}
 		}
 	}
 }

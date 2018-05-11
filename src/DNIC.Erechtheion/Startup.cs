@@ -9,18 +9,18 @@ using DNIC.Erechtheion.Services;
 using DNIC.Erechtheion.Core.Configuration;
 using Microsoft.Extensions.Logging;
 using Serilog;
-using DNIC.Erechtheion.Repositories.SmartSql;
 using DNIC.Erechtheion.Domain.Entities;
 using AspNetCore.Identity.Dapper;
-using System;
-using DNIC.Erechtheion.Queries.SmartSql;
-using DNIC.Erechtheion.SmartSql;
+using DNIC.Erechtheion.Core;
+using System.Data.Common;
+using DNIC.Erechtheion.Repositories.Dapper;
+using DNIC.Erechtheion.Queries.Dapper;
 
 namespace DNIC.Erechtheion
 {
 	public class Startup
 	{
-		public IErechtheionConfiguration ErechtheionConfiguration { get; }
+		public IConfigurationRoot Configuration { get; }
 		public IHostingEnvironment Environment { get; }
 
 		public Startup(IHostingEnvironment env)
@@ -32,12 +32,13 @@ namespace DNIC.Erechtheion
 				.SetBasePath(env.ContentRootPath)
 				.AddJsonFile(configurationFile, optional: true, reloadOnChange: true)
 				.AddEnvironmentVariables();
-			ErechtheionConfiguration = new ErechtheionConfiguration(builder.Build());
+
+			Configuration = builder.Build();
 
 			// 配置 Serilog
 			Log.Logger = new LoggerConfiguration()
 				.Enrich.FromLogContext()
-				.ReadFrom.Configuration(ErechtheionConfiguration.Configuration)
+				.ReadFrom.Configuration(Configuration)
 				.WriteTo.Console().WriteTo.File("DNIC.Erechtheion.log")
 				.CreateLogger();
 		}
@@ -53,39 +54,16 @@ namespace DNIC.Erechtheion
 			services.AddMvc();
 			services.AddAuthorization();
 
-			// 重新注册
-			services.AddSingleton(ErechtheionConfiguration.Configuration);
-
-			services.AddSingleton(ErechtheionConfiguration);
-
 			//注册web所需
-			services.AddErechtheion();
-
-			//注册应用服务里的服务，分离后在服务端注册，AddErechtheion里注册客户端
-			services.AddErechtheionServices(config =>
+			var erechtheionBuilder = services.AddErechtheion(config =>
 			{
-				//config.UseEntityFrameworkCore(options => options.UseSqlServer(ErechtheionConfiguration.ConnectionString, b => b.UseRowNumberForPaging()));
-
-				config.UseSmartSqlRepositories(options =>
-				{
-					options.ConnectionString = ErechtheionConfiguration.ConnectionString;
-					options.SqlMapperPath = "SqlMaps";
-					options.DbProviderFactory = SqlClientFactory.Instance;
-					options.LoggingName = ErechtheionConfiguration.ApiName;
-					options.UseManifestResource = true;
-				});
-
-				config.UseSmartSqlQueries(options =>
-				{
-					options.ConnectionString = ErechtheionConfiguration.ConnectionString;
-					options.SqlMapperPath = "SqlMaps";
-					options.DbProviderFactory = SqlClientFactory.Instance;
-					options.LoggingName = ErechtheionConfiguration.ApiName;
-					options.UseManifestResource = true;
-				});
+				config.UseConfiguration(Configuration);
+				config.UseDbProviderFactory(SqlClientFactory.Instance);
+				config.UseDapperRepositories();
+				config.UseDapperQueries();
 			});
 
-			if ((ErechtheionConfiguration.AuthenticationMode & AuthenticationMode.Self) == AuthenticationMode.Self)
+			if ((erechtheionBuilder.Configuratoin.AuthenticationMode & AuthenticationMode.Self) == AuthenticationMode.Self)
 			{
 				services.AddIdentity<ErechtheionUser, IdentityRole>(config =>
 				{
@@ -99,11 +77,11 @@ namespace DNIC.Erechtheion
 					};
 					config.SignIn.RequireConfirmedEmail = false;
 					config.SignIn.RequireConfirmedPhoneNumber = false;
-				}).AddDapperStores(new SqlServerProvider(ErechtheionConfiguration.ConnectionString)).AddDefaultTokenProviders();
+				}).AddDapperStores(new SqlServerProvider(erechtheionBuilder.Configuratoin.ConnectionString)).AddDefaultTokenProviders();
 			}
 
 			// 如果没有配置全局登录系统, 则使用默认注册和登录
-			if ((ErechtheionConfiguration.AuthenticationMode & AuthenticationMode.External) == AuthenticationMode.External)
+			if ((erechtheionBuilder.Configuratoin.AuthenticationMode & AuthenticationMode.External) == AuthenticationMode.External)
 			{
 				services.AddAuthentication("Cookies")
 				.AddCookie("Cookies")
@@ -111,8 +89,8 @@ namespace DNIC.Erechtheion
 				{
 					options.SignInScheme = IdentityConstants.ExternalScheme;
 
-					options.Authority = ErechtheionConfiguration.Authority;
-					options.RequireHttpsMetadata = ErechtheionConfiguration.RequireHttpsMetadata;
+					options.Authority = erechtheionBuilder.Configuratoin.Authority;
+					options.RequireHttpsMetadata = erechtheionBuilder.Configuratoin.RequireHttpsMetadata;
 
 					options.ClientId = "DNIC.Erechtheion";
 					options.ClientSecret = "secret";
@@ -120,15 +98,14 @@ namespace DNIC.Erechtheion
 
 					options.SaveTokens = true;
 					options.GetClaimsFromUserInfoEndpoint = true;
-				})
-				;
+				});
 			}
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
 		{
-			loggerFactory.AddConsole(ErechtheionConfiguration.Configuration.GetSection("Logging"));
+			loggerFactory.AddConsole(Configuration.GetSection("Logging"));
 			loggerFactory.AddDebug();
 			loggerFactory.AddSerilog();
 

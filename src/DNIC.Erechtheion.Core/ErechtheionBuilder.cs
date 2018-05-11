@@ -1,19 +1,32 @@
 ﻿using System;
+using System.Data.Common;
+using DNIC.Erechtheion.Core.Configuration;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace DNIC.Erechtheion.Core
 {
 	public class ErechtheionBuilder : IErechtheionBuilder
 	{
+		private readonly IErechtheionConfiguration _configuration;
+
 		public ErechtheionBuilder(IServiceCollection services)
 		{
-			this.Services = services;
+			Services = services;
 		}
 
 		public IServiceCollection Services { get; }
 
-		public void UseSmartSql(Func<object, object> p)
+		public IErechtheionConfiguration Configuratoin => _configuration;
+
+		public void UseConfiguration(IConfigurationRoot configuration)
 		{
+			Services.AddSingleton(new ErechtheionConfiguration(configuration));
+		}
+
+		public void UseDbProviderFactory(DbProviderFactory dbProviderFactory)
+		{
+			Services.AddSingleton(dbProviderFactory);
 		}
 	}
 }

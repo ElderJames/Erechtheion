@@ -13,7 +13,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DNIC.Erechtheion.Domain\DNIC.Erechtheion.Domain.csproj" />
-    <ProjectReference Include="..\DNIC.Erechtheion.SmartSql\DNIC.Erechtheion.SmartSql.csproj" />
+    <PackageReference Include="Dapper" Version="1.50.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DNIC.Erechtheion.Queries\DNIC.Erechtheion.Queries.csproj" />
   </ItemGroup>
 </Project>

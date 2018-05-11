@@ -12,11 +12,12 @@ namespace DNIC.Erechtheion.Application.Services
 		/// </summary>
 		/// <param name="services"></param>
 		/// <param name="builderAction"></param>
-		public static void AddErechtheionServices(this IServiceCollection services, Action<IErechtheionBuilder> builderAction)
+		public static void AddErechtheionServices(this IErechtheionBuilder builder)
 		{
 			AutoMapperExtensions.Initialize();
-			var builder = new ErechtheionBuilder(services);
-			builderAction(builder);
+
+			builder.Services.AddTransient<ITopicAppService, TopicAppService>();
+			builder.Services.AddTransient<IChannelAppService, ChannelAppService>();
 		}
 	}
 }

@@ -7,6 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="appsettings.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="appsettings.json">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.0.2" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.0.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.7.0" />
     <PackageReference Include="Moq" Version="4.8.2" />
     <PackageReference Include="xunit" Version="2.3.1" />
@@ -16,12 +28,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\DNIC.Erechtheion.Application.Services\DNIC.Erechtheion.Application.Services.csproj" />
     <ProjectReference Include="..\..\src\DNIC.Erechtheion.Application\DNIC.Erechtheion.Application.csproj" />
+    <ProjectReference Include="..\..\src\DNIC.Erechtheion.Core\DNIC.Erechtheion.Core.csproj" />
     <ProjectReference Include="..\..\src\DNIC.Erechtheion.Domain\DNIC.Erechtheion.Domain.csproj" />
-    <ProjectReference Include="..\..\src\DNIC.Erechtheion.SmartSql\DNIC.Erechtheion.SmartSql.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Services\" />
+    <ProjectReference Include="..\..\src\DNIC.Erechtheion.Queries.SmartSql\DNIC.Erechtheion.Queries.Dapper.csproj" />
+    <ProjectReference Include="..\..\src\DNIC.Erechtheion.Queries\DNIC.Erechtheion.Queries.csproj" />
+    <ProjectReference Include="..\..\src\DNIC.Erechtheion.Repositories.SmartSql\DNIC.Erechtheion.Repositories.Dapper.csproj" />
   </ItemGroup>
 </Project>
